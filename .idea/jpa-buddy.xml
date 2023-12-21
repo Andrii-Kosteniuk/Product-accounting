@@ -3,5 +3,6 @@
   <component name="JpaBuddyIdeaProjectConfig" ddlActionDbType="h2">
     <option name="defaultUnitInitialized" value="true" />
     <option name="renamerInitialized" value="true" />
+    <option name="newEntityIdStrategy" />
   </component>
 </project>
