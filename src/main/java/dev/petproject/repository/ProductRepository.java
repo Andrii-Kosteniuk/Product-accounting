@@ -1,6 +1,6 @@
-package com.example.springmvc.repository;
+package dev.petproject.repository;
 
-import com.example.springmvc.model.Product;
+import dev.petproject.domain.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

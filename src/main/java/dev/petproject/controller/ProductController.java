@@ -1,41 +1,34 @@
-package com.example.springmvc.controller;
+package dev.petproject.controller;
 
-import com.example.springmvc.model.Product;
-import com.example.springmvc.repository.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import dev.petproject.domain.Product;
+import dev.petproject.repository.ProductRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
+@RequiredArgsConstructor
 public class ProductController {
 
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
-    @Autowired
-    public void setProductRepository(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
-
-    @RequestMapping("/")
+    @GetMapping("/")
     public String index() {
         return "index";
     }
 
-    @GetMapping(path = "/products/add")
+    @GetMapping("/products/add")
     public String createProduct(Model model) {
         model.addAttribute("product", new Product());
         return "edit";
     }
 
-    @PostMapping("products")
+    @PostMapping("/products/save")
     public String saveProduct(Product product) {
         productRepository.save(product);
-        return "redirect:/";
+        return "redirect:/products";
     }
 
     @GetMapping("/products")

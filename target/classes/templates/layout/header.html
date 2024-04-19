@@ -1,36 +1,33 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="https://www.thymeleaf.org/ ">
+      xsi:schemaLocation="https://www.thymeleaf.org/ " xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <meta http-equiv="content-type" content="text/html" charset="UTF-8"/>
-    <link th:href="@{/css/bootstrap.min.css}"
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-          media="screen"
-          rel="stylesheet"/>
-    <link th:href="@{/css/style.css}" href="../../static/css/style.css"
-          rel="stylesheet"/>
-    <title></title>
+    <meta charset="UTF-8"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
+    <title>Welcome to my app</title>
 </head>
 <body>
 
 <div class="container">
     <div th:fragment="header">
-        <div class="navbar-default" >
+        <div class="navbar-default">
             <nav class="navbar navbar-expand-lg ">
                 <div class="container-fluid">
                     <div class="navbar-header">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item active">
-                                <a class="navbar-brand nav-link" href="#" th:href="@{/}">Home</a>
+                                <a class="navbar-brand nav-link" th:href="@{/}">Home</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" th:href="@{/products}">Products</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" th:href="@{/products/add}">Create product</a>
+                                <a class="nav-link" th:href="@{/products/add}">Add new product</a>
                             </li>
                         </ul>
-
                     </div>
                 </div>
             </nav>
@@ -39,12 +36,13 @@
         <div class="p-4 shadow-4 rounded-3" style="background-color: hsl(0, 0%, 94%);">
             <div class="row text-center">
                 <div class="row">
-                    <h1>Spring MVC Application</h1>
+                    <h1 th:inline="text">Welcome, <span th:remove="tag" sec:authentication="name">Name</span> to my
+                        e-Warehouse!</h1>
                 </div>
             </div>
             <div class="text-center">
-                <img src="../../static/images/spring-logo.png"
-                     th:src="@{/images/spring-logo.png}" alt="Spring-logo image"/>
+                <img src="../../static/images/stock.jpeg" width="800" height="400"
+                     th:src="@{../images/stock.jpeg}" alt="image"/>
             </div>
         </div>
     </div>

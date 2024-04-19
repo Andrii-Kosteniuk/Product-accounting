@@ -4,24 +4,51 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e28162a-4e31-4548-8850-4502cbcaba79" name="Changes" comment=" WHen application starts up the two products creates and also I can save new products into database">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/spring-logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/products.html" afterDir="false" />
+    <list default="true" id="4e28162a-4e31-4548-8850-4502cbcaba79" name="Changes" comment="There were added login mechanism in order to only registered user had access to application.">
+      <change afterPath="$PROJECT_DIR$/src/main/java/dev/petproject/auth/AuthenticationRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dev/petproject/auth/AuthenticationResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dev/petproject/auth/RegisterRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dev/petproject/config/ApplicationConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dev/petproject/config/JwtAuthenticationFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dev/petproject/config/SecurityFilterChainConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dev/petproject/controller/LoginPageController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dev/petproject/domain/Product.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dev/petproject/domain/Role.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dev/petproject/domain/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dev/petproject/dto/UserDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dev/petproject/repository/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dev/petproject/service/AuthenticationService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dev/petproject/service/JwtUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/stock.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/log-in.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/reg-ister.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/springmvc/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/springmvc/controller/ProductController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/springmvc/model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/springmvc/model/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/springmvc/SpringmvcApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/petproject/SpringmvcApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/springmvc/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/petproject/controller/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/springmvc/model/Product.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/springmvc/repository/ProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/petproject/repository/ProductRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/springmvc/root/DataLoader.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/svgSpring.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/edit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/header.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/products.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/products.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/springmvc/SpringmvcApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/dev/petproject/SpringmvcApplicationTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/springmvc/controller/ProductController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/springmvc/controller/ProductController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/springmvc/model/Product.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/springmvc/model/Product.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/springmvc/SpringmvcApplication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/springmvc/controller/ProductController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/springmvc/model/Product.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/springmvc/repository/ProductRepository.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/css/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/edit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/layout/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/layout/header.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/example/springmvc/SpringmvcApplicationTests.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,9 +58,11 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
-        <option value="Class" />
         <option value="com.haulmont.jpb.JpaEntity" />
+        <option value="Enum" />
+        <option value="Interface" />
+        <option value="HTML File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -63,47 +92,50 @@
     <option name="showLibraryContents" value="true" />
     <option name="showVisibilityIcons" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Spring-Projects/springmvc/src/main/resources/static/images",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Spring-Projects/petProject/src/main/resources/static/images&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.externalResources&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
+      &quot;HTML&quot;
+    ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="dev.pet.products.auth" />
+      <recent name="dev.pet.products.service" />
+      <recent name="dev.pet.products.domain" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Spring-Projects\petProject\src\main\resources\static\images" />
+      <recent name="C:\Spring-Projects\petProject\src\main\resources\templates" />
       <recent name="C:\Spring-Projects\springmvc\src\main\resources\static\images" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Spring-Projects\springmvc\src\main\resources\static\images" />
-      <recent name="C:\Spring-Projects\springmvc\src\main\resources\templates\" />
-      <recent name="C:\Spring-Projects\springmvc\src\main\resources\static.css" />
-      <recent name="C:\Spring-Projects\springmvc\src\main\resources\static" />
-      <recent name="C:\Spring-Projects\springmvc\src\main\resources\static\css\images" />
+      <recent name="C:\Spring-Projects\petProject\src\main\resources\static" />
+      <recent name="C:\Spring-Projects\petProject\src\main\resources\static.images" />
+      <recent name="C:\Spring-Projects\petProject\src\main\resources\static\css" />
+      <recent name="C:\Spring-Projects\petProject\src\main\resources" />
+      <recent name="C:\Spring-Projects\petProject\src\main\resources\templates" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="dev.pet.products" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.com.example.springmvc.SpringmvcApplication">
-    <configuration name="SpringmvcApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.example.springmvc.springmvc.SpringmvcApplication" />
-      <module name="springmvc" />
+  <component name="RunManager">
+    <configuration name="dev.petproject.SpringmvcApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="dev.petproject.SpringmvcApplication" />
+      <module name="petProject" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.example.springmvc.springmvc.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="com.example.springmvc.SpringmvcApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.example.springmvc.SpringmvcApplication" />
-      <module name="springmvc" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.example.springmvc.*" />
+          <option name="PATTERN" value="dev.pet.products.config.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -113,8 +145,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.com.example.springmvc.SpringmvcApplication" />
-        <item itemvalue="Application.SpringmvcApplication" />
+        <item itemvalue="Application.dev.petproject.SpringmvcApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -143,12 +174,37 @@
       <option name="project" value="LOCAL" />
       <updated>1703166166949</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Added some methods which allow us to create, to update, and to delete products. Ui looks better)">
+      <option name="closed" value="true" />
+      <created>1703181332851</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1703181332851</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="I begin to develop my Spring MVC Application" />
     <MESSAGE value=" WHen application starts up the two products creates and also I can save new products into database" />
-    <option name="LAST_COMMIT_MESSAGE" value=" WHen application starts up the two products creates and also I can save new products into database" />
+    <MESSAGE value="Added some methods which allow us to create, to update, and to delete products. Ui looks better)" />
+    <MESSAGE value="There were added login mechanism in order to only registered user had access to application." />
+    <option name="LAST_COMMIT_MESSAGE" value="There were added login mechanism in order to only registered user had access to application." />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
