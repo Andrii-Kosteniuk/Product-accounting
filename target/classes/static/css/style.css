@@ -1,5 +1,5 @@
 .navbar-default {
-background: #6db33f;
+background: white;
 }
 
  .navbar-nav {
@@ -11,5 +11,6 @@ background: #6db33f;
 }
 
 h1 {
-font-family: Arial, Helvetica, sans-serif;
+font-family: system-ui;
+color: grey;
 }
