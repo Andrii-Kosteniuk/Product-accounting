@@ -1,6 +1,6 @@
-package dev.petproject.config;
+package dev.petproject.auth;
 
-import dev.petproject.service.JwtUtils;
+import dev.petproject.repository.TokenRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,6 +23,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtUtils jwtUtils;
     private final UserDetailsService userDetailsService;
+    private final TokenRepository tokenRepository;
 
     @Override
     protected void doFilterInternal(
@@ -41,7 +42,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         userEmail = jwtUtils.extractUserEmail(jwtToken);
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
-            if (jwtUtils.isTokenValid(jwtToken, userDetails)) {
+            var isTokenValid = tokenRepository.findByToken(jwtToken)
+                    .map(t -> ! t.isExpired() && ! t.isRevoked())
+                    .orElse(false);
+
+            if (jwtUtils.isTokenValid(jwtToken, userDetails) && isTokenValid) {
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                         userDetails,
                         null,

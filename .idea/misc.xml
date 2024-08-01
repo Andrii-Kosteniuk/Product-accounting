@@ -5,6 +5,13 @@
     <option name="USE_PROJECT_LEVEL_SETTINGS" value="false" />
     <list size="0" />
   </component>
+  <component name="EntryPointsManager">
+    <list size="3">
+      <item index="0" class="java.lang.String" itemvalue="org.springframework.context.annotation.Bean" />
+      <item index="1" class="java.lang.String" itemvalue="org.springframework.web.bind.annotation.GetMapping" />
+      <item index="2" class="java.lang.String" itemvalue="org.springframework.web.bind.annotation.PostMapping" />
+    </list>
+  </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="MavenProjectsManager">
     <option name="originalFiles">
@@ -14,11 +21,15 @@
     </option>
   </component>
   <component name="ProjectResources">
-    <resource url="http://www.thymeleaf.org" location="$PROJECT_DIR$/../springmvc" />
+    <resource url="https://www.thymeleaf.org" location="$PROJECT_DIR$" />
+    <xml-schema-version>XMLSchema_1_1</xml-schema-version>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_17" project-jdk-name="17 (2)" project-jdk-type="JavaSDK" />
   <component name="ProjectType">
     <option name="id" value="jpab" />
+  </component>
+  <component name="SQLPlugin.ProjectConfiguration">
+    <queries />
   </component>
   <component name="SuppressionsComponent">
     <option name="suppComments" value="[]" />

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+>
+<head>
+    <meta charset="UTF-8"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Users</title>
+    <th:block th:insert="~{@{/layout/header}}"></th:block>
+</head>
+<body>
+<div class="container">
+
+    <div th:if="${#lists.isEmpty(users)}">
+        <div class="alert alert-primary text-center" role="alert">There no users yet. If you want to add a new
+            one please click <a th:href="@{/registered}">Register new user</a>
+        </div>
+    </div>
+    <h2>All users</h2>
+    <table class="table table-striped">
+        <tr>
+            <th>Name</th>
+            <th>Last name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Delete</th>
+        </tr>
+        <div th:if="${param.success}">
+            <div class="alert alert-info">
+                User have been successfully deleted!
+            </div>
+        </div>
+        <div th:if="${param.error}">
+            <div class="alert alert-danger">Sorry! But you can not delete this user</div>
+        </div>
+
+        <tr th:each="user : ${users}">
+            <td th:text="${user.firstName}"></td>
+            <td th:text="${user.lastName}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.role}"></td>
+
+            <td>
+                <a th:href="${'/delete/' + user.id}" class="btn btn-outline-danger">Delete user</a>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

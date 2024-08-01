@@ -1,4 +1,4 @@
-package dev.petproject.service;
+package dev.petproject.auth;
 
 
 import io.jsonwebtoken.Claims;

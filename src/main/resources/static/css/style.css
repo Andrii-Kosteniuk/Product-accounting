@@ -12,5 +12,11 @@ background: white;
 
 h1 {
 font-family: system-ui;
-color: grey;
+color: white;
 }
+
+.fieldErrorMessage {
+color: red;
+}
+
+
