@@ -3,16 +3,27 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thymeleaf.org/ ">
 <head>
     <meta charset="UTF-8"/>
+    <title>Search products</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <title>Products</title>
-    <th:block th:insert="~{@{/layout/header}}"></th:block>
-    <th:block th:insert="~{@{/layout/searchPanel}}"></th:block>
+    <link rel="stylesheet" href="/static/css/style.css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/7a8065c196.js" crossorigin="anonymous"></script>
+
+    <th:block th:insert="~{/layout/header}"></th:block>
+    <br>
+    <th:block th:insert="~{/layout/searchPanel}"></th:block>
+    <br>
 </head>
-<body >
+<body>
 <div class="container">
 
-    <div th:if="${#lists.isEmpty(listProduct)}">
-        <div class="alert alert-primary text-center" role="alert">There are no products with such a name.
+    <div th:if="${#lists.isEmpty(products)}">
+        <div class="alert alert-info text-center" role="alert">There are no products with such a name.
             Try to provide another one
         </div>
     </div>
@@ -20,26 +31,31 @@
     <table class="table table-striped">
         <tr>
             <th>Name</th>
-            <th>Description</th>
-            <th>Type</th>
-            <th>Category</th>
             <th>Price</th>
+            <th>Description</th>
+            <th>Category</th>
             <th>Edit</th>
             <th>Delete</th>
         </tr>
-        <tr th:each="product : ${listProduct}">
+        <tr th:each="product : ${products}">
             <td th:text="${product.name}">Name</td>
-            <td th:text="${product.description}">Description</td>
-            <td th:text="${product.type}">Type</td>
-            <td th:text="${product.category}">Category</td>
             <td th:text="${product.price}">Price</td>
+            <td th:text="${product.description}">Description</td>
+
+            <td>
+                <ul th:each="category : ${product.category}"
+                    th:text="${category.name}">Category
+                </ul>
+            </td>
+
             <td>
                 <a th:href="${'/products/edit/' + product.id}" class="btn btn-secondary">Edit</a>
             </td>
             <td>
-                <a th:href="${'/products/delete/' + product.id}" class="btn btn-outline-danger">Delete</a>
+                <a th:href="${'/products/delete/' + product.id}" class="btn btn-danger">Delete</a>
             </td>
         </tr>
+
     </table>
 
 </div>

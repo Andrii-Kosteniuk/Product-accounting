@@ -27,32 +27,27 @@ public class SecurityFilterChainConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(
-                                "/register",
-                                "/logout",
-                                "/login",
-                                "/css/**",
-                                "/images/**",
-                                "/bootstrap.css").permitAll()
-                        .requestMatchers("/users").hasRole("ADMIN")
+                        .requestMatchers("/users").hasAuthority("ADMIN")
+                        .requestMatchers("/register", "/logout").permitAll()
+                        .requestMatchers("/static/**").permitAll()
                         .anyRequest().authenticated()
-
                 )
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
 
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .loginProcessingUrl("/login"))
+                        .loginProcessingUrl("/login").permitAll())
                 .logout(logout -> logout
                         .logoutUrl("/logout/success")
-                        .logoutSuccessUrl("/login")
+                        .logoutSuccessUrl("/login").permitAll()
                         .invalidateHttpSession(true)
                         .addLogoutHandler(logoutService)
                         .deleteCookies()
                         .logoutSuccessHandler((request, response, authentication) ->
                                 SecurityContextHolder.clearContext()
                         ));
+
 
         return http.build();
 

@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
->
 <head>
     <meta charset="UTF-8"/>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Users</title>
-    <th:block th:insert="~{@{/layout/header}}"></th:block>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/7a8065c196.js" crossorigin="anonymous"></script>
+
+    <th:block th:insert="~{/layout/header}"></th:block>
+    <br>
 </head>
 <body>
 <div class="container">
-
-    <div th:if="${#lists.isEmpty(users)}">
-        <div class="alert alert-primary text-center" role="alert">There no users yet. If you want to add a new
-            one please click <a th:href="@{/registered}">Register new user</a>
-        </div>
-    </div>
     <h2>All users</h2>
-    <table class="table table-striped">
+    <table  class="table table-striped">
         <tr>
             <th>Name</th>
             <th>Last name</th>
@@ -29,7 +31,7 @@
                 User have been successfully deleted!
             </div>
         </div>
-        <div th:if="${param.error}">
+        <div th:if="${userCanNotBeDeleteException}">
             <div class="alert alert-danger">Sorry! But you can not delete this user</div>
         </div>
 

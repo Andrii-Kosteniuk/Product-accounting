@@ -4,7 +4,7 @@ import dev.petproject.domain.Role;
 import dev.petproject.domain.Token;
 import dev.petproject.domain.TokenType;
 import dev.petproject.domain.User;
-import dev.petproject.exception.UserAlreadyExistException;
+import dev.petproject.exception.UserAlreadyExistsException;
 import dev.petproject.repository.TokenRepository;
 import dev.petproject.repository.UserRepository;
 import dev.petproject.dto.UserDTO;
@@ -40,7 +40,7 @@ public class AuthenticationService {
                 .role(role)
                 .build();
         userRepository.findByEmail(userToSave.getEmail()).ifPresent(existingUser -> {
-            throw new UserAlreadyExistException("User with email" + userToSave.getEmail() + "already exist");
+            throw new UserAlreadyExistsException("User with email " + userToSave.getEmail() + " already exist");
         });
         userRepository.save(userToSave);
 
@@ -68,10 +68,10 @@ public class AuthenticationService {
                         user.getPassword()
                 )
         );
-        var userTOAuthenticate = userRepository.findByEmail(user.getEmail()).orElseThrow();
-        var jwtToken = jwtUtils.generateToken(userTOAuthenticate);
-        revokeAllUsersToken(userTOAuthenticate);
-        saveUserToken(userTOAuthenticate, jwtToken);
+        var userToAuthenticate = userRepository.findByEmail(user.getEmail()).orElseThrow();
+        var jwtToken = jwtUtils.generateToken(userToAuthenticate);
+        revokeAllUsersToken(userToAuthenticate);
+        saveUserToken(userToAuthenticate, jwtToken);
         buildToken(jwtToken);
 
     }

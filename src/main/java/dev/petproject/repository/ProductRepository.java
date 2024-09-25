@@ -9,8 +9,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ProductRepository extends JpaRepository<Product, Long> {
+public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     @Query(value = "SELECT * FROM products p WHERE p.name LIKE %:keyword%", nativeQuery = true)
     List<Product> findProductByKeyword(@Param(value = "keyword") String keyword);
+
 }

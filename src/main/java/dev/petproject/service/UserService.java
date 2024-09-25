@@ -30,7 +30,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public void deleteUser(Integer id) {
+    public void deleteUser(Integer id)  {
         User user = this.findUserById(id);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
@@ -39,7 +39,8 @@ public class UserService {
         if (! user.getEmail().equals(registeredUserEmail)
             && ! user.getRole().equals(Role.ADMIN)) {
             tokenRepository.deleteTokenByUserId(id);
-        } else throw new UserCanNotBeDeletedException("You can not delete user with" + registeredUserEmail);
-
+        } else {
+            throw new UserCanNotBeDeletedException("You can not delete user with email " + registeredUserEmail);
+        }
     }
 }
