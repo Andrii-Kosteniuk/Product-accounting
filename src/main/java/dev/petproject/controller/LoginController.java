@@ -3,7 +3,7 @@ package dev.petproject.controller;
 import dev.petproject.auth.AuthenticationService;
 import dev.petproject.domain.Role;
 import dev.petproject.domain.User;
-import dev.petproject.exception.UserAlreadyExistException;
+import dev.petproject.exception.UserAlreadyExistsException;
 import dev.petproject.dto.UserDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,28 +22,28 @@ public class LoginController {
 
     @GetMapping("/login")
     public String showLoginPage() {
-        return "login";
+        return "loginPage";
     }
 
     @GetMapping("/register")
     public String showRegisterPage(@ModelAttribute("user") UserDTO user, Model model) {
         model.addAttribute("user", user);
-        return "register";
+        return "registerPage";
     }
 
     @PostMapping("/register")
     public String register(@Valid @ModelAttribute("user") UserDTO user, BindingResult result, Role role, Model model) {
 
         if (result.hasErrors()) {
-            return "register";
+            return "registerPage";
         }
 
         try {
             service.register(user, role);
-            return "redirect:/login?success";
-        } catch (UserAlreadyExistException e) {
-            model.addAttribute("errorRegisterMessage", e.getMessage());
-            return "register";
+            return "redirect:/register?success";
+        } catch (UserAlreadyExistsException e) {
+            model.addAttribute("errorRegister", e);
+            return "registerPage";
         }
     }
 
