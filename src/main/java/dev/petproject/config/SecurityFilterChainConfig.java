@@ -29,7 +29,7 @@ public class SecurityFilterChainConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/users").hasAuthority("ADMIN")
                         .requestMatchers("/register", "/logout").permitAll()
-                        .requestMatchers("/static/**").permitAll()
+                        .requestMatchers("/static/**", "/templates/layout/header.html").permitAll()
                         .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider)
