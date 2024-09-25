@@ -1,22 +1,36 @@
-.navbar-default {
-background: white;
-}
-
- .navbar-nav {
+.navbar-default .navbar-nav > li > a {
     color: white;
 }
 
-.navbar-default .navbar-nav > li > a {
-    color : white
+h1, h2 {
+    color: #0a58ca;
 }
 
-h1 {
-font-family: system-ui;
-color: white;
+.errorMessage {
+    color: rgba(255, 0, 0, 0.76);
 }
 
-.fieldErrorMessage {
-color: red;
+.search-text {
+    color: #0f5132;
 }
 
+.navbar-custom {
+    background-color: #2D3748;
+    margin-left: 100px;
+    margin-right: 100px;
+    border-radius:10px
+}
+
+.logoutButton {
+    border-radius: 10px;
+    background-color: #bbbbbb;
+    border: none;
+    color: #1a1d20;
+    text-align: center;
+    font-size: 15px;
+    padding: 10px;
+    width: 100px;
+    transition: all 0.5s;
+
+}
 

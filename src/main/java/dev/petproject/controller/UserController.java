@@ -23,16 +23,13 @@ public class UserController {
 
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable(value = "id") Integer id, Model model) {
-
+        model.addAttribute("users", userService.findAllRegisteredUsers());
         try {
-
             userService.deleteUser(id);
             return "redirect:/users?success";
         } catch (UserCanNotBeDeletedException ex) {
-            model.addAttribute("userDeleteException", ex.getMessage());
+            model.addAttribute("userCanNotBeDeleteException", ex);
+            return "users";
         }
-        return "redirect:/users?error";
-
     }
-
 }

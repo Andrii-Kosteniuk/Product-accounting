@@ -1,11 +1,17 @@
 package dev.petproject.service;
 
+
 import dev.petproject.domain.Product;
 import dev.petproject.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -13,14 +19,32 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    public List<Product> getProductsByKeyword(String keyword) {
+    public List<Product> searchProductsByKeyword(String keyword) {
         if (keyword != null) {
             return productRepository.findProductByKeyword(keyword);
-        }
-        return productRepository.findAll();
+        } else
+            throw new IllegalArgumentException("Keyword is null");
     }
 
-    public boolean isPositive(Double number) {
-        return number >= 0;
+
+    public void saveProduct(Product product) {
+        productRepository.save(product);
     }
+
+    public Optional<Product> findProductById(Integer id) {
+        return productRepository.findById(id);
+    }
+
+    public void deleteProductById(Integer id) {
+        productRepository.deleteById(id);
+    }
+
+    public Page<Product> findPaginated(int pageNo, int pageSize, String sortedField, String sortDirection) {
+
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortedField).ascending() : Sort.by(sortedField).descending();
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
+        return productRepository.findAll(pageable);
+    }
+
+
 }

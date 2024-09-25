@@ -1,31 +1,45 @@
 package dev.petproject.domain;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.Size;
+import lombok.*;
+import org.hibernate.annotations.Cascade;
+
+import static org.hibernate.annotations.CascadeType.SAVE_UPDATE;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Builder
 @Table(name = "products")
 public class Product {
 
     @Id
-    @GeneratedValue()
-    private Long id;
-    private String name;
-    private String description;
-    private String type;
-    private String category;
-    @PositiveOrZero(message = "price can be only positive number or zero" )
-    private Double price;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "product_id")
+    private Integer id;
 
+    @Column(nullable = false)
+    @NotEmpty(message = "Product name can not be empty")
+    private String name;
+
+    @Size(min = 5, message = "Description must be no less than 5 characters")
+    @Size(max = 50, message = "Description must be no longer than 50 characters")
+    private String description;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @Cascade(SAVE_UPDATE)
+    @JoinColumn(name = "category_id")
+    @ToString.Exclude
+    private Category category;
+
+    @PositiveOrZero(message = "Price can not be negative number")
+    @NotNull(message = "Product price can not be empty")
+    private Double price;
 
 }

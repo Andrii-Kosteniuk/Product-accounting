@@ -37,8 +37,10 @@ public class User implements UserDetails {
     @Column(nullable = false)
 
     private String password;
-    @Enumerated()
+
+    @Enumerated(EnumType.STRING)
     private Role role;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
