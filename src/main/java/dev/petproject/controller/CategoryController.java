@@ -2,8 +2,8 @@ package dev.petproject.controller;
 
 import dev.petproject.domain.Category;
 import dev.petproject.domain.Product;
-import dev.petproject.exception.CategoryAlreadyExistsException;
 import dev.petproject.service.CategoryService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,22 +19,27 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @PostMapping("/saveCategory")
-    public String addNewCategory(@ModelAttribute("category") Category category, Model model) {
-        try {
-            categoryService.saveNewCategory(category);
-            model.addAttribute("category", category);
-            return "redirect:/products/add?success";
-        } catch (CategoryAlreadyExistsException e) {
-            model.addAttribute("categoryException", e);
-            return "edit";
-        }
+    public String addNewCategory(@ModelAttribute("category") Category category, Model model, HttpSession session) {
+        categoryService.saveNewCategory(category);
+
+        Product product = new Product();
+        product.setId((Integer) session.getAttribute("id"));
+        product.setName((String) session.getAttribute("name"));
+        product.setPrice((Double) session.getAttribute("price"));
+        product.setCategory(category);
+        product.setDescription((String) session.getAttribute("description"));
+
+        model.addAttribute("category", category);
+        model.addAttribute("product", product);
+        model.addAttribute("categories", categoryService.getAllCategories());
+        return "redirect:/products/add?success=true";
     }
 
     @GetMapping("/addNewCategory")
     public String showFormForAddingNewCategory(@ModelAttribute("product") Product product, Model model) {
         model.addAttribute("category", new Category());
         model.addAttribute("product", new Product());
-        return "createCategory";
+        return "edit";
     }
 
 }

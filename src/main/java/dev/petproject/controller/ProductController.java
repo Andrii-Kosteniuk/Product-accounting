@@ -4,6 +4,7 @@ import dev.petproject.domain.Category;
 import dev.petproject.domain.Product;
 import dev.petproject.service.CategoryService;
 import dev.petproject.service.ProductService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -13,11 +14,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @Controller
 @RequiredArgsConstructor
+@SessionAttributes("product")
 public class ProductController {
 
     public static final String PRODUCTS = "products";
@@ -42,9 +43,11 @@ public class ProductController {
     }
 
     @GetMapping("/products/add")
-    public String addNewProductPage(Model model) {
-        model.addAttribute("product", new Product());
+    public String addNewProductPage(Product product, Model model, HttpSession session) {
+
+        model.addAttribute("product", product);
         model.addAttribute(CATEGORIES, categoryService.getAllCategories());
+        model.addAttribute("category", new Category());
         return EDIT_PRODUCT;
     }
 
@@ -60,7 +63,8 @@ public class ProductController {
     }
 
     @GetMapping("/products/edit/{id}")
-    public String editProduct(Model model, @ModelAttribute("product") Product product, @PathVariable(value = "id") Integer id) {
+    public String editProduct(@PathVariable(value = "id") Integer id,
+                              Model model) {
 
         model.addAttribute("product", productService.findProductById(id));
         model.addAttribute(CATEGORIES, categoryService.getAllCategories());
