@@ -5,6 +5,7 @@ import dev.petproject.domain.Role;
 import dev.petproject.domain.User;
 import dev.petproject.exception.UserAlreadyExistsException;
 import dev.petproject.dto.UserDTO;
+import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -32,7 +33,7 @@ public class LoginController {
     }
 
     @PostMapping("/register")
-    public String register(@Valid @ModelAttribute("user") UserDTO user, BindingResult result, Role role, Model model) {
+    public String register(@Valid @ModelAttribute("user") UserDTO user, BindingResult result, Role role, Model model) throws MessagingException {
 
         if (result.hasErrors()) {
             return "registerPage";

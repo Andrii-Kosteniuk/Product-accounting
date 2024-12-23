@@ -1,51 +1,62 @@
-package dev.petproject.excel;
+package dev.petproject.service;
 
 import dev.petproject.domain.Product;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
 
-public class ExcelHelper {
+@Service
+public class ExportToExcelService {
     private final XSSFWorkbook workbook;
     private final List<Product> products;
     private XSSFSheet sheet;
 
-    public ExcelHelper(List<Product> products) {
+    public ExportToExcelService(List<Product> products) {
         this.products = products;
+
         workbook = new XSSFWorkbook();
     }
 
+    private static void setBorder(CellStyle style) {
+        style.setBorderBottom(BorderStyle.DASHED);
+        style.setBorderLeft(BorderStyle.DASHED);
+        style.setBorderRight(BorderStyle.DASHED);
+        style.setBorderTop(BorderStyle.DASHED);
+    }
 
     private void writeHeaderLine() {
         sheet = workbook.createSheet("Products");
 
-        Row row = sheet.createRow(1);
+        Row row = sheet.createRow(0);
 
         CellStyle style = workbook.createCellStyle();
         XSSFFont font = workbook.createFont();
+        font.setItalic(true);
         font.setBold(true);
-        font.setFontHeight(16);
+        font.setFontHeight(14);
         style.setFont(font);
+        style.setAlignment(HorizontalAlignment.CENTER);
+        setBorder(style);
 
-        createCell(row, 1, "Id", style);
-        createCell(row, 2, "Name", style);
-        createCell(row, 3, "Price", style);
-        createCell(row, 4, "Description", style);
-        createCell(row, 5, "Category", style);
+
+        createCell(row, 0, "Id", style);
+        createCell(row, 1, "Name", style);
+        createCell(row, 2, "Price", style);
+        createCell(row, 3, "Description", style);
+        createCell(row, 4, "Category", style);
 
     }
 
     private void createCell(Row row, int columnCount, Object data, CellStyle style) {
-        sheet.autoSizeColumn(columnCount);
         Cell cell = row.createCell(columnCount);
+        cell.setCellStyle(style);
 
         if (data instanceof Integer) {
             cell.setCellValue((Integer) data);
@@ -53,16 +64,19 @@ public class ExcelHelper {
             cell.setCellValue((Boolean) data);
         } else if (data instanceof Double) {
             cell.setCellValue((Double) data);
-        } else cell.setCellValue((String) data);
-        cell.setCellStyle(style);
+        } else {
+            cell.setCellValue((String) data);
+
+        }
+        sheet.autoSizeColumn(columnCount);
     }
 
     private void writeDataLines() {
-        int rowCount = 0;
+        int rowCount = 1;
 
         CellStyle style = workbook.createCellStyle();
         XSSFFont font = workbook.createFont();
-        font.setFontHeight(14);
+        font.setFontHeight(12);
         style.setFont(font);
 
         for (Product product : products) {
@@ -71,15 +85,11 @@ public class ExcelHelper {
 
 
             createCell(row, columnCount++, product.getId(), style);
-            sheet.autoSizeColumn(columnCount);
             createCell(row, columnCount++, product.getName(), style);
-            sheet.autoSizeColumn(columnCount);
             createCell(row, columnCount++, product.getPrice(), style);
-            sheet.autoSizeColumn(columnCount);
             createCell(row, columnCount++, product.getDescription(), style);
-            sheet.autoSizeColumn(columnCount,true);
             createCell(row, columnCount, product.getCategory().getName(), style);
-            sheet.autoSizeColumn(columnCount, true);
+
 
         }
     }

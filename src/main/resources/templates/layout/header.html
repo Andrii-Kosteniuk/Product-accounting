@@ -19,9 +19,9 @@
 <div class="container">
     <div th:fragment="header">
         <div class="navbar-default">
-            <nav class="navbar navbar-expand-lg navbar-custom">
+            <nav class="navbar navbar-expand-lg navbar-custom ">
                 <div class="container">
-                    <div class="navbar">
+                    <div class="navbar ">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
                                 <a class="nav-link" th:href="@{/}">
@@ -36,7 +36,8 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" th:href="@{/products/add}">
+                                <a class="nav-link" th:href="@{/products/add}" data-bs-toggle="modal"
+                                   data-bs-target="#addProductModal">
                                     <i class="fa-solid fa-file-import"></i>
                                     <span>Add new product</span>
                                 </a>

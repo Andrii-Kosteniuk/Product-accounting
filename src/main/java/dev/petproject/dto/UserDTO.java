@@ -43,8 +43,8 @@ public class UserDTO {
     @Pattern(regexp = "^[A-Za-z0-9+_.-]+@(.+)$", message = errorEmailMessage)
     private String email;
     @NotNull
-    @Pattern(regexp = "(?=^.{8,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$",
-            message = errorPasswordMessage)
+//    @Pattern(regexp = "(?=^.{8,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$",
+//            message = errorPasswordMessage)
     private String password;
     @NotNull
     private Role role;

@@ -17,35 +17,37 @@
 </head>
 <body>
 <div class="container">
-    <h2>All users</h2>
-    <table  class="table table-striped">
-        <tr>
-            <th>Name</th>
-            <th>Last name</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th>Delete</th>
-        </tr>
-        <div th:if="${param.success}">
-            <div class="alert alert-info">
-                User have been successfully deleted!
+    <div class="col col-sm-10 offset-1">
+        <h2>All users</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Name</th>
+                <th>Last name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Delete</th>
+            </tr>
+            <div th:if="${param.success}">
+                <div class="alert alert-info">
+                    User have been successfully deleted!
+                </div>
             </div>
-        </div>
-        <div th:if="${userCanNotBeDeleteException}">
-            <div class="alert alert-danger">Sorry! But you can not delete this user</div>
-        </div>
+            <div th:if="${userCanNotBeDeleteException}">
+                <div class="alert alert-danger">Sorry! But you can not delete this user</div>
+            </div>
 
-        <tr th:each="user : ${users}">
-            <td th:text="${user.firstName}"></td>
-            <td th:text="${user.lastName}"></td>
-            <td th:text="${user.email}"></td>
-            <td th:text="${user.role}"></td>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.firstName}"></td>
+                <td th:text="${user.lastName}"></td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.role}"></td>
 
-            <td>
-                <a th:href="${'/delete/' + user.id}" class="btn btn-outline-danger">Delete user</a>
-            </td>
-        </tr>
-    </table>
+                <td>
+                    <a th:href="${'/delete/' + user.id}" class="btn btn-outline-danger">Delete user</a>
+                </td>
+            </tr>
+        </table>
+    </div>
 </div>
 </body>
 </html>

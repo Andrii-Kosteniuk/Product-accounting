@@ -9,7 +9,7 @@
 
 <div class="container">
 
-    <h2>Please add new category</h2><br>
+    <br>
 
     <div class="col-sm-5 text-center">
         <div th:if="${categoryException}">
@@ -17,13 +17,7 @@
                 <strong>This category already exists</strong>
             </div>
         </div>
-        <div th:if="${param.success}">
-            <div class="alert alert-info">
-                <strong>The new category has been added</strong>
-            </div>
-        </div>
     </div>
-
 
     <div class="form-group ">
 

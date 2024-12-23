@@ -17,7 +17,6 @@ public class CategoryController {
 
     private final CategoryService categoryService;
 
-
     @PostMapping("/saveCategory")
     public String addNewCategory(@ModelAttribute("category") Category category, Model model) {
         try {
@@ -33,7 +32,7 @@ public class CategoryController {
     @GetMapping("/addNewCategory")
     public String showFormForAddingNewCategory(Model model) {
         model.addAttribute("category", new Category());
-        return "createCategory";
+        return "edit";
     }
 
 }

@@ -1,4 +1,4 @@
-package dev.petproject.config;
+package dev.petproject.security;
 
 import dev.petproject.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

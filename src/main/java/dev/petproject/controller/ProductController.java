@@ -1,5 +1,6 @@
 package dev.petproject.controller;
 
+import dev.petproject.domain.Category;
 import dev.petproject.domain.Product;
 import dev.petproject.service.CategoryService;
 import dev.petproject.service.ProductService;
@@ -18,48 +19,53 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductController {
 
+    public static final String PRODUCTS = "products";
+    public static final String EDIT_PRODUCT = "edit";
+    public static final String REDIRECT_PRODUCTS_ALL = "redirect:/products/all";
+    public static final String CATEGORIES = "categories";
     private final ProductService productService;
     private final CategoryService categoryService;
 
 
     @GetMapping("/")
-    public String homePage() {
+    public String homePage(Model model) {
         return "index";
     }
 
     @GetMapping("/products/all")
-    public String viewProductsWithPaginated(Model model) {
-        findPaginated(1, "name", "asc", model);
-        return "products";
+    public String viewProductsWithPaginated(Product product, Model model) {
+        findPaginated(1, "name", "asc", model, product);
+
+        model.addAttribute(CATEGORIES, categoryService.getAllCategories());
+        return PRODUCTS;
     }
 
     @GetMapping("/products/add")
-    public String createProduct(Model model) {
+    public String createProduct(@Valid @ModelAttribute("product") Product product, BindingResult result, Model model) {
+        result.hasErrors();
 
-        model.addAttribute("product", new Product());
-        model.addAttribute("categories", categoryService.getAllCategories());
-
-        return "edit";
+        return EDIT_PRODUCT;
     }
 
     @PostMapping("/products/save")
-    public String saveProduct(@Valid Product product, BindingResult result, Model model) {
-        model.addAttribute("categories", categoryService.getAllCategories());
+    public String saveProduct(@Valid @ModelAttribute("product") Product product, BindingResult result, Model model) {
+        model.addAttribute(CATEGORIES, categoryService.getAllCategories());
 
         if (result.hasErrors()) {
-            return "edit";
+            return EDIT_PRODUCT;
         }
         productService.saveProduct(product);
-        return "redirect:/products/all";
+        return REDIRECT_PRODUCTS_ALL;
     }
 
     @GetMapping("/products/edit/{id}")
     public String editProduct(Model model, @ModelAttribute("product") Product product, @PathVariable(value = "id") Integer id) {
 
         model.addAttribute("product", productService.findProductById(id));
-        model.addAttribute("categories", categoryService.getAllCategories());
+        model.addAttribute(CATEGORIES, categoryService.getAllCategories());
+        model.addAttribute("category", new Category());
 
-        return "edit";
+        return EDIT_PRODUCT;
     }
 
     @GetMapping("/products/delete/{id}")
@@ -67,13 +73,13 @@ public class ProductController {
 
         productService.deleteProductById(id);
 
-        return "redirect:/products/all";
+        return REDIRECT_PRODUCTS_ALL;
     }
 
     @GetMapping("/products/find")
     public String findProductsByKeyword(Model model, String keyword) {
         List<Product> products = productService.searchProductsByKeyword(keyword);
-        model.addAttribute("products", products);
+        model.addAttribute(PRODUCTS, products);
 
         return "search";
     }
@@ -83,7 +89,7 @@ public class ProductController {
     public String findPaginated(@PathVariable("pageNo") int pageNo,
                                 @RequestParam("sort-field") String sortField,
                                 @RequestParam("sort-dir") String sortDir,
-                                Model model) {
+                                Model model, Product product) {
         int pageSize = 3;
         Page<Product> page = productService.findPaginated(pageNo, pageSize, sortField, sortDir);
         List<Product> products = page.getContent();
@@ -91,12 +97,13 @@ public class ProductController {
         model.addAttribute("currentPage", pageNo);
         model.addAttribute("totalPages", page.getTotalPages());
         model.addAttribute("totalItems", page.getTotalElements());
-        model.addAttribute("products", products);
+        model.addAttribute(PRODUCTS, products);
         model.addAttribute("sortField", sortField);
         model.addAttribute("sortDir", sortDir);
         model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+        model.addAttribute("product", new Product());
 
-        return "products";
+        return PRODUCTS;
     }
 
 }

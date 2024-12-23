@@ -1,4 +1,4 @@
-package dev.petproject.config;
+package dev.petproject.security;
 
 import dev.petproject.auth.JwtAuthenticationFilter;
 import dev.petproject.service.LogoutService;
@@ -29,7 +29,7 @@ public class SecurityFilterChainConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/users").hasAuthority("ADMIN")
                         .requestMatchers("/register", "/logout").permitAll()
-                        .requestMatchers("/static/**", "/templates/layout/header.html").permitAll()
+                        .requestMatchers("/static/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider)

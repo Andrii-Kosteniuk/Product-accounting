@@ -27,6 +27,13 @@ public class Product {
     @Column(nullable = false)
     @NotEmpty(message = "Product name can not be empty")
     private String name;
+    @PositiveOrZero(message = "Price can not be negative number")
+    @NotNull(message = "Product price can not be empty")
+    private Double price;
+
+    @NotNull
+    @PositiveOrZero
+    private Integer quantity;
 
     @Size(min = 5, message = "Description must be no less than 5 characters")
     @Size(max = 50, message = "Description must be no longer than 50 characters")
@@ -38,8 +45,5 @@ public class Product {
     @ToString.Exclude
     private Category category;
 
-    @PositiveOrZero(message = "Price can not be negative number")
-    @NotNull(message = "Product price can not be empty")
-    private Double price;
 
 }

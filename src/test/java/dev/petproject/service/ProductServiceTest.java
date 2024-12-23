@@ -2,6 +2,7 @@ package dev.petproject.service;
 
 import dev.petproject.domain.Category;
 import dev.petproject.domain.Product;
+import dev.petproject.exception.ProductAlreadyExistsException;
 import dev.petproject.repository.ProductRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -87,7 +88,7 @@ class ProductServiceTest {
     }
 
     @Test
-    void shouldSaveProductIntoDatabase() {
+    void shouldSaveProductIntoDatabase() throws ProductAlreadyExistsException {
         Category sport = new Category(3, "Sport", new ArrayList<>());
         Product newProduct = Product.builder()
                 .id(5)

@@ -26,9 +26,17 @@ public class ProductService {
             throw new IllegalArgumentException("Keyword is null");
     }
 
+    public boolean existProductByName(String name) {
+        return productRepository.existsByName(name);
+    }
+
 
     public void saveProduct(Product product) {
         productRepository.save(product);
+    }
+
+    public void changeQuantity(Integer id, Integer quantity) {
+        productRepository.setNewAmount(id, quantity);
     }
 
     public Optional<Product> findProductById(Integer id) {
@@ -47,4 +55,11 @@ public class ProductService {
     }
 
 
+    public Optional<Product> findProductByName(String name) {
+        return productRepository.findByName(name);
+    }
+
+    public List<Product> findAllProducts() {
+        return productRepository.findAll();
+    }
 }
