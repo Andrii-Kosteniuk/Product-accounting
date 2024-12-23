@@ -1,6 +1,7 @@
 package dev.petproject.controller;
 
 import dev.petproject.domain.Category;
+import dev.petproject.domain.Product;
 import dev.petproject.exception.CategoryAlreadyExistsException;
 import dev.petproject.service.CategoryService;
 import lombok.RequiredArgsConstructor;
@@ -25,14 +26,15 @@ public class CategoryController {
             return "redirect:/products/add?success";
         } catch (CategoryAlreadyExistsException e) {
             model.addAttribute("categoryException", e);
-            return "createCategory";
+            return "edit";
         }
     }
 
     @GetMapping("/addNewCategory")
-    public String showFormForAddingNewCategory(Model model) {
+    public String showFormForAddingNewCategory(@ModelAttribute("product") Product product, Model model) {
         model.addAttribute("category", new Category());
-        return "edit";
+        model.addAttribute("product", new Product());
+        return "createCategory";
     }
 
 }

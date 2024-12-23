@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Controller
@@ -41,9 +42,9 @@ public class ProductController {
     }
 
     @GetMapping("/products/add")
-    public String createProduct(@Valid @ModelAttribute("product") Product product, BindingResult result, Model model) {
-        result.hasErrors();
-
+    public String addNewProductPage(Model model) {
+        model.addAttribute("product", new Product());
+        model.addAttribute(CATEGORIES, categoryService.getAllCategories());
         return EDIT_PRODUCT;
     }
 

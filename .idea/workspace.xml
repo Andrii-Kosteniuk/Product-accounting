@@ -4,44 +4,14 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e28162a-4e31-4548-8850-4502cbcaba79" name="Changes" comment="It was improved products categorization, UI, and was added ability to create exel file of products, and also I created some test">
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/petproject/exception/ProductAlreadyExistsException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="4e28162a-4e31-4548-8850-4502cbcaba79" name="Changes" comment="Fixed some issues">
+      <change afterPath="$PROJECT_DIR$/src/main/java/dev/petproject/exception/ProductNotFoundException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mvnw" beforeDir="false" afterPath="$PROJECT_DIR$/mvnw" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/petproject/auth/AuthenticationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/petproject/auth/AuthenticationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/petproject/auth/JwtUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/petproject/auth/JwtUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/petproject/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/petproject/security/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/petproject/config/SecurityFilterChainConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/petproject/security/SecurityFilterChainConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dev/petproject/controller/CategoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/petproject/controller/CategoryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/petproject/controller/ExcelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/petproject/controller/ExcelController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/petproject/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/petproject/controller/LoginController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dev/petproject/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/petproject/controller/ProductController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/petproject/domain/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/petproject/domain/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/petproject/dto/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/petproject/dto/UserDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/petproject/excel/ExcelHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/petproject/service/ExportToExcelService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/petproject/repository/ProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/petproject/repository/ProductRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dev/petproject/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/petproject/service/ProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/fonts/fontawesome-free-6.6.0-web/metadata/icon-families.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/fonts/fontawesome-free-6.6.0-web/metadata/icon-families.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/fonts/fontawesome-free-6.6.0-web/metadata/icons.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/fonts/fontawesome-free-6.6.0-web/metadata/icons.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/dark-cube-tunnel.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/createCategory.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/createCategory.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/edit.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/header.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/products.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/products.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/users.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/users.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/dev/petproject/controller/ProductControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/dev/petproject/controller/ProductControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/dev/petproject/service/ProductServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/dev/petproject/service/ProductServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/css/style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/edit.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/layout/header.html" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +49,7 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/Human1986/MVC-Projects.git&quot;,
+    &quot;url&quot;: &quot;https://github.com/Andrii-Kosteniuk/Product-accounting.git&quot;,
     &quot;accountId&quot;: &quot;718a345d-7c84-4e91-84eb-72c580c0ad51&quot;
   }
 }</component>
@@ -117,43 +87,43 @@
     <option name="showLibraryContents" value="true" />
     <option name="showVisibilityIcons" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
-    &quot;Application.SpringmvcApplication.executor&quot;: &quot;Run&quot;,
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;Maven.petProject [clean].executor&quot;: &quot;Run&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;Spring Boot.SpringmvcApplication.executor&quot;: &quot;Run&quot;,
-    &quot;com.codeium.enabled&quot;: &quot;true&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;changes&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Spring-Projects/petProject&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.3&quot;,
-    &quot;settings.build.tools.auto.reload&quot;: &quot;ALL&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
+    "Application.SpringmvcApplication.executor": "Run",
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Maven.petProject [clean].executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Spring Boot.SpringmvcApplication.executor": "Run",
+    "com.codeium.enabled": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "git-widget-placeholder": "feature/andrii",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/OM-103-Andrii-Kosteniuk/s13-spring-mvc-m20_s13_team_1_05-main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.3",
+    "settings.build.tools.auto.reload": "ALL",
+    "settings.editor.selected.configurable": "MavenSettings",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;postgresql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="dev.petproject.exception" />
@@ -321,7 +291,7 @@
       <workItem from="1733919599007" duration="1680000" />
       <workItem from="1734269495463" duration="3580000" />
       <workItem from="1734354950717" duration="297000" />
-      <workItem from="1734945948117" duration="216000" />
+      <workItem from="1734945948117" duration="7426000" />
     </task>
     <task id="LOCAL-00001" summary="I begin to develop my Spring MVC Application">
       <option name="closed" value="true" />
@@ -347,7 +317,23 @@
       <option name="project" value="LOCAL" />
       <updated>1727290769715</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Added new exception">
+      <option name="closed" value="true" />
+      <created>1734946642489</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1734946642489</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Fixed some issues">
+      <option name="closed" value="true" />
+      <created>1734947059739</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1734947059739</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -364,7 +350,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="spring-mvc-products/changes" />
+                        <option value="feature/andrii" />
                       </list>
                     </value>
                   </entry>
@@ -382,7 +368,9 @@
     <MESSAGE value="There were added login mechanism in order to only registered user had access to application." />
     <MESSAGE value="There were added category, exception handler, also improved UI, and capability to create an exel file of products" />
     <MESSAGE value="It was improved products categorization, UI, and was added ability to create exel file of products, and also I created some test" />
-    <option name="LAST_COMMIT_MESSAGE" value="It was improved products categorization, UI, and was added ability to create exel file of products, and also I created some test" />
+    <MESSAGE value="Added new exception" />
+    <MESSAGE value="Fixed some issues" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed some issues" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

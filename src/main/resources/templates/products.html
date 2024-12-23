@@ -36,8 +36,7 @@
     <br>
     <div class="add-product">
         <h2>All products</h2>
-        <a class="btn add-button" role="button" th:href="@{/products/add}" data-bs-toggle="modal"
-           data-bs-target="#addProductModal"
+        <a class="btn add-button" role="button" th:href="@{/products/add}"
            style="display: flex; align-items: center; justify-content: center; gap:10px">
             <i class="fa-regular fa-square-plus"></i>
             <span>Add new product</span></a>
@@ -94,101 +93,6 @@
             </td>
         </tr>
     </table>
-
-    <!--    Modal add product-->
-    <div class="modal fade" th:id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header alert-warning">
-                    <h5 class="modal-title ">Add new product</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- Product add Form -->
-                    <form th:object="${product}" th:action="@{/products/save}" method="post">
-                        <div class="row">
-                            <div class="col-sm-8">
-                                <input type="hidden" class="form-control" th:field="*{id}"/>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <label class="col-sm-2 col-form-label">Name:</label>
-                            <div class="col-sm-8">
-                                <input type="text"
-                                       data-content="name"
-                                       aria-label="Name"
-                                       class="form-control"
-                                       th:field="*{name}"/>
-                                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
-                                      class="errorMessage"></span>
-                            </div>
-                        </div>
-                        <br>
-
-                        <div class="row">
-                            <label class="col-sm-2 col-form-label">Price:</label>
-                            <div class="col-sm-8">
-                                <input type="number"
-                                       aria-label="Price"
-                                       class="form-control"
-                                       th:field="*{price}"/>
-                                <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"
-                                      class="errorMessage"></span>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <label class="col-sm-2 col-form-label">Quantity:</label>
-                            <div class="col-sm-8">
-                                <input type="number"
-                                       aria-label="Quantity"
-                                       class="form-control"
-                                       th:field="*{quantity}"/>
-                                <span th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"
-                                      class="errorMessage"></span>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <label class="col-sm-2 col-form-label">Description:</label>
-                            <div class="col-sm-8">
-                                <input type="text"
-                                       aria-label="Description"
-                                       class="form-control"
-                                       th:field="*{description}"/>
-                                <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"
-                                      class="errorMessage"></span>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <label class="col-sm-2 col-form-label">Category:</label>
-                            <div class="col-8">
-                                <div class="input-group">
-                                    <select aria-label="categoryName" class="form-control"
-                                            th:field="*{category}">
-                                        <option th:each="category : ${categories}"
-                                                th:value="${category.id}"
-                                                th:text="${category.name}">
-                                        </option>
-                                    </select>
-                                    <a class="btn btn- btn-success" style="border-radius: 5px;"
-                                       th:href="@{/addNewCategory}"
-                                       data-toggle="modal" data-bs-target="#addCategoryModal">Add new category</a>
-                                </div>
-                                <br>
-                            </div>
-                        </div>
-                        <br>
-                        <button type="submit" class="btn btn-success">Save</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!--    Pagination-->
     <div th:if="${totalPages > 1}">

@@ -23,7 +23,7 @@
             </div>
             <div th:if="${categoryException}">
                 <div class="alert alert-danger">
-                    <strong>This category already exists</strong>
+                    <strong th:text="categoryException"></strong>
                 </div>
             </div>
 
@@ -36,7 +36,7 @@
                         <form th:object="${product}" th:action="@{/products/save}" method="post">
                             <div class="row">
                                 <div class="col-sm-10">
-                                    <input type="hidden" class="form-control" th:field="*{id}"/>
+                                    <input id="id" type="hidden" name="id" class="form-control" th:field="*{id}"/>
                                 </div>
                             </div>
 
@@ -100,56 +100,15 @@
                                             </option>
                                         </select>
                                         <a class="btn btn- btn-success" style="border-radius: 5px;"
-                                           th:href="@{/addNewCategory}"
-                                           data-toggle="modal" data-bs-target="#addCategoryModal">Add new category</a>
+                                           th:href="@{/addNewCategory}">Add new category</a>
                                     </div>
                                     <br>
                                 </div>
                             </div>
                             <br>
-                            <button type="submit"  class="btn btn-primary">Save</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
                         </form>
                     </div>
-
-                    <!-- Add category Modal -->
-                    <div class="modal fade" th:id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel"
-                         aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="addCategoryModalTitle">Please add new category</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form class="form-horizontal" th:object="${category}" th:action="@{/saveCategory}"
-                                          method="post">
-                                        <div class="row">
-                                            <label class="col-sm-2 col-form-label">Name:</label>
-                                            <div class="col-sm-6">
-                                                <input th:field="*{id}" type="hidden"/>
-                                                <input th:field="*{name}"
-                                                       type="text"
-                                                       aria-label="name"
-                                                       class="form-control"
-                                                       placeholder="Provide name for a new category"/>
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <div class="col-sm-2">
-                                            <button type="submit" class="btn btn-success">Save category</button>
-                                        </div>
-                                        <br>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </div>

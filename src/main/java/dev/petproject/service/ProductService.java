@@ -2,6 +2,7 @@ package dev.petproject.service;
 
 
 import dev.petproject.domain.Product;
+import dev.petproject.exception.ProductNotFoundException;
 import dev.petproject.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -26,11 +27,6 @@ public class ProductService {
             throw new IllegalArgumentException("Keyword is null");
     }
 
-    public boolean existProductByName(String name) {
-        return productRepository.existsByName(name);
-    }
-
-
     public void saveProduct(Product product) {
         productRepository.save(product);
     }
@@ -40,7 +36,8 @@ public class ProductService {
     }
 
     public Optional<Product> findProductById(Integer id) {
-        return productRepository.findById(id);
+        return Optional.ofNullable(productRepository.findById(id)
+                .orElseThrow(() -> new ProductNotFoundException("Product with id " + id + "not found")));
     }
 
     public void deleteProductById(Integer id) {
@@ -59,7 +56,7 @@ public class ProductService {
         return productRepository.findByName(name);
     }
 
-    public List<Product> findAllProducts() {
+    public List<Product> allProducts() {
         return productRepository.findAll();
     }
 }
