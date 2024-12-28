@@ -12,7 +12,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -31,13 +30,9 @@ public class ProductService {
         productRepository.save(product);
     }
 
-    public void changeQuantity(Integer id, Integer quantity) {
-        productRepository.setNewAmount(id, quantity);
-    }
-
-    public Optional<Product> findProductById(Integer id) {
-        return Optional.ofNullable(productRepository.findById(id)
-                .orElseThrow(() -> new ProductNotFoundException("Product with id " + id + "not found")));
+    public Product findProductById(Integer id) {
+         return productRepository.findById(id)
+                .orElseThrow(() -> new ProductNotFoundException("Product with id " + id + "not found"));
     }
 
     public void deleteProductById(Integer id) {
@@ -51,12 +46,4 @@ public class ProductService {
         return productRepository.findAll(pageable);
     }
 
-
-    public Optional<Product> findProductByName(String name) {
-        return productRepository.findByName(name);
-    }
-
-    public List<Product> allProducts() {
-        return productRepository.findAll();
-    }
 }
