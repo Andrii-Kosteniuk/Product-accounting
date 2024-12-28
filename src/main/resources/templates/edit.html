@@ -18,11 +18,7 @@
             <div th:if="${param.success}">
                 <div class="alert alert-info">The new category was added</div>
             </div>
-            <div th:if="${categoryException}">
-                <div class="alert alert-danger">
-                    <strong th:text="categoryException"></strong>
-                </div>
-            </div>
+
 
             <!--            Form place-->
             <div class="card border-success mb-3" style="max-width: 50rem;">
@@ -109,6 +105,7 @@
 
                     <!-- Add category Modal -->
                     <div class="modal fade" th:id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
+
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -118,8 +115,12 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form class="form-horizontal" th:object="${category}" th:action="@{/saveCategory}" method="post">
-
+                                    <form class="form-horizontal" th:object="${category}" th:action="@{/save}" method="post">
+                                        <div th:if="${categoryEx}">
+                                            <div class="alert alert-danger">
+                                                <strong th:text="categoryEx"></strong>
+                                            </div>
+                                        </div>
                                         <div class="row">
                                             <label class="col-sm-2 col-form-label">Name:</label>
                                             <div class="col-sm-6">
