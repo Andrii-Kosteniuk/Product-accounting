@@ -41,7 +41,7 @@ public class LoginController {
 
         try {
             service.register(user, role);
-            return "redirect:/register?success";
+            return "redirect:/login?success";
         } catch (UserAlreadyExistsException e) {
             model.addAttribute("errorRegister", e);
             return "registerPage";
