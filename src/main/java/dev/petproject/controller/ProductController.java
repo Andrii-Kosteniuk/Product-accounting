@@ -29,7 +29,7 @@ public class ProductController {
     private final CategoryService categoryService;
 
 
-    @GetMapping("/")
+    @GetMapping("/home")
     public String homePage(Model model) {
         return "index";
     }
