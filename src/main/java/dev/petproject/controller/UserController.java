@@ -3,6 +3,7 @@ package dev.petproject.controller;
 import dev.petproject.exception.UserCanNotBeDeletedException;
 import dev.petproject.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/users")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String getAllUsers(Model model) {
         model.addAttribute("users", userService.findAllRegisteredUsers());
         return "users";
