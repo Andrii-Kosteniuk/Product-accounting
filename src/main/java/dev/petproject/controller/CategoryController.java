@@ -5,6 +5,7 @@ import dev.petproject.domain.Product;
 import dev.petproject.service.CategoryService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +37,7 @@ public class CategoryController {
     }
 
     @GetMapping("/addNewCategory")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String showFormForAddingNewCategory(@ModelAttribute("product") Product product, Model model) {
         model.addAttribute("category", new Category());
         model.addAttribute("product", new Product());
