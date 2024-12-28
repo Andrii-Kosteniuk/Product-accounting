@@ -139,7 +139,7 @@ class ProductControllerTest {
     @Test
     @WithMockUser(username = "user", password = "Password5", roles = "ADMIN")
     void shouldChangeDataInProductAndSaveThem() throws Exception {
-        Optional<Product> editProduct = productService.findProductById(1);
+        Product editProduct = productService.findProductById(1);
         when(productService.findProductById(anyInt())).thenReturn(editProduct);
         when(categoryService.getAllCategories()).thenReturn(new ArrayList<>());
 
