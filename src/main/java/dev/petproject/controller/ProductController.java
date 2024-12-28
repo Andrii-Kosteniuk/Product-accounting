@@ -43,16 +43,16 @@ public class ProductController {
     }
 
     @GetMapping("/products/add")
-    public String addNewProductPage(Product product, Model model, HttpSession session) {
+    public String addNewProductPage(Model model, HttpSession session) {
 
-        model.addAttribute("product", product);
         model.addAttribute(CATEGORIES, categoryService.getAllCategories());
-        model.addAttribute("category", new Category());
+        model.addAttribute("category", getProductFromSession(session));
+
         return EDIT_PRODUCT;
     }
 
     @PostMapping("/products/save")
-    public String saveProduct(@Valid @ModelAttribute("product") Product product, BindingResult result, Model model) {
+    public String saveProduct(@Valid Product product, BindingResult result, Model model) {
         model.addAttribute(CATEGORIES, categoryService.getAllCategories());
 
         if (result.hasErrors()) {
@@ -63,10 +63,11 @@ public class ProductController {
     }
 
     @GetMapping("/products/edit/{id}")
-    public String editProduct(@PathVariable(value = "id") Integer id,
-                              Model model) {
+    public String editProduct(@PathVariable(value = "id") Integer id, Model model, HttpSession session) {
 
-        model.addAttribute("product", productService.findProductById(id));
+        Product product = productService.findProductById(id);
+        model.addAttribute("product", product);
+        session.setAttribute("product", product);
         model.addAttribute(CATEGORIES, categoryService.getAllCategories());
         model.addAttribute("category", new Category());
 
@@ -75,9 +76,7 @@ public class ProductController {
 
     @GetMapping("/products/delete/{id}")
     public String deleteProduct(@PathVariable(value = "id") Integer id) {
-
         productService.deleteProductById(id);
-
         return REDIRECT_PRODUCTS_ALL;
     }
 
@@ -109,6 +108,12 @@ public class ProductController {
         model.addAttribute("product", new Product());
 
         return PRODUCTS;
+    }
+
+    @ModelAttribute("product")
+    public Product getProductFromSession(HttpSession session) {
+        Product product = (Product) session.getAttribute("product");
+        return product != null ? product : new Product();
     }
 
 }
