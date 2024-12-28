@@ -7,6 +7,7 @@ import dev.petproject.service.ProductService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,7 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 @SessionAttributes("product")
+@Slf4j
 public class ProductController {
 
     public static final String PRODUCTS = "products";
@@ -31,11 +33,13 @@ public class ProductController {
 
     @GetMapping("/home")
     public String homePage(Model model) {
+        log.info("Accessing home page");
         return "index";
     }
 
     @GetMapping("/products/all")
     public String viewProductsWithPaginated(Product product, Model model) {
+        log.info("Viewing all products with pagination");
         findPaginated(1, "name", "asc", model, product);
 
         model.addAttribute(CATEGORIES, categoryService.getAllCategories());
@@ -44,7 +48,7 @@ public class ProductController {
 
     @GetMapping("/products/add")
     public String addNewProductPage(Model model, HttpSession session) {
-
+        log.info("Accessing add new product page");
         model.addAttribute(CATEGORIES, categoryService.getAllCategories());
         model.addAttribute("category", getProductFromSession(session));
 
@@ -53,21 +57,26 @@ public class ProductController {
 
     @PostMapping("/products/save")
     public String saveProduct(@Valid Product product, BindingResult result, Model model) {
+        log.info("Attempting to save product: {}", product);
         model.addAttribute(CATEGORIES, categoryService.getAllCategories());
 
         if (result.hasErrors()) {
+            log.warn("Validation errors occurred while saving product: {}", result.getAllErrors());
             return EDIT_PRODUCT;
         }
         productService.saveProduct(product);
+        log.info("Product saved successfully: {}", product);
         return REDIRECT_PRODUCTS_ALL;
     }
 
     @GetMapping("/products/edit/{id}")
     public String editProduct(@PathVariable(value = "id") Integer id, Model model, HttpSession session) {
+        log.info("Editing product with ID: {}", id);
 
         Product product = productService.findProductById(id);
         model.addAttribute("product", product);
         session.setAttribute("product", product);
+
         model.addAttribute(CATEGORIES, categoryService.getAllCategories());
         model.addAttribute("category", new Category());
 
@@ -76,12 +85,15 @@ public class ProductController {
 
     @GetMapping("/products/delete/{id}")
     public String deleteProduct(@PathVariable(value = "id") Integer id) {
+        log.info("Deleting product with ID: {}", id);
         productService.deleteProductById(id);
+        log.info("Product deleted successfully with ID: {}", id);
         return REDIRECT_PRODUCTS_ALL;
     }
 
     @GetMapping("/products/find")
     public String findProductsByKeyword(Model model, String keyword) {
+        log.info("Searching for products with keyword: {}", keyword);
         List<Product> products = productService.searchProductsByKeyword(keyword);
         model.addAttribute(PRODUCTS, products);
 
@@ -94,6 +106,7 @@ public class ProductController {
                                 @RequestParam("sort-field") String sortField,
                                 @RequestParam("sort-dir") String sortDir,
                                 Model model, Product product) {
+
         int pageSize = 3;
         Page<Product> page = productService.findPaginated(pageNo, pageSize, sortField, sortDir);
         List<Product> products = page.getContent();
