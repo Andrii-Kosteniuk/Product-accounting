@@ -46,15 +46,15 @@ class CategoryControllerTest {
     }
 
     @Test
-    void addNewCategory() throws Exception {
-        mockMvc.perform(post("/saveCategory"))
+    void createCategory() throws Exception {
+        mockMvc.perform(post("/save"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/products/add?success"));
     }
 
     @Test
-    void shouldOpenPageWithFormToAddNewCategory() throws Exception {
-        mockMvc.perform(get("/addNewCategory"))
+    void shouldOpenPageWithFormToCreateCategory() throws Exception {
+        mockMvc.perform(get("/create"))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("category"))
                 .andExpect(view().name("createCategory"));

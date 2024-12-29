@@ -3,6 +3,7 @@ package dev.petproject.controller;
 import dev.petproject.auth.JwtUtils;
 import dev.petproject.domain.Category;
 import dev.petproject.domain.Product;
+import dev.petproject.exception.ProductAlreadyExistsException;
 import dev.petproject.repository.ProductRepository;
 import dev.petproject.repository.TokenRepository;
 import dev.petproject.service.CategoryService;
@@ -83,7 +84,7 @@ class ProductControllerTest {
     @Test
     @WithMockUser(username = "user", password = "Password5", roles = "ADMIN")
     void shouldRepresentMainPage() throws Exception {
-        mockMvc.perform(get("/home"))
+        mockMvc.perform(get("/"))
                 .andExpectAll(
                         status().isOk(),
                         view().name("index")
@@ -113,9 +114,9 @@ class ProductControllerTest {
 
     @Test
     @WithMockUser(username = "user", password = "Password5", roles = "ADMIN")
-    void shouldCreateNewProductAndSaveIt() throws Exception {
+    void shouldCreateNewProductAndSaveIt() throws Exception, ProductAlreadyExistsException {
         Category electronics = new Category(1, "Electronics", new ArrayList<>());
-        Product product = new Product(3, "Iphone", "For calls", electronics, 5000.0);
+        Product product = new Product(3, "Iphone", 5454.6, 5, "For calls", electronics);
 
         mockMvc.perform(post("/products/save"))
                 .andExpect(status().isOk())
@@ -138,7 +139,7 @@ class ProductControllerTest {
     @Test
     @WithMockUser(username = "user", password = "Password5", roles = "ADMIN")
     void shouldChangeDataInProductAndSaveThem() throws Exception {
-        Optional<Product> editProduct = productService.findProductById(1);
+        Product editProduct = productService.findProductById(1);
         when(productService.findProductById(anyInt())).thenReturn(editProduct);
         when(categoryService.getAllCategories()).thenReturn(new ArrayList<>());
 

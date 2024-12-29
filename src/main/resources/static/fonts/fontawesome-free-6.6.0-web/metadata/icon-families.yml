@@ -26839,7 +26839,7 @@ house:
       - building
       - home
       - house
-      - main
+      - func.js
       - residence
   unicode: f015
   voted: false
@@ -26877,7 +26877,7 @@ house-chimney:
       - building
       - chimney
       - house
-      - main
+      - func.js
       - residence
       - smokestack
   unicode: e3af

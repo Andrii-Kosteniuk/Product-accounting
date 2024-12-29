@@ -23,7 +23,7 @@ h1, h2 {
 
 .logoutButton {
     border-radius: 10px;
-    background-color: #bbbbbb;
+    background-color: lightgrey;
     border: none;
     color: #1a1d20;
     text-align: center;
@@ -31,6 +31,27 @@ h1, h2 {
     padding: 10px;
     width: 100px;
     transition: all 0.5s;
+}
 
+.modal-body{
+    justify-content:center;
+}
+
+.add-product {
+    display: grid;
+    justify-content: left;
+    grid-template-columns: repeat(2, 200px);
+}
+
+h2 {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.add-button {
+    background-color:DodgerBlue;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    color:#fff;
 }
 

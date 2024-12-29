@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
 <head>
     <meta charset="UTF-8"/>
     <title>Products</title>
@@ -7,37 +9,42 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/style.css" th:href="@{/css/style.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-            crossorigin="anonymous"></script>
-    <script src="https://kit.fontawesome.com/7a8065c196.js" crossorigin="anonymous"></script>
-
 </head>
 <body>
 <th:block th:insert="~{/layout/header}"></th:block>
 <br>
-<th:block th:insert="~{/layout/searchPanel}"></th:block>
-<div class="container">
+<th:block th:insert="~{/layout/searchPanel}" style="justify-content: center"></th:block>
 
+<div class="container">
     <div th:if="${ #lists.isEmpty(products)}"><br>
         <div class="alert alert-primary text-center" role="alert">
             There are no products yet. If you want to add some new one please click
-            <a class="link-offset-2 link-underline link underline-opacity-75"
-               th:href="@{/products/add}">Add new product</a>
+            <a th:href="@{/products/add}"><i class="fa-regular fa-square-plus"></i><span>  Add new product</span> </a>
         </div>
     </div>
+
     <div style="display: flex; justify-content: right;">
         <a class="btn btn-sm btn-outline-info"
-           th:href=@{/products/export-to-excel}>
+           th:href="@{/products/export-to-excel}">
             <i class="fa-solid fa-download"></i><span> Click here to download
         </span></a>
     </div>
     <br>
-    <h2>All products</h2>
+    <div class="add-product">
+        <h2>All products</h2>
+        <a class="btn add-button" role="button" th:href="@{/products/add}"
+           style="display: flex; align-items: center; justify-content: center; gap:10px">
+            <i class="fa-regular fa-square-plus"></i>
+            <span>Add new product</span></a>
+    </div>
+    <div th:if="${param.error}">
+        <div class="alert alert-danger">
+            <strong th:text="${param.message}"></strong>
+        </div>
+    </div>
 
+    <!--    Table-->
     <table class="table table-striped">
-
         <tr>
             <th>
                 <a th:href="@{/page/1(sort-field='name', sort-dir=${reverseSortDir})}">
@@ -49,6 +56,12 @@
                 <i class="fa-solid fa-arrow-down-short-wide"></i>
             </a>
                 Price
+            </th>
+            <th>
+                <a th:href="@{/page/1(sort-field='quantity', sort-dir=${reverseSortDir})}">
+                    <i class="fa-solid fa-arrow-down-short-wide"></i>
+                </a>
+                Quantity
             </th>
             <th>Description</th>
             <th><a th:href="@{/page/1(sort-field='category.name', sort-dir=${reverseSortDir})}">
@@ -62,6 +75,7 @@
         <tr th:each="product : ${products}">
             <td th:text="${product.name}">Name</td>
             <td th:text="${product.price}">Price</td>
+            <td th:text="${product.quantity}">Quantity</td>
             <td th:text="${product.description}">Description</td>
 
             <td>
@@ -69,17 +83,22 @@
                     th:text="${category.name} + ' '">Category
                 </ul>
             </td>
-
-            <td>
-                <a th:href="${'/products/edit/' + product.id}" class="btn btn-secondary">Edit</a>
+            <td th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
+                <a th:href=" ${'/products/edit/' + product.id}" class="btn btn-primary">Edit</a>
             </td>
-            <td>
+            <td th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
                 <a th:href="${'/products/delete/' + product.id}" class="btn btn-danger">Delete</a>
             </td>
+            <td th:unless="${#authorization.expression('hasAuthority(''ADMIN'')')}">
+                <a style="color: gray; cursor: pointer"><u>Edit</u></a>
+            </td>
+            <td th:unless="${#authorization.expression('hasAuthority(''ADMIN'')')}">
+                <a style="color: gray; cursor: pointer"><u>Delete</u></a>
+            </td>
         </tr>
-
     </table>
 
+    <!--    Pagination-->
     <div th:if="${totalPages > 1}">
         <div class="container">
             <nav aria-label="page-navigation">
@@ -91,10 +110,10 @@
                 <ul class="pagination justify-content-center">
 
                     <li class="page-item">
-                        <a class="page-link" th:if="${currentPage - 1 != 0}"
+                        <a class="page-link active" th:if="${currentPage - 1 != 0}"
                            th:href="@{'/page/' + ${currentPage - 1} + '?sort-field=' + ${sortField} + '&sort-dir=' + ${sortDir}}">Previous</a>
                     </li>
-                    <li class="page-item " th:each="i : ${#numbers.sequence(1, totalPages )}">
+                    <li class="page-item " th:each="i : ${#numbers.sequence(1, totalPages -1 )}">
                         <a class="page-link " th:if="${currentPage != i}"
                            th:href="@{'/page/' + ${i} + '?sort-field=' + ${sortField} + '&sort-dir=' + ${sortDir}}"
                            th:text="${i}">1</a>
@@ -112,5 +131,9 @@
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/7a8065c196.js" crossorigin="anonymous"></script>
 </body>
 </html>

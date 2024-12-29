@@ -5,11 +5,9 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
@@ -21,12 +19,9 @@ import java.util.function.Function;
 @Component
 public class JwtUtils {
 
-    private final String secretKey;
+    @Value("${spring.app.secret-key}")
+    private String secretKey;
 
-    @Autowired
-    public JwtUtils(@Value("${secret-key}") String secretKey) {
-        this.secretKey = secretKey;
-    }
 
     public String extractUserEmail(String token) {
         return extractClaim(token, Claims::getSubject);

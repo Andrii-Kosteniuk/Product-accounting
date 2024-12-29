@@ -19,12 +19,12 @@
 <div class="container">
     <div th:fragment="header">
         <div class="navbar-default">
-            <nav class="navbar navbar-expand-lg navbar-custom">
+            <nav class="navbar navbar-expand-lg navbar-custom ">
                 <div class="container">
                     <div class="navbar">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link" th:href="@{/}">
+                                <a class="nav-link" th:href="@{/home}">
                                     <i class="fa-solid fa-house"></i>
                                     <span>Home</span>
                                 </a>
@@ -36,20 +36,19 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" th:href="@{/products/add}">
-                                    <i class="fa-solid fa-file-import"></i>
-                                    <span>Add new product</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link" th:href="@{/users}">
                                     <i class="fa-solid fa-users"></i>
                                     <span>  All registered users</span>
                                 </a>
                             </li>
                         </ul>
+
+                    </div>
+                    <div class="text-lg-end justify-content-center" style="color: white; margin-top: auto">
+                        <p>Hello, <span th:text="${#authentication.principal.firstName}"></span>!</p>
                     </div>
                     <form th:action="@{/logout}" method="post">
+
                         <button class="btn btn-secondary btn-sm logoutButton" type="submit">
                             <i class="fa-solid fa-arrow-right-from-bracket"></i>
                             <span>Log out</span></button>

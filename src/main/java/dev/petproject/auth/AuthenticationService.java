@@ -4,10 +4,10 @@ import dev.petproject.domain.Role;
 import dev.petproject.domain.Token;
 import dev.petproject.domain.TokenType;
 import dev.petproject.domain.User;
+import dev.petproject.dto.UserDTO;
 import dev.petproject.exception.UserAlreadyExistsException;
 import dev.petproject.repository.TokenRepository;
 import dev.petproject.repository.UserRepository;
-import dev.petproject.dto.UserDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,7 +31,7 @@ public class AuthenticationService {
     }
 
     @ExceptionHandler
-    public void register(UserDTO user, Role role) {
+    public void register(UserDTO user, Role role)  {
         User userToSave = User.builder()
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
