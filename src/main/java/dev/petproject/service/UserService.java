@@ -6,6 +6,7 @@ import dev.petproject.exception.UserCanNotBeDeletedException;
 import dev.petproject.repository.TokenRepository;
 import dev.petproject.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,10 +27,12 @@ public class UserService {
         return user.orElse(null);
     }
 
+    @Cacheable("users")
     public List<User> findAllRegisteredUsers() {
         return userRepository.findAll();
     }
 
+    @Cacheable("users")
     public void deleteUser(Integer id)  {
         User user = this.findUserById(id);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
