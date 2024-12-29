@@ -39,3 +39,4 @@ package-lock.json
 package.json
 mvnw.cmd
 .mvn
+node_modules/*
