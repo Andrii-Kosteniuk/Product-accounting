@@ -74,6 +74,7 @@ public class ProductController {
         log.info("Editing product with ID: {}", id);
 
         Product product = productService.findProductById(id);
+        productService.updateProduct(product);
         model.addAttribute("product", product);
         session.setAttribute("product", product);
 
