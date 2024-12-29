@@ -2,3 +2,4 @@
 *.less linguist-vendored
 *.css linguist-vendored
 *.html linguist-vendored
+*.node_modules linguist-vendored
