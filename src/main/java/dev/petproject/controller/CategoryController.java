@@ -2,7 +2,6 @@ package dev.petproject.controller;
 
 import dev.petproject.domain.Category;
 import dev.petproject.service.CategoryService;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -18,8 +17,8 @@ public class CategoryController {
 
     private final CategoryService categoryService;
 
-    @PostMapping("/save")
-    public String createCategory(@ModelAttribute("category") Category category, Model model, HttpSession session) {
+    @PostMapping("/save-category")
+    public String createCategory(@ModelAttribute("category") Category category, Model model) {
         log.info("Trying to save new  category: {}", category);
 
         categoryService.saveNewCategory(category);
