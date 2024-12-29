@@ -35,8 +35,8 @@ build/
 ### Project ###
 application.properties
 .gitignore
-package-lock.json
-package.json
+/package-lock.json
+/package.json
 mvnw.cmd
 .mvn
-node_modules/*
+/node_modules
