@@ -1,4 +1,4 @@
-package config;
+package dev.petproject.config;
 
 import org.springframework.boot.autoconfigure.cache.CacheManagerCustomizer;
 import org.springframework.cache.CacheManager;
