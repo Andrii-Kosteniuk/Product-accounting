@@ -33,17 +33,15 @@ public class Product {
 
     @NotNull
     @PositiveOrZero
-    private Integer quantity;
+    private int quantity;
 
     @Size(min = 5, message = "Description must be no less than 5 characters")
     @Size(max = 50, message = "Description must be no longer than 50 characters")
     private String description;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @Cascade(SAVE_UPDATE)
+    @ManyToOne()
     @JoinColumn(name = "category_id")
     @ToString.Exclude
     private Category category;
-
 
 }

@@ -37,6 +37,11 @@
             <i class="fa-regular fa-square-plus"></i>
             <span>Add new product</span></a>
     </div>
+    <div th:if="${param.error}">
+        <div class="alert alert-danger">
+            <strong th:text="${param.message}"></strong>
+        </div>
+    </div>
 
     <!--    Table-->
     <table class="table table-striped">
