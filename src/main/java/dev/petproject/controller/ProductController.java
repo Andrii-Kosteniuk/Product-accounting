@@ -8,8 +8,11 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -74,12 +77,12 @@ public class ProductController {
         log.info("Editing product with ID: {}", id);
 
         Product product = productService.findProductById(id);
-        productService.updateProduct(product);
         model.addAttribute("product", product);
         session.setAttribute("product", product);
 
         model.addAttribute(CATEGORIES, categoryService.getAllCategories());
         model.addAttribute("category", new Category());
+        productService.saveProduct(product);
 
         return EDIT_PRODUCT;
     }

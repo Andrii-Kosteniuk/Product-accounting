@@ -27,7 +27,7 @@ public class SecurityFilterChainConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/static/**").permitAll()
+                        .requestMatchers("/static/**","/css/**", "/images/**").permitAll()
                         .requestMatchers("/register", "/logout").permitAll()
                         .anyRequest().authenticated()
                 )

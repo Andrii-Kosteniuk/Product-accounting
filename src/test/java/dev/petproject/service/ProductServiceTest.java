@@ -117,7 +117,7 @@ class ProductServiceTest {
     @Test
     void shouldThrowIllegalArgumentExceptionWhenKeywordIsNull() {
 
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> productService.searchProductsByKeyword(null));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> productService.searchProductsByKeyword(""));
 
         Assertions.assertEquals("Keyword is null", exception.getMessage());
         verify(productRepository, never()).findProductByKeyword(null);
@@ -128,10 +128,10 @@ class ProductServiceTest {
         Product findProduct = products.get(0);
         when(productRepository.findById(1)).thenReturn(Optional.of(findProduct));
 
-        Optional<Product> productById = productService.findProductById(1);
+        Product productById = productService.findProductById(1);
 
         assertNotNull(productById);
-        assertEquals(productById.get(), findProduct, "Products are not the same");
+        assertEquals(productById, findProduct, "Products are not the same");
         verify(productRepository, times(1)).findById(1);
     }
 

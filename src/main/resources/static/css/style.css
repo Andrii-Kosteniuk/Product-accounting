@@ -1,57 +1,55 @@
-.navbar-default .navbar-nav > li > a {
-    color: white;
+:root {
+    --bd-violet-bg: #6f42c1;
+    --bs-white: #ffffff;
 }
 
-h1, h2 {
-    color: #0a58ca;
+.navbar-custom {
+    background-color: #2D3748;
+    margin: 1rem;
+    border-radius: 4px;
+
 }
 
 .errorMessage {
     color: rgba(255, 0, 0, 0.76);
 }
 
+.nav-link span, .nav-link i {
+    color: #bbbbbb;
+}
+
 .search-text {
     color: #0f5132;
 }
 
-.navbar-custom {
-    background-color: #2D3748;
-    margin-left: 100px;
-    margin-right: 100px;
-    border-radius:10px
+h1, h2, h5, span, td, th, .nav-link {
+    font-family: 'Calisto MT', serif;
 }
 
-.logoutButton {
-    border-radius: 10px;
-    background-color: lightgrey;
-    border: none;
-    color: #1a1d20;
-    text-align: center;
-    font-size: 15px;
-    padding: 10px;
-    width: 100px;
-    transition: all 0.5s;
-}
-
-.modal-body{
-    justify-content:center;
+.modal-body {
+    justify-content: center;
 }
 
 .add-product {
-    display: grid;
+    display: flex;
     justify-content: left;
-    grid-template-columns: repeat(2, 200px);
+    align-items: center;
+    gap: 10px;
+    font-family: 'Calisto MT', serif;
+    font-size: 25px
 }
 
-h2 {
-    margin-top: 1rem;
+.add-product-button {
+    background-color: DodgerBlue;
+    margin-top: auto;
     margin-bottom: 1rem;
+    border-radius: 3px;
+    color: var(--bs-white);
 }
 
-.add-button {
-    background-color:DodgerBlue;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    color:#fff;
+.my-custom-tooltip {
+    background-color: var(--bd-violet-bg);
+    color: var(--bs-white);
 }
+
 
