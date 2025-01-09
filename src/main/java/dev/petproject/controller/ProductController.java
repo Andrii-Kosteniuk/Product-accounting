@@ -8,11 +8,8 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -59,14 +56,17 @@ public class ProductController {
     }
 
     @PostMapping("/products/save")
-    public String saveProduct(@Valid Product product, BindingResult result, Model model) {
+    public String saveProduct(@Valid @ModelAttribute("product") Product product, BindingResult result, Model model) {
         log.info("Attempting to save product: {}", product);
         model.addAttribute(CATEGORIES, categoryService.getAllCategories());
+        model.addAttribute("product", product);
+        model.addAttribute("category", new Category());
 
         if (result.hasErrors()) {
             log.warn("Validation errors occurred while saving product: {}", result.getAllErrors());
             return EDIT_PRODUCT;
         }
+
         productService.saveProduct(product);
         log.info("Product saved successfully: {}", product);
         return REDIRECT_PRODUCTS_ALL;

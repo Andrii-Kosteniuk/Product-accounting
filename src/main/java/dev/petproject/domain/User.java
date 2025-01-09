@@ -1,6 +1,8 @@
 package dev.petproject.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,17 +27,24 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
     private Integer id;
-    @Column(nullable = false)
 
+    @Column(nullable = false)
+    @NotEmpty(message = "User first name can not be empty")
+    @Pattern(regexp = "^[A-Z][a-z]*$", message = "Name must start with a capital letter followed by one or more lowercase letters")
     private String firstName;
-    @Column(nullable = false)
 
+    @Column(nullable = false)
+    @NotEmpty(message = "User last name can not be empty")
+    @Pattern(regexp = "^[A-Z][a-z]*$", message = "Last name must start with a capital letter followed by one or more lowercase letters")
     private String lastName;
+
     @Column(nullable = false, unique = true)
-
+    @Pattern(regexp = "[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}", message = "Should be a valid email")
     private String email;
-    @Column(nullable = false)
 
+    @Column(nullable = false)
+    @Pattern(regexp = "(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}",
+            message = "Must be minimum 6 characters, at least one letter and one number")
     private String password;
 
     @Enumerated(EnumType.STRING)
