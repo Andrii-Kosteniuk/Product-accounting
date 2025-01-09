@@ -13,7 +13,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @Service
 @RequiredArgsConstructor
@@ -30,13 +29,12 @@ public class AuthenticationService {
                 .build();
     }
 
-    @ExceptionHandler
-    public void register(UserDTO user, Role role)  {
+    public void register(UserDTO userDto, Role role)  {
         User userToSave = User.builder()
-                .firstName(user.getFirstName())
-                .lastName(user.getLastName())
-                .email(user.getEmail())
-                .password(passwordEncoder.encode(user.getPassword()))
+                .firstName(userDto.getFirstName())
+                .lastName(userDto.getLastName())
+                .email(userDto.getEmail())
+                .password(passwordEncoder.encode(userDto.getPassword()))
                 .role(role)
                 .build();
         userRepository.findByEmail(userToSave.getEmail()).ifPresent(existingUser -> {
@@ -61,14 +59,14 @@ public class AuthenticationService {
         tokenRepository.save(token);
     }
 
-    public void authenticate(User user) {
+    public void authenticate(UserDTO userDto) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        user.getEmail(),
-                        user.getPassword()
+                        userDto.getEmail(),
+                        userDto.getPassword()
                 )
         );
-        var userToAuthenticate = userRepository.findByEmail(user.getEmail()).orElseThrow();
+        var userToAuthenticate = userRepository.findByEmail(userDto.getEmail()).orElseThrow();
         var jwtToken = jwtUtils.generateToken(userToAuthenticate);
         revokeAllUsersToken(userToAuthenticate);
         saveUserToken(userToAuthenticate, jwtToken);

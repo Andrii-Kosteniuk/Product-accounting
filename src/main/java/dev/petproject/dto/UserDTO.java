@@ -2,51 +2,41 @@ package dev.petproject.dto;
 
 import dev.petproject.domain.Role;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Component;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Component
 public class UserDTO {
 
-    private final String errorPasswordMessage =
-            """
-                    password must have
-                    * at least eight characters
-                    * include at least one number
-                    * include both lower and uppercase letters
-                    * include at least one special characters""";
+    @NotEmpty(message = "User first name can not be empty")
+    @Pattern(regexp = "^[A-Z][a-z]*$", message = "Name must start with a capital letter followed by one or more lowercase letters")
+    private String firstName;
 
-    private final String errorEmailMessage =
-            """
+
+    @NotEmpty(message = "User last name can not be empty")
+    @Pattern(regexp = "^[A-Z][a-z]*$", message = "Last name must start with a capital letter followed by one or more lowercase letters")
+    private String lastName;
+
+
+    @Pattern(regexp = "^[A-Za-z0-9+_.-]+@(.+)$",
+            message = """
                     email can contain
                     * one character from the English alphabet (both cases), +
-                    digits, "+", "_", "." and, "-" before the @ symbol""";
-
-    private Integer id;
-    @Size(min = 3, max = 15)
-    @NotEmpty(message = "User's name cannot be empty.")
-    private String firstName;
-    @Size(min = 3, max = 15)
-    @NotEmpty(message = "User's name cannot be empty.")
-    private String lastName;
-    @NotEmpty(message = "User's email cannot be empty.")
-    @Pattern(regexp = "^[A-Za-z0-9+_.-]+@(.+)$", message = errorEmailMessage)
+                    digits, "+", "_", "." and, "-" before the @ symbol""")
     private String email;
-    @NotNull
-//    @Pattern(regexp = "(?=^.{8,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$",
-//            message = errorPasswordMessage)
+
+    @Pattern(
+            regexp = "(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d@$!%*?&]{6,}",
+            message = "Must be minimum 6 characters, include at least one letter, one number, and optionally special characters @$!%*?&"
+    )
     private String password;
-    @NotNull
+
     private Role role;
 
 }
