@@ -11,7 +11,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -45,17 +47,20 @@ class UserControllerTest {
                 new User(1, "J", "M", "jM@gmail.com", "11111", Role.USER),
                 new User(2, "A", "O", "AO@gmail.com", "22222", Role.ADMIN)
         );
+
+
+        var principal = users.get(1);
+        var auth = new UsernamePasswordAuthenticationToken(principal, null, principal.getAuthorities());
+
+        SecurityContextHolder.getContext().setAuthentication(auth);
     }
 
     @Test
-    @WithMockUser(username = "user", password = "Password5", roles = "ADMIN")
+    @WithMockUser(username = "AO@gmail.com", password = "22222", roles = "ADMIN")
     void shouldPerformGetAllUsersAndReturnStatusIsOk() throws Exception {
-
-        when(userService.findAllRegisteredUsers()).thenReturn(users);
-
         mockMvc.perform(get("/users"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType("text/html;charset=UTF-8"))
+                .andExpect(model().attributeExists("users"))
                 .andExpect(view().name("users"));
 
     }

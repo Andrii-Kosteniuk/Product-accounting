@@ -35,7 +35,7 @@ public class ProductController {
 
 
     @GetMapping("/home")
-    public String homePage(Model model) {
+    public String homePage() {
         log.info("Accessing home page");
         return "index";
     }
@@ -77,9 +77,10 @@ public class ProductController {
         log.info("Editing product with ID: {}", id);
 
         Product product = productService.findProductById(id);
-        model.addAttribute("product", product);
+
         session.setAttribute("product", product);
 
+        model.addAttribute("product", product);
         model.addAttribute(CATEGORIES, categoryService.getAllCategories());
         model.addAttribute("category", new Category());
         productService.saveProduct(product);

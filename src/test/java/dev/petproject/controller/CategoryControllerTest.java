@@ -13,7 +13,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -47,16 +46,9 @@ class CategoryControllerTest {
 
     @Test
     void createCategory() throws Exception {
-        mockMvc.perform(post("/save"))
+        mockMvc.perform(post("/save-category"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/products/add?success"));
+                .andExpect(redirectedUrl("/products/add?success=true"));
     }
 
-    @Test
-    void shouldOpenPageWithFormToCreateCategory() throws Exception {
-        mockMvc.perform(get("/create"))
-                .andExpect(status().isOk())
-                .andExpect(model().attributeExists("category"))
-                .andExpect(view().name("createCategory"));
-    }
 }

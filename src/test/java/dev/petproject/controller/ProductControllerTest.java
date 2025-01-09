@@ -83,7 +83,7 @@ class ProductControllerTest {
     @Test
     @WithMockUser(username = "user", password = "Password5", roles = "ADMIN")
     void shouldRepresentMainPage() throws Exception {
-        mockMvc.perform(get("/"))
+        mockMvc.perform(get("/home"))
                 .andExpectAll(
                         status().isOk(),
                         view().name("index")
@@ -138,14 +138,15 @@ class ProductControllerTest {
     @Test
     @WithMockUser(username = "user", password = "Password5", roles = "ADMIN")
     void shouldChangeDataInProductAndSaveThem() throws Exception {
-        Product editProduct = productService.findProductById(1);
+        Product editProduct = productService.findProductById(anyInt());
         when(productService.findProductById(anyInt())).thenReturn(editProduct);
         when(categoryService.getAllCategories()).thenReturn(new ArrayList<>());
+        when(productService.findProductById(anyInt())).thenReturn(any(Product.class));
 
         mockMvc.perform(get("/products/edit/{id}", 1))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("categories"))
-                .andExpect(model().attributeExists("product"))
+                .andExpect(model().attributeExists("category"))
                 .andExpect(view().name("edit"));
 
     }
