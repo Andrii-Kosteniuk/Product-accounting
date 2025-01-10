@@ -19,6 +19,9 @@ public class MyCacheManagerConfiguration {
 
     @Bean
     public CacheManager cacheManager() {
-        return new ConcurrentMapCacheManager("products", "users", "categories");
+        return new ConcurrentMapCacheManager(
+                "products",
+                "users",
+                "categories");
     }
 }

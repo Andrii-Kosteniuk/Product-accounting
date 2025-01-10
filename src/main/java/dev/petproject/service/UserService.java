@@ -3,9 +3,9 @@ package dev.petproject.service;
 import dev.petproject.domain.Role;
 import dev.petproject.domain.User;
 import dev.petproject.exception.UserCanNotBeDeletedException;
-import dev.petproject.repository.TokenRepository;
 import dev.petproject.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,7 +20,6 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final TokenRepository tokenRepository;
 
     public User findUserById(Integer id) {
         Optional<User> user = userRepository.findUserById(id);
@@ -32,7 +31,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    @Cacheable("users")
+    @CacheEvict(value = "users", allEntries = true)
     public void deleteUser(Integer id)  {
         User user = this.findUserById(id);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -41,7 +40,7 @@ public class UserService {
 
         if (! user.getEmail().equals(registeredUserEmail)
             && ! user.getRole().equals(Role.ADMIN)) {
-            tokenRepository.deleteTokenByUserId(id);
+            userRepository.delete(user);
         } else {
             throw new UserCanNotBeDeletedException("You can not delete user with email " + registeredUserEmail);
         }

@@ -19,6 +19,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/products")
 @SessionAttributes("product")
 @Slf4j
 public class ProductController {
@@ -31,22 +32,16 @@ public class ProductController {
     private final CategoryService categoryService;
 
 
-    @GetMapping("/home")
-    public String homePage(Model model) {
-        log.info("Accessing home page");
-        return "index";
-    }
-
-    @GetMapping("/products/all")
-    public String viewProductsWithPaginated(Product product, Model model) {
+    @GetMapping("/all")
+    public String viewProductsWithPaginated(Model model) {
         log.info("Viewing all products with pagination");
-        findPaginated(1, "name", "asc", model, product);
+        findPaginated(1, "name", "asc", model);
 
         model.addAttribute(CATEGORIES, categoryService.getAllCategories());
         return PRODUCTS;
     }
 
-    @GetMapping("/products/add")
+    @GetMapping("/add")
     public String addNewProductPage(Model model, HttpSession session) {
         log.info("Accessing add new product page");
         model.addAttribute(CATEGORIES, categoryService.getAllCategories());
@@ -55,36 +50,40 @@ public class ProductController {
         return EDIT_PRODUCT;
     }
 
-    @PostMapping("/products/save")
-    public String saveProduct(@Valid Product product, BindingResult result, Model model) {
+    @PostMapping("/save")
+    public String saveProduct(@Valid @ModelAttribute("product") Product product, BindingResult result, Model model) {
         log.info("Attempting to save product: {}", product);
         model.addAttribute(CATEGORIES, categoryService.getAllCategories());
+        model.addAttribute("product", product);
+        model.addAttribute("category", new Category());
 
         if (result.hasErrors()) {
             log.warn("Validation errors occurred while saving product: {}", result.getAllErrors());
             return EDIT_PRODUCT;
         }
+
         productService.saveProduct(product);
         log.info("Product saved successfully: {}", product);
         return REDIRECT_PRODUCTS_ALL;
     }
 
-    @GetMapping("/products/edit/{id}")
+    @GetMapping("/edit/{id}")
     public String editProduct(@PathVariable(value = "id") Integer id, Model model, HttpSession session) {
         log.info("Editing product with ID: {}", id);
 
         Product product = productService.findProductById(id);
-        productService.updateProduct(product);
-        model.addAttribute("product", product);
+
         session.setAttribute("product", product);
 
+        model.addAttribute("product", product);
         model.addAttribute(CATEGORIES, categoryService.getAllCategories());
         model.addAttribute("category", new Category());
+        productService.saveProduct(product);
 
         return EDIT_PRODUCT;
     }
 
-    @GetMapping("/products/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String deleteProduct(@PathVariable(value = "id") Integer id) {
         log.info("Deleting product with ID: {}", id);
         productService.deleteProductById(id);
@@ -92,7 +91,7 @@ public class ProductController {
         return REDIRECT_PRODUCTS_ALL;
     }
 
-    @GetMapping("/products/find")
+    @GetMapping("/find")
     public String findProductsByKeyword(Model model, String keyword) {
         log.info("Searching for products with keyword: {}", keyword);
         List<Product> products = productService.searchProductsByKeyword(keyword);
@@ -106,7 +105,7 @@ public class ProductController {
     public String findPaginated(@PathVariable("pageNo") int pageNo,
                                 @RequestParam("sort-field") String sortField,
                                 @RequestParam("sort-dir") String sortDir,
-                                Model model, Product product) {
+                                Model model) {
 
         int pageSize = 3;
         Page<Product> page = productService.findPaginated(pageNo, pageSize, sortField, sortDir);

@@ -4,7 +4,7 @@ import dev.petproject.domain.Category;
 import dev.petproject.exception.CategoryAlreadyExistsException;
 import dev.petproject.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,7 @@ public class CategoryService {
 
     private final CategoryRepository categoryRepository;
 
-    @CachePut("categories")
+    @CacheEvict(value = "categories", allEntries = true)
     public void saveNewCategory(Category category) {
         if (! categoryRepository.existsByName(category.getName())) {
             categoryRepository.save(category);
@@ -25,7 +25,7 @@ public class CategoryService {
         }
     }
 
-    @Cacheable("categories")
+    @Cacheable(value = "categories")
     public List<Category> getAllCategories() {
         return categoryRepository.findAll();
     }

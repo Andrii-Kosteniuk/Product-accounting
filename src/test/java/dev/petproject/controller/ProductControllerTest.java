@@ -23,7 +23,6 @@ import org.springframework.validation.BindingResult;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
@@ -76,15 +75,15 @@ class ProductControllerTest {
         Category sport = new Category(3, "Sport", new ArrayList<>());
 
         products = List.of(
-                new Product(1, "Java in practice", "Learn java in practice", books, 10.0),
-                new Product(2, "Mazda", "Exclusive car", vehicle, 100000.0),
-                new Product(3, "Ball", "For playing games", sport, 15.0));
+                new Product(1, "Java in practice", 10.0, 2, "Learn java in practice", books),
+                new Product(2, "Mazda", 100000.0, 3, "Exclusive car", vehicle),
+                new Product(3, "Ball", 15.0, 1, "For playing games", sport));
     }
 
     @Test
     @WithMockUser(username = "user", password = "Password5", roles = "ADMIN")
     void shouldRepresentMainPage() throws Exception {
-        mockMvc.perform(get("/"))
+        mockMvc.perform(get("/home"))
                 .andExpectAll(
                         status().isOk(),
                         view().name("index")
@@ -139,14 +138,15 @@ class ProductControllerTest {
     @Test
     @WithMockUser(username = "user", password = "Password5", roles = "ADMIN")
     void shouldChangeDataInProductAndSaveThem() throws Exception {
-        Product editProduct = productService.findProductById(1);
+        Product editProduct = productService.findProductById(anyInt());
         when(productService.findProductById(anyInt())).thenReturn(editProduct);
         when(categoryService.getAllCategories()).thenReturn(new ArrayList<>());
+        when(productService.findProductById(anyInt())).thenReturn(any(Product.class));
 
         mockMvc.perform(get("/products/edit/{id}", 1))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("categories"))
-                .andExpect(model().attributeExists("product"))
+                .andExpect(model().attributeExists("category"))
                 .andExpect(view().name("edit"));
 
     }
