@@ -45,7 +45,7 @@
                     </div>
                 </div>
 
-                <form method="post" th:action="@{/register}" th:object="${user}">
+                <form method="post" th:action="@{/auth/register}" th:object="${userDTO}">
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label">Name</label>
                         <div class="col-sm-10">

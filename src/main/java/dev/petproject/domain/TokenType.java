@@ -1,5 +1,5 @@
-package dev.petproject.domain;
-
-public enum TokenType {
-            BEARER
-}
+//package dev.petproject.domain;
+//
+//public enum TokenType {
+//            BEARER
+//}

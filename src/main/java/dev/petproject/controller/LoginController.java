@@ -13,11 +13,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
 @RequiredArgsConstructor
 @Slf4j
+@RequestMapping("/auth")
 public class LoginController {
     private final AuthenticationService service;
 
@@ -26,19 +28,19 @@ public class LoginController {
         log.info("Accessed the login page");
         model.addAttribute("success", true);
         model.addAttribute("tokenExpiredException", true);
-        return "loginPage";
+        return "login";
     }
 
     @GetMapping("/register")
-    public String showRegisterPage(User user, Model model) {
+    public String showRegisterPage(@ModelAttribute("userDTO") UserDTO userDTO, Model model) {
         log.info("Accessed the registration page");
-        model.addAttribute("user", user);
+        model.addAttribute("userDTO", userDTO);
         return "register";
     }
 
     @PostMapping("/register")
-    public String register(@Valid @ModelAttribute("user") UserDTO userDto, BindingResult result, Role role, Model model) {
-        log.info("Attempting to register a new user with email: {}", userDto.getEmail());
+    public String register(@Valid @ModelAttribute("userDTO") UserDTO userDTO, BindingResult result, Role role) {
+        log.info("Attempting to register a new user with email: {}", userDTO.getEmail());
 
         if (result.hasErrors()) {
             result.getFieldErrors().forEach(error -> {
@@ -48,17 +50,17 @@ public class LoginController {
             return "register";
         }
 
-            service.register(userDto, role);
-            log.info("User successfully registered with email: {}", userDto.getEmail());
-            return "redirect:/login";
+            service.register(userDTO, role);
+            log.info("User successfully registered with email: {}", userDTO.getEmail());
+            return "redirect:/login?success=true";
 
     }
 
-    @PostMapping("/login")
-    public String authenticate(@ModelAttribute UserDTO userDto) {
-        log.info("Attempting to authenticate user with email: {}", userDto.getEmail());
-        service.authenticate(userDto);
-        log.info("User successfully authenticated with email: {}", userDto.getEmail());
-        return "index";
-    }
+//    @PostMapping("/login")
+//    public String authenticate(@ModelAttribute("userDto") UserDTO userDto) {
+//        log.info("Attempting to authenticate user with email: {}", userDto.getEmail());
+//        service.authenticate(userDto);
+//        log.info("User successfully authenticated with email: {}", userDto.getEmail());
+//        return "redirect:/login?success=true";
+//    }
 }
