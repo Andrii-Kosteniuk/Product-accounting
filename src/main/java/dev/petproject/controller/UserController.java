@@ -30,13 +30,15 @@ public class UserController {
     public String deleteUser(@PathVariable(value = "id") Integer id, Model model) {
         log.info("Attempting to delete user with ID: {}", id);
         model.addAttribute("users", userService.findAllRegisteredUsers());
+        String userEmail = userService.findUserById(id).getEmail();
         try {
             userService.deleteUser(id);
             log.info("User with ID: {} deleted successfully", id);
-            return "redirect:/users?success";
+            model.addAttribute("userDeletedSuccessfully", "The user with email " + userEmail + " has been deleted successfully");
+            return "users";
         } catch (UserCanNotBeDeletedException ex) {
             log.warn("Failed to delete user with ID: {}. Reason: {}", id, ex.getMessage());
-            model.addAttribute("userCanNotBeDeleteException", ex);
+            model.addAttribute("userCanNotBeDeleteException", "You can not delete user with email " + userEmail);
             return "users";
         }
     }

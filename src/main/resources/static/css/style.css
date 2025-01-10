@@ -1,7 +1,3 @@
-:root {
-    --bd-violet-bg: #6f42c1;
-    --bs-white: #ffffff;
-}
 
 .navbar-custom {
     background-color: #2D3748;
@@ -18,38 +14,15 @@
     color: #bbbbbb;
 }
 
-.search-text {
-    color: #0f5132;
-}
 
 h1, h2, h5, span, td, th, .nav-link {
     font-family: 'Calisto MT', serif;
 }
 
-.modal-body {
-    justify-content: center;
-}
 
-.add-product {
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    gap: 10px;
-    font-family: 'Calisto MT', serif;
-    font-size: 25px
-}
 
-.add-product-button {
-    background-color: DodgerBlue;
-    margin-top: auto;
-    margin-bottom: 1rem;
-    border-radius: 3px;
-    color: var(--bs-white);
-}
 
-.my-custom-tooltip {
-    background-color: var(--bd-violet-bg);
-    color: var(--bs-white);
-}
+
+
 
 

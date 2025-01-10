@@ -29,7 +29,7 @@
     <br>
     <div class="add-product">
         <span>All products</span>
-        <a class="btn btn-sm btn-outline-info" th:href="@{/products/add}">
+        <a class="btn btn-sm btn-success" th:href="@{/products/add}">
            <span>
                <i class="fa-regular fa-square-plus"></i>
             <span>Add new product</span>
@@ -43,54 +43,38 @@
     </div>
 
     <!--    Table-->
-    <table class="table table-striped">
-        <tr>
+    <table class="table table-responsive table-striped table-bordered text-center">
+        <tr class="table-primary">
             <th>No</th>
             <th>
-                <a class="link-offset-2 link-underline link-underline-opacity-0" th:href="@{/page/1(sort-field='name', sort-dir=${reverseSortDir})}"
+                <a class="link-offset-2 link-underline link-underline-opacity-0" th:href="@{/products/page/1(sort-field='name', sort-dir=${reverseSortDir})}"
                    data-bs-toggle="tooltip" data-bs-title="Sort in ASC or DESC order">
                     <i class="fa-solid fa-arrow-down-a-z"></i>
                 </a>
                 Name
-                <a class="link-offset-2 link-underline link-underline-opacity-0" th:href="@{/page/1(sort-field='name', sort-dir=${reverseSortDir})}"
-                   data-bs-toggle="tooltip" data-bs-title="Sort in ASC or DESC order">
-                <i class="fa-solid fa-arrow-down-z-a"></i>
-                </a>
             </th>
-            <th><a class="link-offset-2 link-underline link-underline-opacity-0" th:href="@{/page/1(sort-field='price', sort-dir=${reverseSortDir})}"
+            <th><a class="link-offset-2 link-underline link-underline-opacity-0" th:href="@{/products/page/1(sort-field='price', sort-dir=${reverseSortDir})}"
                    data-bs-toggle="tooltip" data-bs-title="Sort Asc or Desc order">
                 <i class="fa-solid fa-arrow-down-a-z"></i>
             </a>
                 Price
-                <a class="link-offset-2 link-underline link-underline-opacity-0" th:href="@{/page/1(sort-field='price', sort-dir=${reverseSortDir})}"
-                   data-bs-toggle="tooltip" data-bs-title="Sort Asc or Desc order">
-                    <i class="fa-solid fa-arrow-down-z-a"></i>
-                </a>
             </th>
             <th>
-                <a class="link-offset-2 link-underline link-underline-opacity-0" th:href="@{/page/1(sort-field='quantity', sort-dir=${reverseSortDir})}"
+                <a class="link-offset-2 link-underline link-underline-opacity-0" th:href="@{/products/page/1(sort-field='quantity', sort-dir=${reverseSortDir})}"
                    data-bs-toggle="tooltip" data-bs-title="Sort Asc or Desc order">
                     <i class="fa-solid fa-arrow-down-a-z"></i>
                 </a>
                 Quantity
-                <a class="link-offset-2 link-underline link-underline-opacity-0" th:href="@{/page/1(sort-field='quantity', sort-dir=${reverseSortDir})}"
-                   data-bs-toggle="tooltip" data-bs-title="Sort Asc or Desc order">
-                    <i class="fa-solid fa-arrow-down-z-a"></i>
-                </a>
             </th>
             <th>Description</th>
-            <th><a class="link-offset-2 link-underline link-underline-opacity-0" th:href="@{/page/1(sort-field='category.name', sort-dir=${reverseSortDir})}"
+            <th><a class="link-offset-2 link-underline link-underline-opacity-0" th:href="@{/products/page/1(sort-field='category.name', sort-dir=${reverseSortDir})}"
                    data-bs-toggle="tooltip" data-bs-title="Sort Asc or Desc order">
                 <i class="fa-solid fa-arrow-down-a-z"></i>
             </a>
                 Category
-                <a class="link-offset-2 link-underline link-underline-opacity-0" th:href="@{/page/1(sort-field='category.name', sort-dir=${reverseSortDir})}"
-                   data-bs-toggle="tooltip" data-bs-title="Sort Asc or Desc order">
-                    <i class="fa-solid fa-arrow-down-z-a"></i>
-                </a>
             </th>
-            <th>Edit</th>
-            <th>Delete</th>
+            <th class="text-center" colspan="2">Actions</th>
+
         </tr>
         <tr th:each="product, iStat : ${products}">
             <td th:text="${iStat.index + 1}"></td>
@@ -101,7 +85,7 @@
 
             <td>
                 <ul th:each="category : ${product.category}"
-                    th:text="${category.name} + ' '">Category
+                    th:text="${category.name}">Category
                 </ul>
             </td>
             <td th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
@@ -132,20 +116,20 @@
 
                     <li class="page-item">
                         <a class="page-link active" th:if="${currentPage - 1 != 0}"
-                           th:href="@{'/page/' + ${currentPage - 1} + '?sort-field=' + ${sortField} + '&sort-dir=' + ${sortDir}}">Previous</a>
+                           th:href="@{'/products/page/' + ${currentPage - 1} + '?sort-field=' + ${sortField} + '&sort-dir=' + ${sortDir}}">Previous</a>
                     </li>
                     <li class="page-item " th:each="i : ${#numbers.sequence(1, totalPages -1 )}">
                         <a class="page-link " th:if="${currentPage != i}"
-                           th:href="@{'/page/' + ${i} + '?sort-field=' + ${sortField} + '&sort-dir=' + ${sortDir}}"
+                           th:href="@{'/products/page/' + ${i} + '?sort-field=' + ${sortField} + '&sort-dir=' + ${sortDir}}"
                            th:text="${i}">1</a>
                     </li>
                     <li class="page-item ">
                         <a class="page-link " th:if="${currentPage < totalPages}"
-                           th:href="@{'/page/' + ${currentPage + 1} + '?sort-field=' + ${sortField} + '&sort-dir=' + ${sortDir}}">Next</a>
+                           th:href="@{'/products/page/' + ${currentPage + 1} + '?sort-field=' + ${sortField} + '&sort-dir=' + ${sortDir}}">Next</a>
                     </li>
                     <li class="page-item ">
                         <a class="page-link " th:if="${currentPage < totalPages}"
-                           th:href="@{'/page/' + ${totalPages}+ '?sort-field=' + ${sortField} + '&sort-dir=' + ${sortDir}}">Last</a>
+                           th:href="@{'/products/page/' + ${totalPages}+ '?sort-field=' + ${sortField} + '&sort-dir=' + ${sortDir}}">Last</a>
                     </li>
                 </ul>
             </nav>

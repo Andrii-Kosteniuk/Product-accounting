@@ -21,6 +21,9 @@
             <div th:if="${param.success}">
                 <div class="alert alert-info">The new category was added</div>
             </div>
+            <div th:if="${fieldErrorMessage}">
+                <div class="alert alert-warning" th:text="${fieldErrorMessage}"></div>
+            </div>
             <div th:if="${param.error}">
                 <div class="alert alert-danger">
                     <strong th:text="${param.message}"></strong>
@@ -127,6 +130,8 @@
                                             <div class="col-sm-6">
                                                 <input th:field="*{id}" type="hidden"/>
                                                 <input th:field="*{name}" type="text" aria-label="name" class="form-control" placeholder="Provide name for a new category"/>
+                                                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+                                                      class="errorMessage"></span>
                                             </div>
                                         </div>
                                         <br>

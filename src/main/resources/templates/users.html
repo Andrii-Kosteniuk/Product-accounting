@@ -18,21 +18,22 @@
     <div class="container">
         <div class="col col-sm-10 offset-1">
             <h2>All users</h2>
-            <div th:if="${param.success}">
-                <div class="alert alert-info">
-                    User have been successfully deleted!
-                </div>
+
+            <div th:if="${userDeletedSuccessfully}">
+                <div class="alert alert-info" th:text="${userDeletedSuccessfully}"></div>
             </div>
+
             <div th:if="${userCanNotBeDeleteException}">
-                <div class="alert alert-danger">Sorry! But you can not delete this user</div>
+                <div class="alert alert-danger" th:text="${userCanNotBeDeleteException}"></div>
             </div>
-            <table class="table table-responsive">
-                <tr>
+
+            <table class="table table-responsive table-striped table-bordered text-center">
+                <tr class="table-primary">
                     <th>Name</th>
                     <th>Last name</th>
                     <th>Email</th>
                     <th>Role</th>
-                    <th>Delete</th>
+                    <th>Action</th>
                 </tr>
                 <tr th:each="user : ${users}">
                     <td th:text="${user.firstName}"></td>
