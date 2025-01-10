@@ -2,7 +2,6 @@ package dev.petproject.controller;
 
 import dev.petproject.auth.AuthenticationService;
 import dev.petproject.domain.Role;
-import dev.petproject.domain.User;
 import dev.petproject.dto.UserDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -56,11 +55,4 @@ public class LoginController {
 
     }
 
-//    @PostMapping("/login")
-//    public String authenticate(@ModelAttribute("userDto") UserDTO userDto) {
-//        log.info("Attempting to authenticate user with email: {}", userDto.getEmail());
-//        service.authenticate(userDto);
-//        log.info("User successfully authenticated with email: {}", userDto.getEmail());
-//        return "redirect:/login?success=true";
-//    }
 }
