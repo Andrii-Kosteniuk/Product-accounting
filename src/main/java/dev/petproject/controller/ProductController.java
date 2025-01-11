@@ -38,6 +38,7 @@ public class ProductController {
         findPaginated(1, "name", "asc", model);
 
         model.addAttribute(CATEGORIES, categoryService.getAllCategories());
+        model.addAttribute("successCreateProduct", "New product has been created successfully!");
         return PRODUCTS;
     }
 
@@ -64,7 +65,8 @@ public class ProductController {
 
         productService.saveProduct(product);
         log.info("Product saved successfully: {}", product);
-        return REDIRECT_PRODUCTS_ALL;
+
+        return REDIRECT_PRODUCTS_ALL + "?success=true";
     }
 
     @GetMapping("/edit/{id}")
@@ -112,6 +114,7 @@ public class ProductController {
         List<Product> products = page.getContent();
 
         model.addAttribute("currentPage", pageNo);
+        model.addAttribute("pageSize", pageSize);
         model.addAttribute("totalPages", page.getTotalPages());
         model.addAttribute("totalItems", page.getTotalElements());
         model.addAttribute(PRODUCTS, products);

@@ -18,11 +18,16 @@
 <div class="container">
     <div style="margin: auto">
         <th:block th:insert="~{/layout/searchPanel}"></th:block>
-    </div>
+    </div><br>
 
-    <div th:if="${ #lists.isEmpty(products)}"><br>
+    <div th:if="${ #lists.isEmpty(products)}">
         <div class="alert alert-primary text-center" role="alert">
             <span>There are no products yet.</span>
+        </div>
+    </div>
+    <div th:if="${param.success}">
+        <div class="alert alert-success text-center">
+            <span th:text="${successCreateProduct}"></span>
         </div>
     </div>
 
@@ -35,7 +40,7 @@
             <span>Add new product</span>
         </span>
         </a>
-    </div>
+    </div><br>
     <div th:if="${param.error}">
         <div class="alert alert-danger">
             <strong th:text="${param.message}"></strong>
@@ -77,7 +82,7 @@
 
         </tr>
         <tr th:each="product, iStat : ${products}">
-            <td th:text="${iStat.index + 1}"></td>
+            <td th:text="${((currentPage - 1) * pageSize) + iStat.index + 1}"></td>
             <td th:text="${product.name}">Name</td>
             <td th:text="${product.price}">Price</td>
             <td th:text="${product.quantity}">Quantity</td>
@@ -108,8 +113,8 @@
         <div class="container">
             <nav aria-label="page-navigation">
                 <div class="col-sm-10">
-                    <span><strong style="color:#0a58ca">The total number of products:</strong>
-                    </span> <span style="color:#bb2d3b" th:text="${totalItems}"></span>
+                    <span><strong style="color:#0a58ca">The total number of products:</strong></span>
+                    <span style="color:#bb2d3b" th:text="${totalItems}"></span>
                 </div>
 
                 <ul class="pagination justify-content-center">
