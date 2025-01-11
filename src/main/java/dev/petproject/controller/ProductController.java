@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +31,8 @@ public class ProductController {
     public static final String CATEGORIES = "categories";
     private final ProductService productService;
     private final CategoryService categoryService;
+    @Value("${spring.app.pageSize}")
+    int pageSize;
 
 
     @GetMapping("/all")
@@ -109,7 +112,6 @@ public class ProductController {
                                 @RequestParam("sort-dir") String sortDir,
                                 Model model) {
 
-        int pageSize = 3;
         Page<Product> page = productService.findPaginated(pageNo, pageSize, sortField, sortDir);
         List<Product> products = page.getContent();
 
