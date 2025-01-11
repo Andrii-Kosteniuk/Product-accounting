@@ -20,7 +20,6 @@ public class Product {
 
     @Column(nullable = false)
     @NotEmpty(message = "Product name can not be empty")
-    @Pattern(regexp = "^[A-Z][a-z]*$", message = "Name must start with a capital letter followed by one or more lowercase letters")
     private String name;
 
     @PositiveOrZero(message = "Price can not be negative number")
@@ -31,9 +30,6 @@ public class Product {
     @PositiveOrZero(message = "Quantity can not be a negative")
     private int quantity;
 
-
-    @Size(min = 5, max = 50, message = "Description must be between 5 and 50 characters")
-    @Pattern(regexp = "^[A-Z][a-z]*$", message = "Description text must start with a capital letter followed by one or more lowercase letters")
     private String description;
 
     @ManyToOne()
