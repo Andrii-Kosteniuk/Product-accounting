@@ -7,7 +7,6 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
 
 
@@ -36,10 +35,11 @@ public class SecurityFilterChainConfig {
                                 response.sendRedirect("/home")))
 
                 .logout(logout -> logout
+                        .logoutSuccessUrl("/auth/login")
+                        .logoutSuccessUrl("/auth/login?logout=true")
                         .invalidateHttpSession(true)
-                        .logoutSuccessHandler((request, response, authentication) ->
-                                SecurityContextHolder.clearContext()
-                        ));
+                        .clearAuthentication(true)
+                        .deleteCookies("JSESSIONID"));
 
         return http.build();
 

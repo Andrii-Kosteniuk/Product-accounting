@@ -2,6 +2,7 @@ package dev.petproject.service;
 
 
 import dev.petproject.domain.Product;
+import dev.petproject.exception.EmptySymbolException;
 import dev.petproject.exception.ProductNotFoundException;
 import dev.petproject.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +29,7 @@ public class ProductService {
         if (!keyword.isEmpty()) {
             return productRepository.findProductByKeyword(keyword);
         } else
-            throw new IllegalArgumentException("Keyword is null");
+            throw new EmptySymbolException("Keyword is empty");
     }
 
     @CacheEvict(value = "products", allEntries = true)

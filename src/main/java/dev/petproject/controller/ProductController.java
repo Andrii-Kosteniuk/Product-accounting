@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +31,8 @@ public class ProductController {
     public static final String CATEGORIES = "categories";
     private final ProductService productService;
     private final CategoryService categoryService;
+    @Value("${spring.app.pageSize}")
+    int pageSize;
 
 
     @GetMapping("/all")
@@ -38,6 +41,9 @@ public class ProductController {
         findPaginated(1, "name", "asc", model);
 
         model.addAttribute(CATEGORIES, categoryService.getAllCategories());
+        model.addAttribute("successCreateProduct", "New product has been created successfully!");
+        model.addAttribute("errorSearch");
+
         return PRODUCTS;
     }
 
@@ -57,6 +63,7 @@ public class ProductController {
         model.addAttribute("product", product);
         model.addAttribute("category", new Category());
 
+
         if (result.hasErrors()) {
             log.warn("Validation errors occurred while saving product: {}", result.getAllErrors());
             return EDIT_PRODUCT;
@@ -64,7 +71,8 @@ public class ProductController {
 
         productService.saveProduct(product);
         log.info("Product saved successfully: {}", product);
-        return REDIRECT_PRODUCTS_ALL;
+
+        return REDIRECT_PRODUCTS_ALL + "?success=true";
     }
 
     @GetMapping("/edit/{id}")
@@ -86,15 +94,22 @@ public class ProductController {
     @GetMapping("/delete/{id}")
     public String deleteProduct(@PathVariable(value = "id") Integer id) {
         log.info("Deleting product with ID: {}", id);
+
         productService.deleteProductById(id);
         log.info("Product deleted successfully with ID: {}", id);
+
         return REDIRECT_PRODUCTS_ALL;
     }
 
     @GetMapping("/find")
     public String findProductsByKeyword(Model model, String keyword) {
         log.info("Searching for products with keyword: {}", keyword);
-        List<Product> products = productService.searchProductsByKeyword(keyword);
+        List<Product> products;
+        try {
+            products = productService.searchProductsByKeyword(keyword);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Invalid data");
+        }
         model.addAttribute(PRODUCTS, products);
 
         return "search";
@@ -107,11 +122,11 @@ public class ProductController {
                                 @RequestParam("sort-dir") String sortDir,
                                 Model model) {
 
-        int pageSize = 3;
         Page<Product> page = productService.findPaginated(pageNo, pageSize, sortField, sortDir);
         List<Product> products = page.getContent();
 
         model.addAttribute("currentPage", pageNo);
+        model.addAttribute("pageSize", pageSize);
         model.addAttribute("totalPages", page.getTotalPages());
         model.addAttribute("totalItems", page.getTotalElements());
         model.addAttribute(PRODUCTS, products);
