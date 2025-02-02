@@ -1,7 +1,6 @@
 package dev.petproject.controller;
 
 import dev.petproject.domain.Category;
-import dev.petproject.domain.Product;
 import dev.petproject.service.CategoryService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;

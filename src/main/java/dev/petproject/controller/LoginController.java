@@ -42,17 +42,16 @@ public class LoginController {
         log.info("Attempting to register a new user with email: {}", userDTO.getEmail());
 
         if (result.hasErrors()) {
-            result.getFieldErrors().forEach(error -> {
-                log.error("Field error in field '{}': {}", error.getField(), error.getDefaultMessage());
-            });
+            result.getFieldErrors().forEach(error ->
+                    log.error("Field error in field '{}': {}", error.getField(), error.getDefaultMessage()));
 
             return "register";
         }
 
-            service.register(userDTO, role);
-            log.info("User successfully registered with email: {}", userDTO.getEmail());
-            return "redirect:/login?success=true";
+        service.register(userDTO, role);
+        log.info("User successfully registered with email: {}", userDTO.getEmail());
+        return "redirect:/auth/login?success=true";
 
     }
 
-}
+ }
