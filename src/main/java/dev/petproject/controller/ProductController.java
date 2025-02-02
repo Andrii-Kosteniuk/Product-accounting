@@ -42,6 +42,7 @@ public class ProductController {
 
         model.addAttribute(CATEGORIES, categoryService.getAllCategories());
         model.addAttribute("successCreateProduct", "New product has been created successfully!");
+
         return PRODUCTS;
     }
 
@@ -60,6 +61,7 @@ public class ProductController {
         model.addAttribute(CATEGORIES, categoryService.getAllCategories());
         model.addAttribute("product", product);
         model.addAttribute("category", new Category());
+
 
         if (result.hasErrors()) {
             log.warn("Validation errors occurred while saving product: {}", result.getAllErrors());
@@ -91,15 +93,22 @@ public class ProductController {
     @GetMapping("/delete/{id}")
     public String deleteProduct(@PathVariable(value = "id") Integer id) {
         log.info("Deleting product with ID: {}", id);
+
         productService.deleteProductById(id);
         log.info("Product deleted successfully with ID: {}", id);
+
         return REDIRECT_PRODUCTS_ALL;
     }
 
     @GetMapping("/find")
     public String findProductsByKeyword(Model model, String keyword) {
         log.info("Searching for products with keyword: {}", keyword);
-        List<Product> products = productService.searchProductsByKeyword(keyword);
+        List<Product> products;
+        try {
+            products = productService.searchProductsByKeyword(keyword);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Invalid data");
+        }
         model.addAttribute(PRODUCTS, products);
 
         return "search";
