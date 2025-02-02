@@ -48,14 +48,14 @@
                             aria-expanded="false">
                         <span th:text="'User ' + ${#authentication.principal.firstName}">User</span>
                     </button>
-                    <ul class="dropdown-menu dropdown-menu-dark" th:id="userDropdown" aria-labelledby="userDropdown">
+                    <ul class="dropdown-menu dropdown-menu-dark text-center" th:id="userDropdown" aria-labelledby="userDropdown">
                         <li>
                             <h6 class="dropdown-header">
                                 Logged in as: <span th:text="${#authentication.principal.firstName}">User</span>
                             </h6>
                         </li>
                         <li>
-                            <a tabindex="0" class="btn btn-md btn-info"
+                            <a tabindex="0" class="dropdown-item"
                                data-bs-toggle="popover"
                                data-bs-trigger="focus"
                                data-bs-html="true"
@@ -82,6 +82,9 @@
 <script>
     const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
     const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+    const popover = new bootstrap.Popover('.popover-dismiss', {
+        trigger: 'focus'
+    })
 </script>
 </body>
 </html>
