@@ -10,6 +10,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,5 +45,9 @@ public class UserService {
         } else {
             throw new UserCanNotBeDeletedException("You can not delete user with email " + registeredUserEmail);
         }
+    }
+
+    public User loadUserByUsername(String username) {
+        return userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException(username));
     }
 }
