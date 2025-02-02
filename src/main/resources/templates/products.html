@@ -15,9 +15,16 @@
 </head>
 <body>
 <div class="container">
+    <div th:if="${errorSearch}">
+        <div class="alert alert-danger text-center" style="max-width: 400px; margin: 0 auto">
+            <span th:text="${errorSearch}"></span>
+        </div>
+    </div><br>
+
     <div style="margin: auto">
         <th:block th:insert="~{/layout/searchPanel}"></th:block>
     </div><br>
+
 
     <div th:if="${ #lists.isEmpty(products)}">
         <div class="alert alert-primary text-center" role="alert">
