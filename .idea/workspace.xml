@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e28162a-4e31-4548-8850-4502cbcaba79" name="Changes" comment="&quot;&quot;">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="4e28162a-4e31-4548-8850-4502cbcaba79" name="Changes" comment="Refactoring code" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -72,6 +70,7 @@
     "Maven.petProject [verify].executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Spring Boot.SpringmvcApplication.executor": "Run",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "git-widget-placeholder": "main",
@@ -106,7 +105,7 @@
       <recent name="dev.petproject.controller" />
     </key>
   </component>
-  <component name="RunManager" selected="Maven.petProject [clean]">
+  <component name="RunManager" selected="Spring Boot.SpringmvcApplication">
     <configuration name="SpringmvcApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <envs>
         <env name="M2_HOME" value="C:\Program Files\apache-maven-3.9.8" />
@@ -204,7 +203,7 @@
         <item itemvalue="JUnit.ProductControllerTest.givenKeyword_WhenSearchProduct_ThenReturnListOfProducts" />
         <item itemvalue="JUnit.ProductControllerTest" />
         <item itemvalue="Application.SpringmvcApplication" />
-        <item itemvalue="Application.SpringmvcApplication" />
+        <item itemvalue="Maven.petProject [clean]" />
       </list>
     </recent_temporary>
   </component>
@@ -267,7 +266,8 @@
     <MESSAGE value="There were added category, exception handler, also improved UI, and capability to create an exel file of products" />
     <MESSAGE value="It was improved products categorization, UI, and was added ability to create exel file of products, and also I created some test" />
     <MESSAGE value="&quot;&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="&quot;&quot;" />
+    <MESSAGE value="Refactoring code" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactoring code" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

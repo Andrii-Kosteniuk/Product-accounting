@@ -3,3 +3,6 @@
 *.css linguist-vendored
 *.html linguist-vendored
 *.node_modules linguist-vendored
+static/** linguist-vendored
+public/** linguist-vendored
+node_modules/** linguist-vendored
