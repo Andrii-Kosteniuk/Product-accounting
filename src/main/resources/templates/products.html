@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://kit.fontawesome.com/7a8065c196.js" crossorigin="anonymous"></script>
 
     <th:block th:insert="~{/layout/header}"></th:block>
 
@@ -41,15 +40,10 @@
         </span>
         </a>
     </div><br>
-    <div th:if="${param.error}">
-        <div class="alert alert-danger">
-            <strong th:text="${param.message}"></strong>
-        </div>
-    </div>
 
     <!--    Table-->
     <table class="table table-responsive table-striped table-bordered text-center">
-        <tr class="table-primary">
+        <tr class="table-info">
             <th>No</th>
             <th>
                 <a class="link-offset-2 link-underline link-underline-opacity-0" th:href="@{/products/page/1(sort-field='name', sort-dir=${reverseSortDir})}"
