@@ -1,11 +1,13 @@
 package dev.petproject.exception.advice;
 
+import dev.petproject.dto.ChangePasswordDTO;
+import dev.petproject.exception.PasswordException;
 import dev.petproject.exception.UserCanNotBeDeletedException;
-import io.jsonwebtoken.ExpiredJwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.ModelAndView;
 
 @ControllerAdvice
 @Slf4j
@@ -17,13 +19,13 @@ public class UserControllerAdvice {
         return "redirect:/users?error=true&message=" + ex.getMessage();
     }
 
+    @ExceptionHandler(PasswordException.class)
+    public ModelAndView handlePasswordException(PasswordException ex, Model model) {
+        log.error("Password is incorrect");
+        model.addAttribute("changePasswordDTO", new ChangePasswordDTO());
 
-    @ExceptionHandler(ExpiredJwtException.class)
-    public String handleExpiredJwtException(ExpiredJwtException ex, Model model) {
-        log.error("Exception {} related to token expiration time", ex.getMessage());
-        model.addAttribute("tokenExpiredException", true);
-        model.addAttribute("message", "You need to authenticate first");
-
-        return "redirect:/login";
+        return new ModelAndView("change-password", "errorChangePassword", ex.getMessage());
     }
+
+
 }
