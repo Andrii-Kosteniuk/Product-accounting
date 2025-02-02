@@ -42,6 +42,7 @@ public class ProductController {
 
         model.addAttribute(CATEGORIES, categoryService.getAllCategories());
         model.addAttribute("successCreateProduct", "New product has been created successfully!");
+        model.addAttribute("errorSearch");
 
         return PRODUCTS;
     }
