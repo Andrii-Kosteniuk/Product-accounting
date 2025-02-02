@@ -1,9 +1,9 @@
-.scss linguist-vendored
-.less linguist-vendored
-.css linguist-vendored
-.html linguist-vendored
-.node_modules linguist-vendored
+*.scss linguist-vendored
+*.less linguist-vendored
+*.css linguist-vendored
+*.html linguist-vendored
+*.node_modules linguist-vendored
 # Ignore FontAwesome and other JS dependencies
-static/** linguist-vendored
-public/** linguist-vendored
-node_modules/** linguist-vendored
+*static/** linguist-vendored
+*public/** linguist-vendored
+*node_modules/** linguist-vendored
