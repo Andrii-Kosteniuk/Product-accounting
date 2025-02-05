@@ -19,11 +19,13 @@
         <div class="alert alert-danger text-center" style="max-width: 400px; margin: 0 auto">
             <span th:text="${errorSearch}"></span>
         </div>
-    </div><br>
+    </div>
+    <br>
 
     <div style="margin: auto">
         <th:block th:insert="~{/layout/searchPanel}"></th:block>
-    </div><br>
+    </div>
+    <br>
 
 
     <div th:if="${ #lists.isEmpty(products)}">
@@ -46,34 +48,39 @@
             <span>Add new product</span>
         </span>
         </a>
-    </div><br>
+    </div>
+    <br>
 
     <!--    Table-->
     <table class="table table-responsive table-striped table-bordered text-center">
         <tr class="table-info">
             <th>No</th>
             <th>
-                <a class="link-offset-2 link-underline link-underline-opacity-0" th:href="@{/products/page/1(sort-field='name', sort-dir=${reverseSortDir})}"
+                <a class="link-offset-2 link-underline link-underline-opacity-0"
+                   th:href="@{/products/page/1(sort-field='name', sort-dir=${reverseSortDir})}"
                    data-bs-toggle="tooltip" data-bs-title="Sort in ASC or DESC order">
                     <i class="fa-solid fa-arrow-down-a-z"></i>
                 </a>
                 Name
             </th>
-            <th><a class="link-offset-2 link-underline link-underline-opacity-0" th:href="@{/products/page/1(sort-field='price', sort-dir=${reverseSortDir})}"
+            <th><a class="link-offset-2 link-underline link-underline-opacity-0"
+                   th:href="@{/products/page/1(sort-field='price', sort-dir=${reverseSortDir})}"
                    data-bs-toggle="tooltip" data-bs-title="Sort Asc or Desc order">
                 <i class="fa-solid fa-arrow-down-a-z"></i>
             </a>
                 Price
             </th>
             <th>
-                <a class="link-offset-2 link-underline link-underline-opacity-0" th:href="@{/products/page/1(sort-field='quantity', sort-dir=${reverseSortDir})}"
+                <a class="link-offset-2 link-underline link-underline-opacity-0"
+                   th:href="@{/products/page/1(sort-field='quantity', sort-dir=${reverseSortDir})}"
                    data-bs-toggle="tooltip" data-bs-title="Sort Asc or Desc order">
                     <i class="fa-solid fa-arrow-down-a-z"></i>
                 </a>
                 Quantity
             </th>
             <th>Description</th>
-            <th><a class="link-offset-2 link-underline link-underline-opacity-0" th:href="@{/products/page/1(sort-field='category.name', sort-dir=${reverseSortDir})}"
+            <th><a class="link-offset-2 link-underline link-underline-opacity-0"
+                   th:href="@{/products/page/1(sort-field='category.name', sort-dir=${reverseSortDir})}"
                    data-bs-toggle="tooltip" data-bs-title="Sort Asc or Desc order">
                 <i class="fa-solid fa-arrow-down-a-z"></i>
             </a>
@@ -109,7 +116,7 @@
         </tr>
     </table>
 
-    <!--    Pagination-->
+    <!-- Pagination -->
     <div th:if="${totalPages > 1}">
         <div class="container">
             <nav aria-label="page-navigation">
@@ -118,35 +125,63 @@
                     <span style="color:#bb2d3b" th:text="${totalItems}"></span>
                 </div>
 
-                <ul class="pagination justify-content-center">
+                <ul class="pagination justify-content-center"
+                    th:with="startPage=${currentPage - 2 > 2 ? currentPage - 2 : 2},
+                         endPage=${currentPage + 2 < totalPages - 1 ? currentPage + 2 : totalPages - 1}">
 
+                    <!-- Previous Button -->
                     <li class="page-item">
-                        <a class="page-link active" th:if="${currentPage - 1 != 0}"
+                        <a class="page-link active" th:if="${currentPage > 1}"
                            th:href="@{'/products/page/' + ${currentPage - 1} + '?sort-field=' + ${sortField} + '&sort-dir=' + ${sortDir}}">Previous</a>
                     </li>
-                    <li class="page-item " th:each="i : ${#numbers.sequence(1, totalPages -1 )}">
-                        <a class="page-link " th:if="${currentPage != i}"
+
+                    <!-- First Page -->
+                    <li class="page-item">
+                        <a class="page-link"
+                           th:href="@{'/products/page/1?sort-field=' + ${sortField} + '&sort-dir=' + ${sortDir}}"
+                           th:text="1"></a>
+                    </li>
+
+                    <!-- Ellipsis Before Current Page -->
+                    <li class="page-item disabled" th:if="${startPage > 2}">
+                        <span class="page-link">...</span>
+                    </li>
+
+                    <!-- Display Pages Around Current Page -->
+                    <li class="page-item" th:each="i : ${#numbers.sequence(startPage, endPage)}">
+                        <a class="page-link" th:if="${i != currentPage}"
                            th:href="@{'/products/page/' + ${i} + '?sort-field=' + ${sortField} + '&sort-dir=' + ${sortDir}}"
-                           th:text="${i}">1</a>
+                           th:text="${i}"></a>
+                        <span class="page-link active" th:if="${i == currentPage}" th:text="${i}"></span>
                     </li>
-                    <li class="page-item ">
-                        <a class="page-link " th:if="${currentPage < totalPages}"
+
+                    <!-- Ellipsis After Current Page -->
+                    <li class="page-item disabled" th:if="${endPage < totalPages - 1}">
+                        <span class="page-link">...</span>
+                    </li>
+
+                    <!-- Last Page -->
+                    <li class="page-item">
+                        <a class="page-link"
+                           th:href="@{'/products/page/' + ${totalPages} + '?sort-field=' + ${sortField} + '&sort-dir=' + ${sortDir}}"
+                           th:text="${totalPages}"></a>
+                    </li>
+
+                    <!-- Next Button -->
+                    <li class="page-item">
+                        <a class="page-link active" th:if="${currentPage < totalPages}"
                            th:href="@{'/products/page/' + ${currentPage + 1} + '?sort-field=' + ${sortField} + '&sort-dir=' + ${sortDir}}">Next</a>
-                    </li>
-                    <li class="page-item ">
-                        <a class="page-link " th:if="${currentPage < totalPages}"
-                           th:href="@{'/products/page/' + ${totalPages}+ '?sort-field=' + ${sortField} + '&sort-dir=' + ${sortDir}}">Last</a>
                     </li>
                 </ul>
             </nav>
         </div>
     </div>
+    <script>
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+        const tooltipList = [...tooltipTriggerList].map(
+            tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl)
+        );
+    </script>
 </div>
-<script>
-    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-    const tooltipList = [...tooltipTriggerList].map(
-        tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl)
-    );
-</script>
 </body>
 </html>
