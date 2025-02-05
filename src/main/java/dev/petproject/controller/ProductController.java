@@ -29,7 +29,7 @@ public class ProductController {
 
     public static final String PRODUCTS = "products";
     public static final String EDIT_PRODUCT = "edit";
-    public static final String REDIRECT_PRODUCTS_ALL = "redirect:/products/all";
+    public static final String REDIRECT_PRODUCTS_ALL = "redirect:/products";
     public static final String CATEGORIES = "categories";
     private final ProductService productService;
     private final CategoryService categoryService;
