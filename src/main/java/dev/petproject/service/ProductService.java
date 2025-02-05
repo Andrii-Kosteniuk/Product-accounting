@@ -57,7 +57,7 @@ public class ProductService {
 
         Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortedField).ascending() : Sort.by(sortedField).descending();
         Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
-        return productRepository.findAll(pageable);
+        return productRepository.findAllProducts(pageable);
     }
 
 }
