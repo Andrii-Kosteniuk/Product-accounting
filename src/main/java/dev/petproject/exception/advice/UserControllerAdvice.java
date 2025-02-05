@@ -2,6 +2,7 @@ package dev.petproject.exception.advice;
 
 import dev.petproject.dto.ChangePasswordDTO;
 import dev.petproject.exception.PasswordException;
+import dev.petproject.exception.UserAlreadyExistsException;
 import dev.petproject.exception.UserCanNotBeDeletedException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ui.Model;
@@ -26,6 +27,14 @@ public class UserControllerAdvice {
 
         return new ModelAndView("change-password", "errorChangePassword", ex.getMessage());
     }
+
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    public String handleUserAlreadyExistsException(UserAlreadyExistsException ex) {
+        log.error("UserAlreadyExistsException occurred when trying to save new user");
+
+        return "redirect:/auth/register?error=true";
+    }
+
 
 
 }
