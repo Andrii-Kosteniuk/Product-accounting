@@ -4,7 +4,9 @@ import dev.petproject.domain.Category;
 import dev.petproject.domain.Product;
 import dev.petproject.service.CategoryService;
 import dev.petproject.service.ProductService;
+
 import jakarta.servlet.http.HttpSession;
+
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,10 +37,10 @@ public class ProductController {
     int pageSize;
 
 
-    @GetMapping("/all")
-    public String viewProductsWithPaginated(Model model) {
+    @GetMapping()
+    public String viewProductsWithPaginated(Model model, HttpSession session) {
         log.info("Viewing all products with pagination");
-        findPaginated(1, "name", "asc", model);
+        findPaginated(1, "name", "asc", model, session);
 
         model.addAttribute(CATEGORIES, categoryService.getAllCategories());
         model.addAttribute("successCreateProduct", "New product has been created successfully!");
@@ -92,13 +94,19 @@ public class ProductController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteProduct(@PathVariable(value = "id") Integer id) {
+    public String deleteProduct(@PathVariable(value = "id") Integer id, HttpSession session) {
         log.info("Deleting product with ID: {}", id);
 
         productService.deleteProductById(id);
+
+        int currentPage = (int) session.getAttribute("currentPage");
+        String sortField = (String) session.getAttribute("sortField");
+        String sortDir = (String) session.getAttribute("sortDir");
+
+
         log.info("Product deleted successfully with ID: {}", id);
 
-        return REDIRECT_PRODUCTS_ALL;
+        return "redirect:/products/page/" + currentPage + "?sort-field=" + sortField + "&sort-dir=" + sortDir;
     }
 
     @GetMapping("/find")
@@ -120,7 +128,7 @@ public class ProductController {
     public String findPaginated(@PathVariable("pageNo") int pageNo,
                                 @RequestParam("sort-field") String sortField,
                                 @RequestParam("sort-dir") String sortDir,
-                                Model model) {
+                                Model model, HttpSession session) {
 
         Page<Product> page = productService.findPaginated(pageNo, pageSize, sortField, sortDir);
         List<Product> products = page.getContent();
@@ -134,6 +142,10 @@ public class ProductController {
         model.addAttribute("sortDir", sortDir);
         model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
         model.addAttribute("product", new Product());
+
+        session.setAttribute("currentPage", pageNo);
+        session.setAttribute("sortField", sortField);
+        session.setAttribute("sortDir", sortDir);
 
         return PRODUCTS;
     }
