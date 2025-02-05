@@ -4,9 +4,9 @@ import dev.petproject.domain.Product;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.streaming.SXSSFSheet;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFFont;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -14,14 +14,13 @@ import java.util.List;
 
 @Service
 public class ExportToExcelService {
-    private final XSSFWorkbook workbook;
+    private final SXSSFWorkbook workbook;
     private final List<Product> products;
-    private XSSFSheet sheet;
+    private SXSSFSheet sheet;
 
     public ExportToExcelService(List<Product> products) {
         this.products = products;
-
-        workbook = new XSSFWorkbook();
+        workbook = new SXSSFWorkbook(100);
     }
 
     private static void setBorder(CellStyle style) {
@@ -37,7 +36,7 @@ public class ExportToExcelService {
         Row row = sheet.createRow(0);
 
         CellStyle style = workbook.createCellStyle();
-        XSSFFont font = workbook.createFont();
+        XSSFFont font = (XSSFFont) workbook.createFont();
         font.setItalic(true);
         font.setBold(true);
         font.setFontHeight(14);
@@ -68,14 +67,16 @@ public class ExportToExcelService {
             cell.setCellValue((String) data);
 
         }
-        sheet.autoSizeColumn(columnCount);
+
+        int length = data.toString().length();
+        sheet.setColumnWidth(columnCount, (length + 2) * 256 );
     }
 
     private void writeDataLines() {
         int rowCount = 1;
 
         CellStyle style = workbook.createCellStyle();
-        XSSFFont font = workbook.createFont();
+        XSSFFont font = (XSSFFont) workbook.createFont();
         font.setFontHeight(12);
         style.setFont(font);
 
@@ -90,7 +91,6 @@ public class ExportToExcelService {
             createCell(row, columnCount++, product.getDescription(), style);
             createCell(row, columnCount, product.getCategory().getName(), style);
 
-
         }
     }
 
@@ -98,11 +98,8 @@ public class ExportToExcelService {
         writeHeaderLine();
         writeDataLines();
 
-        ServletOutputStream outputStream = response.getOutputStream();
-        workbook.write(outputStream);
-        workbook.close();
-
-        outputStream.close();
-
+        try (ServletOutputStream outputStream = response.getOutputStream()) {
+            workbook.write(outputStream);
+        }
     }
 }

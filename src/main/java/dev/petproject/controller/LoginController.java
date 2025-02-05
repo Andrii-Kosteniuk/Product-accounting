@@ -25,8 +25,6 @@ public class LoginController {
     @GetMapping("/login")
     public String showLoginPage(Model model) {
         log.info("Accessed the login page");
-        model.addAttribute("success", true);
-        model.addAttribute("tokenExpiredException", true);
         return "login";
     }
 
@@ -34,6 +32,7 @@ public class LoginController {
     public String showRegisterPage(@ModelAttribute("userDTO") UserDTO userDTO, Model model) {
         log.info("Accessed the registration page");
         model.addAttribute("userDTO", userDTO);
+        model.addAttribute("errorRegister");
         return "register";
     }
 

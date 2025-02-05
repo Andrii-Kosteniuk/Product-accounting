@@ -1,11 +1,13 @@
 package dev.petproject.controller;
 
 import dev.petproject.domain.Product;
+import dev.petproject.repository.ProductRepository;
 import dev.petproject.service.ExportToExcelService;
 import dev.petproject.service.ProductService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -18,6 +20,7 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class ExcelController {
 
+    private final ProductRepository productRepository;
     private final ProductService productService;
 
     @GetMapping("/products/export-to-excel")
@@ -30,7 +33,9 @@ public class ExcelController {
         String headerValue = "attachment; filename=products_" + currentDateTime + ".xlsx";
         response.setHeader(headerKey, headerValue);
 
-        Page<Product> products = productService.findPaginated(1, 10, "name", "asc");
+        int sizeOfProducts = (int) productRepository.count();
+
+        Page<Product> products = productService.findPaginated(1, sizeOfProducts, "name", "asc");
 
         ExportToExcelService service = new ExportToExcelService(products.getContent());
 

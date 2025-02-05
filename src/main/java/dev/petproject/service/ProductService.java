@@ -26,7 +26,7 @@ public class ProductService {
     private final ProductRepository productRepository;
 
     public List<Product> searchProductsByKeyword(String keyword) {
-        if (!keyword.isEmpty()) {
+        if (! keyword.isEmpty()) {
             return productRepository.findProductByKeyword(keyword);
         } else
             throw new EmptySymbolException("Keyword is empty");
@@ -52,12 +52,11 @@ public class ProductService {
         productRepository.deleteById(id);
     }
 
-    @Cacheable(value = "products", key = "#pageNo + '-' + #sortedField + '-' + #sortDirection")
     public Page<Product> findPaginated(int pageNo, int pageSize, String sortedField, String sortDirection) {
 
         Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortedField).ascending() : Sort.by(sortedField).descending();
         Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
-        return productRepository.findAll(pageable);
+        return productRepository.findAllProducts(pageable);
     }
 
 }

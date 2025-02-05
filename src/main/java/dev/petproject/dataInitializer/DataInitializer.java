@@ -1,4 +1,4 @@
-package dev.petproject.dataInit;
+package dev.petproject.dataInitializer;
 
 import com.github.javafaker.Faker;
 import dev.petproject.domain.Category;
