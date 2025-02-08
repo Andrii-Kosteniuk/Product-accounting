@@ -33,7 +33,7 @@ public class UserService {
     }
 
     @CacheEvict(value = "users", allEntries = true)
-    public void deleteUser(Integer id)  {
+    public void deleteUser(Integer id) {
         User user = this.findUserById(id);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
@@ -49,5 +49,9 @@ public class UserService {
 
     public User loadUserByUsername(String username) {
         return userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException(username));
+    }
+
+    public Optional<User> findByUserName(String email) {
+        return userRepository.findByEmail(email);
     }
 }

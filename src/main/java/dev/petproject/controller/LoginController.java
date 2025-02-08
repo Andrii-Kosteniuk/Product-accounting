@@ -3,6 +3,8 @@ package dev.petproject.controller;
 import dev.petproject.auth.AuthenticationService;
 import dev.petproject.domain.Role;
 import dev.petproject.dto.UserDTO;
+import dev.petproject.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,12 +23,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/auth")
 public class LoginController {
     private final AuthenticationService service;
+    private final UserService userService;
 
     @GetMapping("/login")
-    public String showLoginPage(Model model) {
+    public String showLoginPage(UserDTO userDTO, HttpSession session, Model model) {
+        if (session.getAttribute("user_id") != null) {
+            log.info("User with ID {} is already logged in. Redirecting to home page.", session.getAttribute("user_id"));
+            return "redirect:/home";
+        }
+
+//        String lastUsedEmail = (String) session.getAttribute("last_used_email");
+//
+//        if (lastUsedEmail != null) {
+//            userDTO.setEmail(lastUsedEmail);
+//        }
+        model.addAttribute("users", userService.findAllRegisteredUsers());
+//        model.addAttribute("userDTO", userDTO);
         log.info("Accessed the login page");
         return "login";
     }
+
 
     @GetMapping("/register")
     public String showRegisterPage(@ModelAttribute("userDTO") UserDTO userDTO, Model model) {
@@ -53,4 +69,4 @@ public class LoginController {
 
     }
 
- }
+}
