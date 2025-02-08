@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -36,13 +37,19 @@ public class DataInitializer implements CommandLineRunner {
         for (int i = 0; i < numberOfCategoriesToCreate; i++) {
             Category category = createRandomCategory();
             log.info("Category created: {}", category);
-            categoryRepository.save(category);
-
+            if (! categoryRepository.existsByName(category.getName())) {
+                categoryRepository.save(category);
+            } else {
+                continue;
+            }
 
             for (int j = 0; j < numberOfProductsToCreate; j++) {
                 Product product = createRandomProduct(category);
                 log.info("Product created: {}", product);
-                productRepository.save(product);
+                Example<Product> example = Example.of(product);
+                if (! productRepository.exists(example)) {
+                    productRepository.save(product);
+                }
             }
         }
         log.info("Database initialized with random categories and products.");
