@@ -26,19 +26,13 @@ public class LoginController {
     private final UserService userService;
 
     @GetMapping("/login")
-    public String showLoginPage(UserDTO userDTO, HttpSession session, Model model) {
+    public String showLoginPage(HttpSession session, Model model) {
         if (session.getAttribute("user_id") != null) {
             log.info("User with ID {} is already logged in. Redirecting to home page.", session.getAttribute("user_id"));
             return "redirect:/home";
         }
 
-//        String lastUsedEmail = (String) session.getAttribute("last_used_email");
-//
-//        if (lastUsedEmail != null) {
-//            userDTO.setEmail(lastUsedEmail);
-//        }
         model.addAttribute("users", userService.findAllRegisteredUsers());
-//        model.addAttribute("userDTO", userDTO);
         log.info("Accessed the login page");
         return "login";
     }

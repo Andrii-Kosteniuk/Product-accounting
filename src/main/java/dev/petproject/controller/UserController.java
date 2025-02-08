@@ -47,7 +47,7 @@ public class UserController {
             userService.deleteUser(id);
             log.info("User with ID: {} deleted successfully", id);
             model.addAttribute("userDeletedSuccessfully", "The user with email " + userEmail + " has been deleted successfully");
-            return "users";
+            return "redirect:/users";
         } catch (UserCanNotBeDeletedException ex) {
             log.warn("Failed to delete user with ID: {}. Reason: {}", id, ex.getMessage());
             model.addAttribute("userCanNotBeDeleteException", "You can not delete user with email " + userEmail);

@@ -27,6 +27,11 @@ public class UserService {
         return user.orElse(null);
     }
 
+    @CacheEvict(value = "users", allEntries = true)
+    public void saveUser(User user) {
+        userRepository.save(user);
+    }
+
     @Cacheable("users")
     public List<User> findAllRegisteredUsers() {
         return userRepository.findAll();
@@ -51,7 +56,4 @@ public class UserService {
         return userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException(username));
     }
 
-    public Optional<User> findByUserName(String email) {
-        return userRepository.findByEmail(email);
-    }
 }
