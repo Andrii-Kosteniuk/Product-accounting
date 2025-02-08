@@ -48,7 +48,8 @@
                             aria-expanded="false">
                         <span th:text="'User ' + ${#authentication.principal.firstName}">User</span>
                     </button>
-                    <ul class="dropdown-menu dropdown-menu-dark text-center" th:id="userDropdown" aria-labelledby="userDropdown">
+                    <ul class="dropdown-menu dropdown-menu-dark text-center" th:id="userDropdown"
+                        aria-labelledby="userDropdown">
                         <li>
                             <h6 class="dropdown-header">
                                 Logged in as: <span th:text="${#authentication.principal.firstName}">User</span>
@@ -69,12 +70,37 @@
                         <li><a class="dropdown-item" th:href="@{/users/change-password}">Change password</a></li>
                     </ul>
                 </div>
+                <button class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#logOut"
+                        aria-labelledby="logOutLabel">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    <span>Log out</span></button>
 
-                <form th:action="@{/logout}" method="post">
-                    <button class="btn btn-secondary btn-sm" type="submit">
-                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                        <span>Log out</span></button>
-                </form>
+
+                <!-- Modal -->
+                <div class="modal fade" th:id="logOut" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="logOutLabel">Logout</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body text-primary">
+                                Do you really want to log out? If so, press Yes!
+                            </div>
+                            <form th:action="@{/logout}" method="post">
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                                    </button>
+                                    <button type="submit" class="btn btn-primary">Yes, let's do it</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
         </nav>
     </div>
