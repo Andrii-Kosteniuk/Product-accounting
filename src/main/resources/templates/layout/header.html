@@ -32,7 +32,7 @@
                                 <span>Products</span>
                             </a>
                         </li>
-                        <li th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}"
+                        <li
                             class="nav-item">
                             <a class="nav-link" th:href="@{/users}">
                                 <i class="fa-solid fa-users"></i>
@@ -46,27 +46,9 @@
                 <div class="dropdown-center">
                     <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                        <span th:text="'User ' + ${#authentication.principal.firstName}">User</span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-dark text-center" th:id="userDropdown"
                         aria-labelledby="userDropdown">
-                        <li>
-                            <h6 class="dropdown-header">
-                                Logged in as: <span th:text="${#authentication.principal.firstName}">User</span>
-                            </h6>
-                        </li>
-                        <li>
-                            <a tabindex="0" class="dropdown-item"
-                               data-bs-toggle="popover"
-                               data-bs-trigger="focus"
-                               data-bs-html="true"
-                               data-bs-title="User information"
-                               th:attr="data-bs-content='<span><strong>Name:</strong></span> <span>' + ${#authentication.principal.firstName} + '</span><br>' +
-                               '<span><strong>Last name:</strong></span> <span>' + ${#authentication.principal.lastName} + '</span><br>' +
-                            '<span><strong>Email:</strong></span> <span>' + ${#authentication.principal.email} + '</span><br>' +
-                            '<span><strong>Role:</strong></span> <span>' + ${#authentication.principal.role} + '</span>'"
-                            >Profile</a>
-                        </li>
                         <li><a class="dropdown-item" th:href="@{/users/change-password}">Change password</a></li>
                     </ul>
                 </div>
