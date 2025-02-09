@@ -2,6 +2,7 @@ package dev.petproject.controller;
 
 import dev.petproject.auth.AuthenticationService;
 import dev.petproject.domain.Role;
+
 import dev.petproject.dto.UserDTO;
 import dev.petproject.exception.UserAlreadyExistsException;
 import dev.petproject.repository.UserRepository;
@@ -63,6 +64,7 @@ class LoginControllerTest {
     void shouldShowLoginPage() throws Exception {
         mockMvc.perform(get("/auth/login/"))
                 .andExpect(status().isOk())
+                .andExpect(model().attributeExists("users"))
                 .andExpect(view().name("login"));
     }
 
@@ -75,14 +77,29 @@ class LoginControllerTest {
 
     @Test
     void shouldSuccessfullyRegisterUser() throws Exception {
-        UserDTO user = new UserDTO("John", "Doe", "email@gmail.com", "555JohnDoe!", Role.USER);
+        UserDTO userToSave = UserDTO.builder()
+                .firstName("John")
+                .lastName("Doe")
+                .email("john@mail.com")
+                .password("johnDOE111")
+                .build();
 
         doNothing().when(authenticationService).register(any(UserDTO.class), any(Role.class));
 
         mockMvc.perform(post("/auth/register/")
-                        .flashAttr("user", userDTO)
-                        .param("role", user.getRole().toString()))
-                .andExpect(status().isOk());
+
+                        .param("firstName", "John")
+                        .param("lastName", "Doe")
+                        .param("email", "john@mail.com")
+                        .param("password", "johnDOE111")
+                        .param("role", Role.USER.name()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/auth/login?success=true"));
+
+
+        authenticationService.register(userToSave, role);
+
+        verify(authenticationService, times(1)).register(userToSave, role);
     }
 
     @Test

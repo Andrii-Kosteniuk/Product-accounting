@@ -133,4 +133,38 @@ class UserServiceTest {
         // Then
         Assertions.assertEquals("You can not delete user with email john.smith@gmail.com", exception.getMessage());
     }
+
+    @Test
+    void testLoadUserByUsername() {
+        when(userRepository.findByEmail(anyString())).thenReturn(Optional.of(users.get(0)));
+
+        User findedUser = userService.loadUserByUsername("john.doe@gmail.com");
+
+        Assertions.assertNotNull(findedUser);
+        Assertions.assertEquals(users.get(0).getEmail(), findedUser.getEmail());
+
+        verify(userRepository, times(1)).findByEmail(anyString());
+    }
+
+    @Test
+    void testSaveUser() {
+        User user = User.builder()
+                .firstName("John")
+                .lastName("Doe")
+                .email("john.doe@gmail.com")
+                .role(Role.USER)
+                .build();
+        List<User> updatedUsers = new ArrayList<>(users);
+        updatedUsers.add(user);
+
+        when(userRepository.save(any(User.class))).thenReturn(user);
+        when(userRepository.findAll()).thenReturn(updatedUsers);
+
+        User saveUser = userService.saveUser(user);
+        List<User> allRegisteredUsers = userService.findAllRegisteredUsers();
+
+        Assertions.assertNotNull(allRegisteredUsers);
+        Assertions.assertEquals(saveUser.getEmail(), user.getEmail());
+        Assertions.assertTrue(allRegisteredUsers.contains(user));
+    }
 }

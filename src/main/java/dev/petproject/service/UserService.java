@@ -28,8 +28,8 @@ public class UserService {
     }
 
     @CacheEvict(value = "users", allEntries = true)
-    public void saveUser(User user) {
-        userRepository.save(user);
+    public User saveUser(User user) {
+        return userRepository.save(user);
     }
 
     @Cacheable("users")

@@ -4,7 +4,6 @@ import dev.petproject.auth.AuthenticationService;
 import dev.petproject.domain.Role;
 import dev.petproject.dto.UserDTO;
 import dev.petproject.service.UserService;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,12 +25,7 @@ public class LoginController {
     private final UserService userService;
 
     @GetMapping("/login")
-    public String showLoginPage(HttpSession session, Model model) {
-        if (session.getAttribute("user_id") != null) {
-            log.info("User with ID {} is already logged in. Redirecting to home page.", session.getAttribute("user_id"));
-            return "index";
-        }
-
+    public String showLoginPage(Model model) {
         model.addAttribute("users", userService.findAllRegisteredUsers());
         log.info("Accessed the login page");
         return "login";

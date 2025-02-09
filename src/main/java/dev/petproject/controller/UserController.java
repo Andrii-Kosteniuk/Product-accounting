@@ -1,5 +1,6 @@
 package dev.petproject.controller;
 
+import dev.petproject.domain.User;
 import dev.petproject.dto.ChangePasswordDTO;
 import dev.petproject.exception.PasswordException;
 import dev.petproject.exception.UserCanNotBeDeletedException;
@@ -9,6 +10,9 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,8 +21,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import java.security.Principal;
 
 @Controller
 @RequiredArgsConstructor
@@ -42,14 +44,14 @@ public class UserController {
     public String deleteUser(@PathVariable(value = "id") Integer id, Model model) {
         log.info("Attempting to delete user with ID: {}", id);
         model.addAttribute("users", userService.findAllRegisteredUsers());
-        String userEmail = userService.findUserById(id).getEmail();
+
         try {
             userService.deleteUser(id);
             log.info("User with ID: {} deleted successfully", id);
             return "redirect:/users?success";
         } catch (UserCanNotBeDeletedException ex) {
             log.warn("Failed to delete user with ID: {}. Reason: {}", id, ex.getMessage());
-            model.addAttribute("userCanNotBeDeleteException", "You can not delete user with email " + userEmail);
+            model.addAttribute("userCanNotBeDeleteException", "You can not delete this user");
             return "users";
         }
     }
@@ -64,20 +66,15 @@ public class UserController {
     }
 
     @PostMapping("/users/change-password")
-    public String changePassword(@Valid @ModelAttribute("changePasswordDTO") ChangePasswordDTO changePasswordDTO,
-                                 BindingResult result,
-                                 Principal principal, Model model) {
-        log.info("Received change password request for user: {}", principal.getName());
+    public String changePassword(@Valid @ModelAttribute("changePasswordDTO") ChangePasswordDTO changePasswordDTO, BindingResult result, Model model) {
 
         if (result.hasErrors()) {
             log.warn("Validation errors occurred: {}", result.getAllErrors());
             return "change-password";
         }
 
-        String userName = principal.getName();
-        log.info("Processing password change request for user: {}", userName);
-
-        var user = userService.loadUserByUsername(userName);
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        log.info("Processing password change request for user: {}", user.getEmail());
         log.debug("User found: {}", user.getId());
 
         if (passwordEncoder.matches(changePasswordDTO.getOldPassword(), user.getPassword())) {
@@ -85,12 +82,11 @@ public class UserController {
             user.setPassword(passwordEncoder.encode(changePasswordDTO.getNewPassword()));
             userRepository.save(user);
 
-            log.info("Password was changed successfully for user {} ", userName);
+            log.info("Password was changed successfully for user {} ", user.getEmail());
             model.addAttribute("successChangePassword", "Password was changed successfully");
             return "change-password";
-
         } else {
-            log.error("Incorrect old password for user {}", userName);
+            log.error("Incorrect old password for user {}", user.getEmail());
             throw new PasswordException("The old password you provided is incorrect. Please try again :-)");
         }
     }

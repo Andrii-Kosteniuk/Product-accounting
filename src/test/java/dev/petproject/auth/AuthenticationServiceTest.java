@@ -16,25 +16,24 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class AuthenticationServiceTest {
     @Mock
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Mock
-    UserService userService;
+    private UserService userService;
 
     @Mock
-    PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     @InjectMocks
-    AuthenticationService authenticationService;
+    private AuthenticationService authenticationService;
 
-    User user;
+    private User user;
 
     @BeforeEach
     void setUp() {
@@ -52,19 +51,14 @@ class AuthenticationServiceTest {
 
     @Test
     void shouldRegisterNewUser() {
-        String email = "john.smith@gmail.com";
+       when(userService.saveUser(any(User.class))).thenReturn(user);
 
-        when(userRepository.save(user)).thenReturn(user);
-        when(userRepository.findByEmail(email)).thenReturn(Optional.of(user));
+        User savedUser = userService.saveUser(user);
 
-        userRepository.save(user);
-        Optional<User> userByEmail = userRepository.findByEmail(email);
+        assertNotNull(savedUser);
+        assertEquals(savedUser.getEmail(), "john.smith@gmail.com");
 
-        assertTrue(userByEmail.isPresent());
-        assertSame(userByEmail.get(), user);
-        assertThat(userByEmail).isPresent();
-
-        verify(userRepository, times(1)).save(user);
+        verify(userService, times(1)).saveUser(any(User.class));
     }
 
 
