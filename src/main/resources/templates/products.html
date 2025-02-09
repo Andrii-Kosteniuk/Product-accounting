@@ -106,7 +106,7 @@
 
             <td>
                 <ul th:each="category : ${product.category}"
-                    th:text="${category.name}">Category
+                    th:text="${product.category.name}">Category
                 </ul>
             </td>
             <td th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">

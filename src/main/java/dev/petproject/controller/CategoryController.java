@@ -26,7 +26,6 @@ public class CategoryController {
 
         model.addAttribute("category", category);
         model.addAttribute("categories", categoryService.getAllCategories());
-        model.addAttribute("product", session.getAttribute("product"));
 
         if (result.hasErrors()) {
             log.error(result.getAllErrors().toString());
