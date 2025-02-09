@@ -29,7 +29,7 @@ public class LoginController {
     public String showLoginPage(HttpSession session, Model model) {
         if (session.getAttribute("user_id") != null) {
             log.info("User with ID {} is already logged in. Redirecting to home page.", session.getAttribute("user_id"));
-            return "redirect:/home";
+            return "index";
         }
 
         model.addAttribute("users", userService.findAllRegisteredUsers());

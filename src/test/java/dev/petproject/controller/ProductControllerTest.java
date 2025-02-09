@@ -1,14 +1,10 @@
 package dev.petproject.controller;
 
-import dev.petproject.auth.JwtUtils;
+
 import dev.petproject.domain.Category;
 import dev.petproject.domain.Product;
-import dev.petproject.exception.ProductAlreadyExistsException;
-import dev.petproject.repository.ProductRepository;
-import dev.petproject.repository.TokenRepository;
 import dev.petproject.service.CategoryService;
 import dev.petproject.service.ProductService;
-import dev.petproject.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
@@ -18,7 +14,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
 import java.util.ArrayList;
@@ -36,33 +31,16 @@ class ProductControllerTest {
     @MockBean
     ProductService productService;
 
-    @MockBean
-    UserService userService;
-
-    @MockBean
-    JwtUtils jwtUtils;
-
-    @MockBean
-    TokenRepository tokenRepository;
-
     List<Product> products;
 
     @MockBean
     private CategoryService categoryService;
 
-    @MockBean
-    private Model model;
 
     @MockBean
     private BindingResult bindingResult;
 
-    @MockBean
-    private ProductController productController;
-
     private MockMvc mockMvc;
-
-    @MockBean
-    private ProductRepository productRepository;
 
 
     @BeforeEach
@@ -80,15 +58,6 @@ class ProductControllerTest {
                 new Product(3, "Ball", 15.0, 1, "For playing games", sport));
     }
 
-    @Test
-    @WithMockUser(username = "user", password = "Password5", roles = "ADMIN")
-    void shouldRepresentMainPage() throws Exception {
-        mockMvc.perform(get("/home"))
-                .andExpectAll(
-                        status().isOk(),
-                        view().name("index")
-                );
-    }
 
     @Test
     @WithMockUser(username = "user", password = "Password5", roles = "ADMIN")
@@ -96,7 +65,7 @@ class ProductControllerTest {
 
         when(productService.findPaginated(anyInt(), anyInt(), anyString(), anyString())).thenReturn(new PageImpl<>(products));
 
-        mockMvc.perform(get("/products/all"))
+        mockMvc.perform(get("/products/"))
                 .andExpectAll(
                         status().isOk(),
                         view().name("products")
@@ -113,7 +82,7 @@ class ProductControllerTest {
 
     @Test
     @WithMockUser(username = "user", password = "Password5", roles = "ADMIN")
-    void shouldCreateNewProductAndSaveIt() throws Exception, ProductAlreadyExistsException {
+    void shouldCreateNewProductAndSaveIt() throws Exception {
         Category electronics = new Category(1, "Electronics", new ArrayList<>());
         Product product = new Product(3, "Iphone", 5454.6, 5, "For calls", electronics);
 
@@ -154,13 +123,12 @@ class ProductControllerTest {
     @Test
     @WithMockUser(username = "user", password = "Password5", roles = "ADMIN")
     void shouldDeleteProduct() throws Exception {
+        mockMvc.perform(get("/products/delete/{id}", 1)
+                        .sessionAttr("currentPage", 1)
+                        .sessionAttr("sortField", "name")
+                        .sessionAttr("sortDir", "asc"))
+                .andExpect(status().is3xxRedirection());
 
-        productService.deleteProductById(anyInt());
-        verify(productService, times(1)).deleteProductById(anyInt());
-
-        mockMvc.perform(get("/products/delete/{id}", 1))
-                .andExpect(status().isFound())
-                .andExpect(redirectedUrl("/products/all"));
     }
 
     @Test

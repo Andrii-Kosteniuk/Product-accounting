@@ -2,6 +2,7 @@ package dev.petproject.service;
 
 import dev.petproject.domain.Category;
 import dev.petproject.domain.Product;
+import dev.petproject.exception.EmptySymbolException;
 import dev.petproject.exception.ProductAlreadyExistsException;
 import dev.petproject.repository.ProductRepository;
 import org.junit.jupiter.api.Assertions;
@@ -11,9 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,10 +26,10 @@ import static org.mockito.Mockito.*;
 class ProductServiceTest {
 
     @Mock
-    ProductRepository productRepository;
+    private ProductRepository productRepository;
 
     @InjectMocks
-    ProductService productService;
+    private ProductService productService;
 
     List<Product> products;
 
@@ -117,9 +116,9 @@ class ProductServiceTest {
     @Test
     void shouldThrowIllegalArgumentExceptionWhenKeywordIsNull() {
 
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> productService.searchProductsByKeyword(""));
+        EmptySymbolException exception = assertThrows(EmptySymbolException.class, () -> productService.searchProductsByKeyword(""));
 
-        Assertions.assertEquals("Keyword is null", exception.getMessage());
+        Assertions.assertEquals("Keyword is empty", exception.getMessage());
         verify(productRepository, never()).findProductByKeyword(null);
     }
 
@@ -150,14 +149,25 @@ class ProductServiceTest {
         String sortField = "name";
         String dir = "asc";
 
-        Page<Product> productPage = new PageImpl<>(products);
+        // Given
 
-        when(productRepository.findAll(any(PageRequest.class))).thenReturn(new PageImpl<>(products));
+        Pageable pageable = PageRequest.of(0, pageSize, Sort.by(sortField).ascending());
+        Page<Product> mockPage  = new PageImpl<>(products, pageable, products.size());
+
+        when(productRepository.findAllProducts(pageable)).thenReturn(mockPage);
+
+        // When
 
         Page<Product> paginated = productService.findPaginated(pageNo, pageSize, sortField, dir);
 
-        assertEquals(productPage, paginated);
-        verify(productRepository, times(1)).findAll(any(PageRequest.class));
-        verifyNoMoreInteractions(productRepository);
+        // Assert
+        assertNotNull(paginated);
+        assertEquals(3, paginated.getContent().size());
+        assertEquals("Java in practice", paginated.getContent().get(0).getName());
+
+        verify(productRepository, times(1)).findAllProducts(pageable);
+
     }
+
+
 }
