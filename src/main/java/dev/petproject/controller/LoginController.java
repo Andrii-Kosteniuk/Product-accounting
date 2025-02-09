@@ -3,6 +3,7 @@ package dev.petproject.controller;
 import dev.petproject.auth.AuthenticationService;
 import dev.petproject.domain.Role;
 import dev.petproject.dto.UserDTO;
+import dev.petproject.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,12 +22,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/auth")
 public class LoginController {
     private final AuthenticationService service;
+    private final UserService userService;
 
     @GetMapping("/login")
     public String showLoginPage(Model model) {
+        model.addAttribute("users", userService.findAllRegisteredUsers());
         log.info("Accessed the login page");
         return "login";
     }
+
 
     @GetMapping("/register")
     public String showRegisterPage(@ModelAttribute("userDTO") UserDTO userDTO, Model model) {
@@ -53,4 +57,4 @@ public class LoginController {
 
     }
 
- }
+}

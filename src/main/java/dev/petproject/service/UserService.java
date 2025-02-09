@@ -27,13 +27,18 @@ public class UserService {
         return user.orElse(null);
     }
 
+    @CacheEvict(value = "users", allEntries = true)
+    public User saveUser(User user) {
+        return userRepository.save(user);
+    }
+
     @Cacheable("users")
     public List<User> findAllRegisteredUsers() {
         return userRepository.findAll();
     }
 
     @CacheEvict(value = "users", allEntries = true)
-    public void deleteUser(Integer id)  {
+    public void deleteUser(Integer id) {
         User user = this.findUserById(id);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
@@ -50,4 +55,5 @@ public class UserService {
     public User loadUserByUsername(String username) {
         return userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException(username));
     }
+
 }

@@ -25,6 +25,14 @@
     <div style="margin: auto">
         <th:block th:insert="~{/layout/searchPanel}"></th:block>
     </div>
+
+    <div style="display: flex; justify-content: right;">
+        <a class="btn btn-sm btn-info"
+           th:href="@{/products/export-to-excel}">
+            <i class="fa-solid fa-download"></i>
+            <span> Click here to download</span>
+        </a>
+    </div>
     <br>
 
 
@@ -98,7 +106,7 @@
 
             <td>
                 <ul th:each="category : ${product.category}"
-                    th:text="${category.name}">Category
+                    th:text="${product.category.name}">Category
                 </ul>
             </td>
             <td th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">

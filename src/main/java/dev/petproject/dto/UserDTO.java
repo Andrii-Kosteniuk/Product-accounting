@@ -26,9 +26,8 @@ public class UserDTO {
 
     @Pattern(regexp = "^[A-Za-z0-9+_.-]+@(.+)$",
             message = """
-                    email can contain
-                    * one character from the English alphabet (both cases), +
-                    digits, "+", "_", "." and, "-" before the @ symbol""")
+                    Email can contain one character from the English alphabet (both cases),
+                    digits, and also special characters like "+", "_", "." and, "-" before the @ symbol""")
     private String email;
 
     @Pattern(
