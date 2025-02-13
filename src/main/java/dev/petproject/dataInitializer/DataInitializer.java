@@ -33,7 +33,7 @@ public class DataInitializer implements CommandLineRunner {
         initializeData();
     }
 
-    private void initializeData() {
+    void initializeData() {
         for (int i = 0; i < numberOfCategoriesToCreate; i++) {
             Category category = createRandomCategory();
             log.info("Category created: {}", category);

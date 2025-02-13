@@ -3,16 +3,19 @@ package dev.petproject.controller;
 
 import dev.petproject.domain.Category;
 import dev.petproject.domain.Product;
+import dev.petproject.exception.ProductNotFoundException;
 import dev.petproject.service.CategoryService;
 import dev.petproject.service.ProductService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.validation.BindingResult;
 
@@ -40,6 +43,7 @@ class ProductControllerTest {
     @MockBean
     private BindingResult bindingResult;
 
+    @Autowired
     private MockMvc mockMvc;
 
 
@@ -142,7 +146,17 @@ class ProductControllerTest {
                 .andExpect(view().name("search"))
                 .andExpect(model().attributeExists("products"));
 
+    }
 
+    @Test
+    void shouldThrowProductNotFoundExceptionWhenSaveNewProduct() throws Exception {
+
+        int invalidProductId = 999;
+        when(productService.findProductById(invalidProductId))
+                .thenThrow(new ProductNotFoundException("Product with id " + invalidProductId + " not found"));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/products/edit/{id}", invalidProductId))
+                .andExpect(status().isNotFound());
     }
 
 }

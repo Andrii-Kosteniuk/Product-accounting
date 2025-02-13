@@ -25,7 +25,7 @@ public class CategoryService {
         }
     }
 
-    @Cacheable(value = "categories")
+    @Cacheable(value = "categories", unless = "#result.isEmpty()")
     public List<Category> getAllCategories() {
         return categoryRepository.findAll();
     }

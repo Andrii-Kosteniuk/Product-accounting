@@ -30,7 +30,8 @@ public class SecurityFilterChainConfig {
                 .authenticationProvider(authenticationProvider)
                 .formLogin(form -> form
                         .loginPage("/auth/login")
-                        .loginProcessingUrl("/auth/login")
+                        .loginProcessingUrl("/login")
+                        .successForwardUrl("/home")
                         .successHandler((request, response, authentication) ->
                                 response.sendRedirect("/home")))
 
