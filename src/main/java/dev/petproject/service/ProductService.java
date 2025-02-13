@@ -41,13 +41,13 @@ public class ProductService {
         log.info("Saving product: {}", product.getName());
     }
 
-    @Cacheable(value = "products", key = "#id")
+    @Cacheable(value = "products", key = "#id", unless = "#result == null")
     public Product findProductById(Integer id) {
         return productRepository.findById(id)
                 .orElseThrow(() -> new ProductNotFoundException("Product with id '" + id + "' not found"));
     }
 
-    @CacheEvict(value = "products", allEntries = true)
+    @CacheEvict(value = "products", key = "#id")
     public void deleteProductById(Integer id) {
         productRepository.deleteById(id);
     }
