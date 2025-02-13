@@ -4,6 +4,7 @@ import dev.petproject.domain.Category;
 import dev.petproject.domain.Product;
 import dev.petproject.exception.EmptySymbolException;
 import dev.petproject.exception.ProductAlreadyExistsException;
+import dev.petproject.exception.ProductNotFoundException;
 import dev.petproject.repository.ProductRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.*;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,17 +23,16 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
 class ProductServiceTest {
 
+    List<Product> products;
     @Mock
     private ProductRepository productRepository;
-
     @InjectMocks
     private ProductService productService;
-
-    List<Product> products;
 
     @BeforeEach
     void setUp() {
@@ -152,7 +153,7 @@ class ProductServiceTest {
         // Given
 
         Pageable pageable = PageRequest.of(0, pageSize, Sort.by(sortField).ascending());
-        Page<Product> mockPage  = new PageImpl<>(products, pageable, products.size());
+        Page<Product> mockPage = new PageImpl<>(products, pageable, products.size());
 
         when(productRepository.findAllProducts(pageable)).thenReturn(mockPage);
 
@@ -168,6 +169,7 @@ class ProductServiceTest {
         verify(productRepository, times(1)).findAllProducts(pageable);
 
     }
+
 
 
 }
