@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -16,7 +15,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest({SecurityFilterChainConfig.class, LoginController.class, HomeController.class})
 @AutoConfigureMockMvc
@@ -29,10 +29,10 @@ class SecurityFilterChainConfigTest {
     private AuthenticationProvider authenticationProvider;
 
     @MockBean
-    private  AuthenticationService service;
+    private AuthenticationService service;
 
     @MockBean
-    private  UserService userService;
+    private UserService userService;
 
 
     @Test
@@ -63,4 +63,5 @@ class SecurityFilterChainConfigTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/auth/login?logout=true"));
     }
+
 }

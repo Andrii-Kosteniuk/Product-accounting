@@ -5,7 +5,9 @@ import dev.petproject.domain.Role;
 import dev.petproject.domain.User;
 import dev.petproject.dto.ChangePasswordDTO;
 import dev.petproject.exception.PasswordException;
+import dev.petproject.exception.UserAlreadyExistsException;
 import dev.petproject.exception.UserCanNotBeDeletedException;
+import dev.petproject.exception.advice.UserControllerAdvice;
 import dev.petproject.repository.UserRepository;
 import dev.petproject.service.UserService;
 import org.junit.jupiter.api.Assertions;
@@ -19,15 +21,18 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.any;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -56,11 +61,16 @@ class UserControllerTest {
     private MockMvc mockMvc;
 
     private List<User> users;
+    @Autowired
+    private UserControllerAdvice userControllerAdvice;
+
+    @MockBean
+    private Model model;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(new UserController(userService, passwordEncoder, userRepository)).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(new UserController(userService)).build();
 
         users = List.of(
                 new User(1, "J", "M", "jM@gmail.com", "aaAA11", Role.USER),
@@ -105,14 +115,10 @@ class UserControllerTest {
     @Test
     @WithMockUser(username = "jM@gmail.com", roles = "USER")
     void testChangePassword() throws Exception {
-        User user = users.get(0);
-        ChangePasswordDTO changePasswordDTO = new ChangePasswordDTO(
-                "aaAA11", "bbBBB22");
-
-        when(userService.loadUserByUsername("jM@gmail.com")).thenReturn(user);
-        System.out.println(userService.loadUserByUsername("jM@gmail.com"));
-        when(passwordEncoder.matches("aaAA11", user.getPassword())).thenReturn(true);
-        when(userRepository.save(any(User.class))).thenReturn(user);
+        ChangePasswordDTO changePasswordDTO = ChangePasswordDTO.builder()
+                .oldPassword("aaAA11")
+                .newPassword("bbBBB22")
+                .build();
 
         mockMvc.perform(post("/users/change-password/")
                         .flashAttr("changePasswordDTO", changePasswordDTO)
@@ -121,7 +127,6 @@ class UserControllerTest {
                 .andExpect(view().name("change-password"))
                 .andExpect(model().attributeExists("successChangePassword"));
 
-        verify(userRepository, times(1)).save(any(User.class));
     }
 
     @Test
@@ -131,7 +136,7 @@ class UserControllerTest {
 
         mockMvc.perform(post("/users/change-password/")
                         .param("oldPassword", "aaAA11")
-                        .param("newPassword", "b")
+                        .param("newPassword", "newPassword")
                         .with(csrf()))
                 .andExpect(view().name("change-password"));
 
@@ -142,12 +147,10 @@ class UserControllerTest {
     @Test
     @WithMockUser(username = "AO@gmail.com", roles = "ADMIN")
     void testUserCanNotBeDeletedException() throws Exception {
-        // Given
         doNothing().when(userRepository).deleteById(1);
         doThrow(new UserCanNotBeDeletedException("You can not delete this user"))
                 .when(userService).deleteUser(1);
 
-        // When
         mockMvc.perform(get("/delete/{id}", 1))
                 .andExpect(status().isOk())
                 .andExpect(view().name("users"))
@@ -155,25 +158,57 @@ class UserControllerTest {
                 .andExpect(model().attribute("userCanNotBeDeleteException",
                         "You can not delete this user"));
 
-        // Then
         verifyNoInteractions(userRepository);
     }
 
     @Test
     @WithMockUser(username = "AO@gmail.com", roles = "ADMIN")
     void testPasswordException() throws Exception {
-        // Given
         when(passwordEncoder.matches(anyString(), anyString())).thenReturn(false);
         doThrow(PasswordException.class)
                 .when(passwordEncoder).matches(anyString(), anyString());
 
-        // When
         mockMvc.perform(get("/users/change-password/"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("change-password"));
 
-        // Then
         verifyNoInteractions(userRepository);
+
+    }
+
+    @Test
+    void handleUserCanNotBeDeletedException() {
+        UserCanNotBeDeletedException exception = new UserCanNotBeDeletedException("You can not delete user with email " + users.get(0).getEmail());
+        String path = userControllerAdvice.handleUserCanNotBeDeletedException(exception);
+
+        assertEquals("redirect:/users?error=true&message=" + exception.getMessage(), path);
+    }
+
+    @Test
+    void handlePasswordException() {
+
+        PasswordException exception = new PasswordException("The old password you provided is incorrect. Please try again :-)");
+        ModelAndView modelAndView = userControllerAdvice.handlePasswordException(exception, model);
+
+        assertEquals("change-password", modelAndView.getViewName());
+        assertEquals("The old password you provided is incorrect. Please try again :-)", modelAndView.getModel().get("errorChangePassword"));
+    }
+
+    @Test
+    void handleUserAlreadyExistsException() {
+        String email = users.get(0).getEmail();
+        UserAlreadyExistsException exception = new UserAlreadyExistsException("User with email " + email + " already exist");
+        String path = userControllerAdvice.handleUserAlreadyExistsException(exception);
+
+        assertEquals("redirect:/auth/register?error=true", path);
+    }
+
+    @Test
+    void handleUserNotFoundException() {
+        UsernameNotFoundException exception = new UsernameNotFoundException("User not found");
+        String path = userControllerAdvice.handleUsernameNotFoundException(exception, model);
+
+        assertEquals("redirect:/404?error=true&message=" + exception.getMessage(), path);
     }
 
 }

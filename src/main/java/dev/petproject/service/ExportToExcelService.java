@@ -59,8 +59,6 @@ public class ExportToExcelService {
 
         if (data instanceof Integer) {
             cell.setCellValue((Integer) data);
-        } else if (data instanceof Boolean) {
-            cell.setCellValue((Boolean) data);
         } else if (data instanceof Double) {
             cell.setCellValue((Double) data);
         } else {

@@ -2,21 +2,17 @@ package dev.petproject.controller;
 
 import dev.petproject.auth.AuthenticationService;
 import dev.petproject.domain.Role;
-
 import dev.petproject.dto.UserDTO;
 import dev.petproject.exception.UserAlreadyExistsException;
-import dev.petproject.repository.UserRepository;
 import dev.petproject.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -33,25 +29,16 @@ class LoginControllerTest {
     UserService userService;
 
     @MockBean
-    Model model;
-
-    @MockBean
-    UserDTO userDTO;
-
-    @MockBean
     BindingResult result;
 
     @MockBean
     Role role;
 
-    @InjectMocks
-    LoginController loginController;
-
+    @Autowired
     private MockMvc mockMvc;
+
     @MockBean
     private AuthenticationService authenticationService;
-    @Mock
-    private UserRepository userRepository;
 
 
     @BeforeEach

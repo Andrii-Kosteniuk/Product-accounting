@@ -4,7 +4,6 @@ import dev.petproject.domain.Category;
 import dev.petproject.domain.Product;
 import dev.petproject.exception.EmptySymbolException;
 import dev.petproject.exception.ProductAlreadyExistsException;
-import dev.petproject.exception.ProductNotFoundException;
 import dev.petproject.repository.ProductRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +13,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.*;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +21,6 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
 class ProductServiceTest {
@@ -88,7 +85,7 @@ class ProductServiceTest {
     }
 
     @Test
-    void shouldSaveProductIntoDatabase() throws ProductAlreadyExistsException {
+    void shouldSaveProductIntoDatabase() {
         Category sport = new Category(3, "Sport", new ArrayList<>());
         Product newProduct = Product.builder()
                 .id(5)
@@ -115,9 +112,10 @@ class ProductServiceTest {
     }
 
     @Test
-    void shouldThrowIllegalArgumentExceptionWhenKeywordIsNull() {
+    void shouldThrowEmptySymbolExceptionWhenKeywordIsNull() {
 
-        EmptySymbolException exception = assertThrows(EmptySymbolException.class, () -> productService.searchProductsByKeyword(""));
+        EmptySymbolException exception = assertThrows(EmptySymbolException.class,
+                () -> productService.searchProductsByKeyword(""));
 
         Assertions.assertEquals("Keyword is empty", exception.getMessage());
         verify(productRepository, never()).findProductByKeyword(null);
@@ -133,6 +131,20 @@ class ProductServiceTest {
         assertNotNull(productById);
         assertEquals(productById, findProduct, "Products are not the same");
         verify(productRepository, times(1)).findById(1);
+    }
+
+    @Test
+    void shouldThrowProductAlreadyExistsException() {
+        Category category = new Category(1, "SomeCategory", new ArrayList<>());
+        List<Product> existingProducts = List.of(new Product(5, "Product", 5.0, 1, "Some description", category));
+        when(productRepository.findByName("Product")).thenReturn(existingProducts);
+
+        Product newProduct = new Product(5, "Product", 5.0, 1, "Some description", category);
+
+        assertThrows(ProductAlreadyExistsException.class,
+                () -> productService.saveProduct(newProduct));
+
+        verify(productRepository, never()).save(any(Product.class));
     }
 
     @Test
@@ -169,7 +181,4 @@ class ProductServiceTest {
         verify(productRepository, times(1)).findAllProducts(pageable);
 
     }
-
-
-
 }
