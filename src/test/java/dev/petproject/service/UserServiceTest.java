@@ -2,6 +2,8 @@ package dev.petproject.service;
 
 import dev.petproject.domain.Role;
 import dev.petproject.domain.User;
+import dev.petproject.dto.ChangePasswordDTO;
+import dev.petproject.exception.PasswordException;
 import dev.petproject.exception.UserCanNotBeDeletedException;
 import dev.petproject.repository.UserRepository;
 import org.junit.jupiter.api.Assertions;
@@ -14,6 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +33,8 @@ class UserServiceTest {
 
     @Mock
     UserRepository userRepository;
+    @Mock
+    PasswordEncoder passwordEncoder;
     @InjectMocks
     UserService userService;
 
@@ -166,5 +171,43 @@ class UserServiceTest {
         Assertions.assertNotNull(allRegisteredUsers);
         Assertions.assertEquals(saveUser.getEmail(), user.getEmail());
         Assertions.assertTrue(allRegisteredUsers.contains(user));
+    }
+
+    @Test
+    void test_ChangePassword_Success() {
+        // Given
+        ChangePasswordDTO passwordDTO = new ChangePasswordDTO("11111", "55555");
+        User user = new User(1, "Bob", "Sam", "bob@mail.com", "11111", Role.USER);
+
+        when(passwordEncoder.matches(eq("11111"), eq(user.getPassword()))).thenReturn(true);
+        when(passwordEncoder.encode(anyString())).thenReturn("encodedNewPassword");
+
+
+        // When
+        userService.changePassword(passwordDTO, user);
+
+        // Then
+
+        Assertions.assertEquals(user.getPassword(), passwordEncoder.encode("55555"));
+
+        verify(userRepository, times(1)).save(user);
+    }
+
+    @Test
+    void testChangePassword_Failure_IncorrectOldPassword() {
+        // Given
+        ChangePasswordDTO passwordDTO = new ChangePasswordDTO("wrongPassword", "55555");
+        User user = new User(1, "Bob", "Sam", "bob@mail.com", "11111", Role.USER);
+
+        when(passwordEncoder.matches(eq("wrongPassword"), eq(user.getPassword()))).thenReturn(false);
+
+        // When
+        PasswordException exception = assertThrows(PasswordException.class, () ->
+                userService.changePassword(passwordDTO, user));
+
+        // Then
+        String expectedMessage = "The old password you provided is incorrect. Please try again :-)";
+        assertEquals("Incorrect message of password error", expectedMessage, exception.getMessage());
+        verify(userRepository, never()).save(any(User.class));
     }
 }

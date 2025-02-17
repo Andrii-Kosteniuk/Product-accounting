@@ -3,9 +3,13 @@ package dev.petproject.controller;
 
 import dev.petproject.domain.Category;
 import dev.petproject.domain.Product;
+import dev.petproject.exception.EmptySymbolException;
+import dev.petproject.exception.ProductAlreadyExistsException;
 import dev.petproject.exception.ProductNotFoundException;
+import dev.petproject.exception.advice.ProductControllerAdvice;
 import dev.petproject.service.CategoryService;
 import dev.petproject.service.ProductService;
+import jakarta.servlet.http.HttpSession;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
@@ -17,13 +21,18 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.ui.ConcurrentModel;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -32,12 +41,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class ProductControllerTest {
 
     @MockBean
-    ProductService productService;
+    private ProductService productService;
 
-    List<Product> products;
+    @MockBean
+    private Model model;
+
+    private List<Product> products;
 
     @MockBean
     private CategoryService categoryService;
+
+    @MockBean
+    private HttpSession session;
 
 
     @MockBean
@@ -45,6 +60,8 @@ class ProductControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+    @Autowired
+    private ProductControllerAdvice productControllerAdvice;
 
 
     @BeforeEach
@@ -85,36 +102,37 @@ class ProductControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "user", password = "Password5", roles = "ADMIN")
+    @WithMockUser()
     void shouldCreateNewProductAndSaveIt() throws Exception {
-        Category electronics = new Category(1, "Electronics", new ArrayList<>());
-        Product product = new Product(3, "Iphone", 5454.6, 5, "For calls", electronics);
 
-        mockMvc.perform(post("/products/save"))
-                .andExpect(status().isOk())
-                .andExpect(model().attributeExists("categories"));
+        mockMvc.perform(post("/products/save")
+                        .param("name", "New Product")
+                        .param("price", "10.0")
+                        .param("quantity", "5")
+                        .param("description", "This is a test product")
+                        .param("category.id", "1")
+                        .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/products?success=true"));
 
-        productService.saveProduct(product);
-        verify(productService, times(1)).saveProduct(product);
+        verify(productService, times(1)).saveProduct(any(Product.class));
     }
 
     @Test
     @WithMockUser(username = "user", password = "Password5", roles = "ADMIN")
     void shouldDoNothingIfProductDataIsIncorrect() throws Exception {
         when(bindingResult.hasErrors()).thenReturn(true);
-        verifyNoInteractions(productService);
-
         mockMvc.perform(post("/products/save"))
                 .andExpect(view().name("edit"));
+
+        verifyNoInteractions(productService);
     }
 
     @Test
     @WithMockUser(username = "user", password = "Password5", roles = "ADMIN")
     void shouldChangeDataInProductAndSaveThem() throws Exception {
-        Product editProduct = productService.findProductById(anyInt());
-        when(productService.findProductById(anyInt())).thenReturn(editProduct);
+        when(productService.findProductById(1)).thenReturn(products.get(0));
         when(categoryService.getAllCategories()).thenReturn(new ArrayList<>());
-        when(productService.findProductById(anyInt())).thenReturn(any(Product.class));
 
         mockMvc.perform(get("/products/edit/{id}", 1))
                 .andExpect(status().isOk())
@@ -150,13 +168,45 @@ class ProductControllerTest {
 
     @Test
     void shouldThrowProductNotFoundExceptionWhenSaveNewProduct() throws Exception {
-
         int invalidProductId = 999;
         when(productService.findProductById(invalidProductId))
                 .thenThrow(new ProductNotFoundException("Product with id " + invalidProductId + " not found"));
 
         mockMvc.perform(MockMvcRequestBuilders.get("/products/edit/{id}", invalidProductId))
                 .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void shouldReturnEditViewWhenProductAlreadyExistsExceptionOccurs() {
+        ProductAlreadyExistsException exception = new ProductAlreadyExistsException("Such a product already exists");
+        ModelAndView modelAndView = productControllerAdvice.handleProductAlreadyExistsException(exception, model, session);
+
+        assertEquals("edit", modelAndView.getViewName());
+        assertEquals("Such a product already exists", modelAndView.getModel().get("errorCreateProduct"));
+        verify(model, times(1)).addAttribute(eq("product"), any());
+        verify(model, times(1)).addAttribute(eq("category"), any());
+    }
+
+    @Test
+    void shouldThrowEmptySymbolExceptionWhenKeywordIsIncorrect() {
+        EmptySymbolException exception = new EmptySymbolException("Keyword is empty");
+        ModelAndView modelAndView = productControllerAdvice.handleEmptySymbolException(exception);
+
+        assertEquals("products", modelAndView.getViewName());
+        assertEquals("Keyword is empty", modelAndView.getModel().get("errorSearch"));
+    }
+
+    @Test
+    void shouldRedirectTo404WithErrorMessageWhenProductNotFoundExceptionOccurs() {
+        String errorMessage = "Product with id '" + 9999 + "' not found";
+        ProductNotFoundException exception = new ProductNotFoundException(errorMessage);
+
+        Model model = new ConcurrentModel();
+
+        String viewName = productControllerAdvice.handleProductNotFoundException(exception, model);
+
+        assertEquals("redirect:/404?error=true&message=" + errorMessage, viewName);
+        assertEquals(errorMessage, model.getAttribute("productNotFound"));
     }
 
 }
