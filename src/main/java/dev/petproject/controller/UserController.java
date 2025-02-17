@@ -2,18 +2,13 @@ package dev.petproject.controller;
 
 import dev.petproject.domain.User;
 import dev.petproject.dto.ChangePasswordDTO;
-import dev.petproject.exception.PasswordException;
 import dev.petproject.exception.UserCanNotBeDeletedException;
-import dev.petproject.repository.UserRepository;
 import dev.petproject.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,8 +23,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class UserController {
 
     private final UserService userService;
-    private final PasswordEncoder passwordEncoder;
-    private final UserRepository userRepository;
 
     @GetMapping("/users")
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -77,18 +70,11 @@ public class UserController {
         log.info("Processing password change request for user: {}", user.getEmail());
         log.debug("User found: {}", user.getId());
 
-        if (passwordEncoder.matches(changePasswordDTO.getOldPassword(), user.getPassword())) {
+        userService.changePassword(changePasswordDTO, user);
 
-            user.setPassword(passwordEncoder.encode(changePasswordDTO.getNewPassword()));
-            userRepository.save(user);
+        model.addAttribute("successChangePassword", "Password was changed successfully");
 
-            log.info("Password was changed successfully for user {} ", user.getEmail());
-            model.addAttribute("successChangePassword", "Password was changed successfully");
-            return "change-password";
-        } else {
-            log.error("Incorrect old password for user {}", user.getEmail());
-            throw new PasswordException("The old password you provided is incorrect. Please try again :-)");
-        }
+        return "change-password";
     }
 
 }
