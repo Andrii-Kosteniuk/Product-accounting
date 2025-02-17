@@ -4,9 +4,7 @@ import dev.petproject.domain.Category;
 import dev.petproject.domain.Product;
 import dev.petproject.service.CategoryService;
 import dev.petproject.service.ProductService;
-
 import jakarta.servlet.http.HttpSession;
-
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -59,12 +57,15 @@ public class ProductController {
     }
 
     @PostMapping("/save")
-    public String saveProduct(@Valid @ModelAttribute("product") Product product, BindingResult result, Model model) {
+    public String saveProduct(@Valid @ModelAttribute("product") Product product, BindingResult result, Model model, HttpSession session) {
         log.info("Attempting to save product: {}", product);
         model.addAttribute(CATEGORIES, categoryService.getAllCategories());
         model.addAttribute("product", product);
         model.addAttribute("category", new Category());
 
+        session.setAttribute("product", product);
+        session.setAttribute("category", new Category());
+        session.setAttribute("categories", categoryService.getAllCategories());
 
         if (result.hasErrors()) {
             log.warn("Validation errors occurred while saving product: {}", result.getAllErrors());
@@ -78,20 +79,27 @@ public class ProductController {
     }
 
     @GetMapping("/edit/{id}")
-    public String editProduct(@PathVariable(value = "id") Integer id, Model model, HttpSession session) {
+    public String editProduct(@PathVariable(value = "id") Integer id,
+                              Model model,
+                              HttpSession session) {
         log.info("Editing product with ID: {}", id);
 
         Product product = productService.findProductById(id);
+        List<Category> allCategories = categoryService.getAllCategories();
 
         session.setAttribute("product", product);
+        session.setAttribute("category", product.getCategory());
+        session.setAttribute("categories", allCategories);
 
+        model.addAttribute(CATEGORIES, allCategories);
         model.addAttribute("product", product);
-        model.addAttribute(CATEGORIES, categoryService.getAllCategories());
         model.addAttribute("category", new Category());
-        productService.saveProduct(product);
+        model.addAttribute("errorCreateProduct");
+        model.addAttribute("errorCreateNewCategory");
 
         return EDIT_PRODUCT;
     }
+
 
     @GetMapping("/delete/{id}")
     public String deleteProduct(@PathVariable(value = "id") Integer id, HttpSession session) {
@@ -113,11 +121,9 @@ public class ProductController {
     public String findProductsByKeyword(Model model, String keyword) {
         log.info("Searching for products with keyword: {}", keyword);
         List<Product> products;
-        try {
-            products = productService.searchProductsByKeyword(keyword);
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Invalid data");
-        }
+
+        products = productService.searchProductsByKeyword(keyword);
+
         model.addAttribute(PRODUCTS, products);
 
         return "search";
