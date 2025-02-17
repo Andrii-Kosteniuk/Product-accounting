@@ -24,7 +24,7 @@ public class Category {
     @NotEmpty(message = "Category name can not be empty")
     private String name;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "category")
     private List<Product> products;
 
 }
