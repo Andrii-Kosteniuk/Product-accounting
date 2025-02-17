@@ -5,6 +5,7 @@ import dev.petproject.exception.PasswordException;
 import dev.petproject.exception.UserAlreadyExistsException;
 import dev.petproject.exception.UserCanNotBeDeletedException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -35,6 +36,13 @@ public class UserControllerAdvice {
         return "redirect:/auth/register?error=true";
     }
 
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public String handleUsernameNotFoundException(UsernameNotFoundException ex, Model model) {
+        log.error(ex.getMessage());
+
+        model.addAttribute("userNotFound", ex.getMessage());
+        return "redirect:/404?error=true&message=" + ex.getMessage();
+    }
 
 
 }
