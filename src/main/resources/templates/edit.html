@@ -20,8 +20,11 @@
             <div th:if="${param.success}">
                 <div class="alert alert-info">The new category was added</div>
             </div>
-            <div th:if="${fieldErrorMessage}">
-                <div class="alert alert-warning" th:text="${fieldErrorMessage}"></div>
+            <div th:if="${errorCreateNewCategory}">
+                <div class="alert alert-warning" th:text="${errorCreateNewCategory}"></div>
+            </div>
+            <div th:if="${errorCreateProduct}">
+                <div class="alert alert-warning" th:text="${errorCreateProduct}"></div>
             </div>
             <div th:if="${param.error}">
                 <div class="alert alert-danger">
