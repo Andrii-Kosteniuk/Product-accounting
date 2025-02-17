@@ -4,7 +4,24 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e28162a-4e31-4548-8850-4502cbcaba79" name="Changes" comment="Refactoring code" />
+    <list default="true" id="4e28162a-4e31-4548-8850-4502cbcaba79" name="Changes" comment="Refactoring code">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/Change-password-form.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/Change-password.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/Create-category.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/Create-product.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/Edit-product.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/Home-page.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/Login-page.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/Logout.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/Product-page.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/Register-page.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/Register-user.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/User-was-registered.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/Users.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/background-vector.jpg" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -62,27 +79,27 @@
     <option name="showLibraryContents" value="true" />
     <option name="showVisibilityIcons" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "Maven.petProject [clean].executor": "Run",
-    "Maven.petProject [install].executor": "Run",
-    "Maven.petProject [verify].executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Spring Boot.SpringmvcApplication.executor": "Run",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Programowanie IT/ValidationForm",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.3",
-    "settings.build.tools.auto.reload": "ALL",
-    "settings.editor.selected.configurable": "MavenSettings"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Maven.petProject [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.petProject [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.petProject [verify].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Spring Boot.SpringmvcApplication.executor&quot;: &quot;Run&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Programowanie IT/ValidationForm&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.3&quot;,
+    &quot;settings.build.tools.auto.reload&quot;: &quot;ALL&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="dev.petproject.exception" />
@@ -92,11 +109,11 @@
       <recent name="C:\Spring-Projects\springmvc\src\main\resources\static\images" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Spring-Projects\ResourceManagement\src\main\resources\static\images" />
       <recent name="C:\Spring-Projects\petProject\src\main\resources\static\images" />
       <recent name="C:\Spring-Projects\petProject\src\main\resources\templates\error" />
       <recent name="C:\Spring-Projects\petProject\src\main\resources\templates" />
       <recent name="C:\Spring-Projects\springmvc\src\main\resources\static\images" />
-      <recent name="C:\Spring-Projects\springmvc\src\main\resources\templates\" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -294,67 +311,104 @@
     <select />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/petProject$ProductControllerTest_deleteProduct.ic" NAME="ProductControllerTest.deleteProduct Coverage Results" MODIFIED="1724692772913" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
-      <FILTER>dev.petproject.controller.*</FILTER>
-    </SUITE>
-    <SUITE FILE_PATH="coverage/petProject$CategoryServiceTest.ic" NAME="CategoryServiceTest Coverage Results" MODIFIED="1724587017231" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+    <SUITE FILE_PATH="coverage/petProject$LogoutServiceTest.ic" NAME="LogoutServiceTest Coverage Results" MODIFIED="1724607016964" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>dev.petproject.service.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/petProject$ProductControllerTest_findProductsByKeyword.ic" NAME="ProductControllerTest.findProductsByKeyword Coverage Results" MODIFIED="1724692982159" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
-      <FILTER>dev.petproject.controller.*</FILTER>
-    </SUITE>
-    <SUITE FILE_PATH="coverage/petProject$AuthenticationServiceTest_saveUserToken.ic" NAME="AuthenticationServiceTest.saveUserToken Coverage Results" MODIFIED="1726066238561" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+    <SUITE FILE_PATH="coverage/petProject$AuthenticationServiceTest.ic" NAME="AuthenticationServiceTest Coverage Results" MODIFIED="1726067875281" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>dev.petproject.auth.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/petProject$LoginControllerTest.ic" NAME="LoginControllerTest Coverage Results" MODIFIED="1725383849779" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
-      <FILTER>dev.petproject.controller.*</FILTER>
-    </SUITE>
-    <SUITE FILE_PATH="coverage/petProject$ProductControllerTest_shouldCreateNewProductAndSaveIt.ic" NAME="ProductControllerTest.shouldCreateNewProductAndSaveIt Coverage Results" MODIFIED="1724695418938" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
-      <FILTER>dev.petproject.controller.*</FILTER>
+    <SUITE FILE_PATH="coverage/petProject$UserServiceTest_shouldThrowUserCanNotBeDeletedException_WhenDeletingOwnAccount.ic" NAME="UserServiceTest.shouldThrowUserCanNotBeDeletedException_WhenDeletingOwnAccount Coverage Results" MODIFIED="1724582119467" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>dev.petproject.service.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/petProject$AuthenticationServiceTest_authenticate.ic" NAME="AuthenticationServiceTest.authenticate Coverage Results" MODIFIED="1726067194623" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>dev.petproject.auth.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/SpringmvcApplicationTests_java$AuthenticationServiceTest.ic" NAME="AuthenticationServiceTest Coverage Results" MODIFIED="1739729116482" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>dev.petproject.auth.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/petProject$ProductServiceTest.ic" NAME="ProductServiceTest Coverage Results" MODIFIED="1724602343702" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>dev.petproject.service.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/petProject$UserControllerTest.ic" NAME="UserControllerTest Coverage Results" MODIFIED="1724670901014" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+    <SUITE FILE_PATH="coverage/petProject$ProductControllerTest_deleteProduct.ic" NAME="ProductControllerTest.deleteProduct Coverage Results" MODIFIED="1724692772913" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>dev.petproject.controller.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/petProject$UserServiceTest_shouldThrowUserCanNotBeDeletedException_WhenDeletingOwnAccount.ic" NAME="UserServiceTest.shouldThrowUserCanNotBeDeletedException_WhenDeletingOwnAccount Coverage Results" MODIFIED="1724582119467" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
-      <FILTER>dev.petproject.service.*</FILTER>
-    </SUITE>
-    <SUITE FILE_PATH="coverage/petProject$ProductRepositoryTest_givenKeyword_WhenFindByKeyword_ThenReturnListOfProducts.ic" NAME="ProductRepositoryTest.givenKeyword_WhenFindByKeyword_ThenReturnListOfProducts Coverage Results" MODIFIED="1724498929284" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+    <SUITE FILE_PATH="coverage/petProject$dev_petproject_repository_in_petProject.ic" NAME="dev.petproject.repository in petProject Coverage Results" MODIFIED="1724607185378" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>dev.petproject.repository.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/petProject$ProductControllerTest_shouldChangeDataInProductAndSaveThem.ic" NAME="ProductControllerTest.shouldChangeDataInProductAndSaveThem Coverage Results" MODIFIED="1724691874089" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
-      <FILTER>dev.petproject.controller.*</FILTER>
-    </SUITE>
-    <SUITE FILE_PATH="coverage/petProject$LogoutServiceTest.ic" NAME="LogoutServiceTest Coverage Results" MODIFIED="1724607016964" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
-      <FILTER>dev.petproject.service.*</FILTER>
-    </SUITE>
-    <SUITE FILE_PATH="coverage/petProject$ProductControllerTest.ic" NAME="ProductControllerTest Coverage Results" MODIFIED="1724695759790" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
-      <FILTER>dev.petproject.controller.*</FILTER>
-    </SUITE>
-    <SUITE FILE_PATH="coverage/petProject$UserServiceTest.ic" NAME="UserServiceTest Coverage Results" MODIFIED="1724583007481" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
-      <FILTER>dev.petproject.service.*</FILTER>
-    </SUITE>
-    <SUITE FILE_PATH="coverage/petProject$repository_in_petProject.ic" NAME="repository in petProject Coverage Results" MODIFIED="1724607248834" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
-    <SUITE FILE_PATH="coverage/petProject$AuthenticationServiceTest.ic" NAME="AuthenticationServiceTest Coverage Results" MODIFIED="1726067875281" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
-      <FILTER>dev.petproject.auth.*</FILTER>
+    <SUITE FILE_PATH="coverage/SpringmvcApplicationTests_java$UserTest.ic" NAME="UserTest Coverage Results" MODIFIED="1739709913306" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>dev.petproject.domain.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/petProject$CategoryServiceTest_givenNewCategory_whenSaveNewCategory_thenTheCategoryIsSavedProperly.ic" NAME="CategoryServiceTest.givenNewCategory_whenSaveNewCategory_thenTheCategoryIsSavedProperly Coverage Results" MODIFIED="1724525067919" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>dev.petproject.service.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/petProject$service_in_petProject.ic" NAME="service in petProject Coverage Results" MODIFIED="1724607090023" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
-    <SUITE FILE_PATH="coverage/petProject$dev_petproject_repository_in_petProject.ic" NAME="dev.petproject.repository in petProject Coverage Results" MODIFIED="1724607185378" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
-      <FILTER>dev.petproject.repository.*</FILTER>
+    <SUITE FILE_PATH="coverage/SpringmvcApplicationTests_java$ProductControllerTest_shouldCreateNewProductAndSaveIt.ic" NAME="ProductControllerTest.shouldCreateNewProductAndSaveIt Coverage Results" MODIFIED="1739728650449" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>dev.petproject.controller.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/petProject$UserRepositoryTest.ic" NAME="UserRepositoryTest Coverage Results" MODIFIED="1724439236987" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>dev.petproject.repository.*</FILTER>
     </SUITE>
+    <SUITE FILE_PATH="coverage/SpringmvcApplicationTests_java$auth_in_petProject.ic" NAME="auth in petProject Coverage Results" MODIFIED="1739106928741" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/petProject$CategoryServiceTest.ic" NAME="CategoryServiceTest Coverage Results" MODIFIED="1724587017231" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>dev.petproject.service.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/petProject$ProductControllerTest_shouldCreateNewProductAndSaveIt.ic" NAME="ProductControllerTest.shouldCreateNewProductAndSaveIt Coverage Results" MODIFIED="1724695418938" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>dev.petproject.controller.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/petProject$UserControllerTest.ic" NAME="UserControllerTest Coverage Results" MODIFIED="1724670901014" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>dev.petproject.controller.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/SpringmvcApplicationTests_java$CategoryControllerTest_createCategory.ic" NAME="CategoryControllerTest.createCategory Coverage Results" MODIFIED="1739451271869" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>dev.petproject.controller.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/petProject$AuthenticationServiceTest_saveUserToken.ic" NAME="AuthenticationServiceTest.saveUserToken Coverage Results" MODIFIED="1726066238561" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>dev.petproject.auth.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/SpringmvcApplicationTests_java$dev_petproject_exception_in_petProject.ic" NAME="dev.petproject.exception in petProject Coverage Results" MODIFIED="1739454108786" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>dev.petproject.exception.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/SpringmvcApplicationTests_java$dev_petproject_in_petProject.ic" NAME="dev.petproject in petProject Coverage Results" MODIFIED="1739783950319" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>dev.petproject.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/petProject$service_in_petProject.ic" NAME="service in petProject Coverage Results" MODIFIED="1724607090023" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/SpringmvcApplicationTests_java$petproject_in_petProject.ic" NAME="petproject in petProject Coverage Results" MODIFIED="1739779824620" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/SpringmvcApplicationTests_java$security_in_petProject.ic" NAME="security in petProject Coverage Results" MODIFIED="1739712782548" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/SpringmvcApplicationTests_java$CategoryControllerTest.ic" NAME="CategoryControllerTest Coverage Results" MODIFIED="1739451092616" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>dev.petproject.controller.*</FILTER>
+    </SUITE>
     <SUITE FILE_PATH="coverage/petProject$UserEmailPasswordValidationTest.ic" NAME="UserEmailPasswordValidationTest Coverage Results" MODIFIED="1724607402199" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>dev.petproject.dto.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/petProject$ProductRepositoryTest_givenKeyword_WhenFindByKeyword_ThenReturnListOfProducts.ic" NAME="ProductRepositoryTest.givenKeyword_WhenFindByKeyword_ThenReturnListOfProducts Coverage Results" MODIFIED="1724498929284" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>dev.petproject.repository.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/petProject$ProductControllerTest.ic" NAME="ProductControllerTest Coverage Results" MODIFIED="1724695759790" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>dev.petproject.controller.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/SpringmvcApplicationTests_java$AuthenticationServiceTest_shouldRegisterNewUser.ic" NAME="AuthenticationServiceTest.shouldRegisterNewUser Coverage Results" MODIFIED="1739729155225" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>dev.petproject.auth.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/petProject$UserServiceTest.ic" NAME="UserServiceTest Coverage Results" MODIFIED="1724583007481" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>dev.petproject.service.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/SpringmvcApplicationTests_java$ProductControllerTest.ic" NAME="ProductControllerTest Coverage Results" MODIFIED="1739707945762" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>dev.petproject.controller.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/SpringmvcApplicationTests_java$controller_in_petProject.ic" NAME="controller in petProject Coverage Results" MODIFIED="1739724882146" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/SpringmvcApplicationTests_java$UserControllerTest.ic" NAME="UserControllerTest Coverage Results" MODIFIED="1739117417670" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>dev.petproject.controller.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/petProject$ProductControllerTest_shouldChangeDataInProductAndSaveThem.ic" NAME="ProductControllerTest.shouldChangeDataInProductAndSaveThem Coverage Results" MODIFIED="1724691874089" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>dev.petproject.controller.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/petProject$LoginControllerTest.ic" NAME="LoginControllerTest Coverage Results" MODIFIED="1725383849779" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>dev.petproject.controller.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/petProject$repository_in_petProject.ic" NAME="repository in petProject Coverage Results" MODIFIED="1724607248834" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/petProject$ProductControllerTest_findProductsByKeyword.ic" NAME="ProductControllerTest.findProductsByKeyword Coverage Results" MODIFIED="1724692982159" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>dev.petproject.controller.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/SpringmvcApplicationTests_java$LoginControllerTest_shouldShowLoginPage.ic" NAME="LoginControllerTest.shouldShowLoginPage Coverage Results" MODIFIED="1739107624849" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>dev.petproject.controller.*</FILTER>
     </SUITE>
   </component>
 </project>
